@@ -27,7 +27,7 @@ public class PushAgentBasic : Agent
     public GameObject goal;
 
     /// <summary>
-    /// The block to be pushed to the goal.
+    /// The block to be puslogStringhed to the goal.
     /// </summary>
     public GameObject block;
 
@@ -38,6 +38,10 @@ public class PushAgentBasic : Agent
     public GoalDetect goalDetect;
 
     public bool useVectorObs;
+
+    // For testing purposes you can stop the agent from moving and
+    // for example move it manually to see the debug log's sensor values
+    public bool stopAgent;
 
     Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
@@ -126,6 +130,8 @@ public class PushAgentBasic : Agent
     /// </summary>
     public void MoveAgent(float[] act)
     {
+        if (stopAgent) return;
+
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
@@ -244,6 +250,8 @@ public class PushAgentBasic : Agent
 
         // Set the drag of the block
         m_BlockRb.drag = resetParams.GetPropertyWithDefault("block_drag", 0.5f);
+
+        maxStep = (int) resetParams.GetPropertyWithDefault("max_steps", maxStep);
     }
 
     public void SetResetParameters()

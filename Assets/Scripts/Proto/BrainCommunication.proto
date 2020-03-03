@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package braincommunication;
+
+message Observations {
+  repeated float lowerObservations = 1;
+  repeated float upperObservations = 2;
+}
+
+// int action for agent
+message AgentAction {
+  int32 action = 1;
+}
+
+service BrainCommunicator {
+  rpc GetAction(Observations) returns (AgentAction) {}
+}

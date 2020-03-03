@@ -42,4 +42,9 @@ Start mlagents-learn with the following command
 mlagents-learn config/trainer_config.yaml --run-id=ai1.0 --train
 ```
 
+Training with a Curriculum
+```
+mlagents-learn config/trainer_config.yaml --curriculum=config/curricula/pushblock.yaml --run-id=ai1.0 --train
+```
+
 Press the `Play` button in Unity and the training should start.

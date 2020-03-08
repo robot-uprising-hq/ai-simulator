@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Braincommunication;
+using MLAgents;
 
 public class RemoteAcademy : MonoBehaviour
 {
@@ -10,14 +10,37 @@ public class RemoteAcademy : MonoBehaviour
     public int DecisionPeriod = 50;
 
     public RemoteAgent remoteAgent;
+    public ScreenStreamer screenStreamer;
+
+    [Space(10)]
+    [Tooltip("Select to send either screen capture or observations to the external server")]
+    public bool sendScreenCapture;
+
+    [Space(10)]
+    [Tooltip("If sendScreenCapture is 'false' set the brain server's ip and port")]
+    public string brainServerIp;
+    public string brainServerPort;
+
+    [Space(10)]
+    [Tooltip("If sendScreenCapture is 'true' set the robot backend's ip and port")]
+    public string robotBackendIp;
+    public string robotBackendPort;
 
     private int stepCount = 0;
-    private BrainClient brainClient;
-    // Start is called before the first frame update
+    private BrainServerClient brainServerClient;
+    private RobotBackendClient robotBackendClient;
 
-    void Start()
+    void Awake()
     {
-        brainClient = new BrainClient();
+        if (sendScreenCapture)
+        {
+            Academy.Instance.Dispose();
+            robotBackendClient = new RobotBackendClient(robotBackendIp, robotBackendPort);
+        }
+        else
+        {
+            brainServerClient = new BrainServerClient(brainServerIp, brainServerPort);
+        }
     }
 
     // Update is called once per frame
@@ -32,11 +55,23 @@ public class RemoteAcademy : MonoBehaviour
         if (stepCount < DecisionPeriod) return;
 
         stepCount = 0;
-        float[] lowerObs = remoteAgent.GetLowerObservations();
-        float[] upperObs = remoteAgent.GetUpperObservations();
 
-        // Send sensor data to remote brain
-        int action = brainClient.GetAction(lowerObs, upperObs);
+        int action = 0;
+        if (sendScreenCapture)
+        {
+
+            byte[] image = screenStreamer.GetScreenShot();
+            // Send screenshot to robot backend
+            action = robotBackendClient.GetAction(image);
+        }
+        else
+        {
+            float[] lowerObs = remoteAgent.GetLowerObservations();
+            float[] upperObs = remoteAgent.GetUpperObservations();
+            // Send sensor data to remote brain
+            action = brainServerClient.GetAction(lowerObs, upperObs);
+        }
+
 
         remoteAgent.AgentAction(new float[] {action});
     }

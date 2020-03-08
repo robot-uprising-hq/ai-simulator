@@ -58,8 +58,8 @@ public class RemoteAgent : MonoBehaviour
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
-        lowerSensor.CreateSensor();
-        upperSensor.CreateSensor();
+        if (lowerSensor != null) lowerSensor.CreateSensor();
+        if (upperSensor != null) upperSensor.CreateSensor();
         InitializeAgent();
     }
 

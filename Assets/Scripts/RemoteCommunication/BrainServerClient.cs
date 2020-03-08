@@ -2,14 +2,14 @@ using Grpc.Core;
 using Braincommunication;
 using UnityEngine;
 
-public class BrainClient {
+public class BrainServerClient
+{
     
     private readonly BrainCommunicator.BrainCommunicatorClient _client;
     private readonly Channel _channel;
-    private readonly string _server = "localhost:50051";
 
-    public BrainClient() {
-        _channel = new Channel(_server, ChannelCredentials.Insecure);
+    public BrainServerClient(string ip, string port) {
+        _channel = new Channel(ip + ":" + port, ChannelCredentials.Insecure);
         _client = new BrainCommunicator.BrainCommunicatorClient(_channel);
     }
 

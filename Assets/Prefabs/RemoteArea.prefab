@@ -181,7 +181,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2682574292202014220}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -617,6 +617,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   remoteAgent: {fileID: 7030564203634874511}
+  screenStreamer: {fileID: 0}
+  sendScreenCapture: 0
+  brainServerIp: localhost
+  brainServerPort: 50051
+  robotBackendIp: localhost
+  robotBackendPort: 50051
 --- !u!114 &7030564203634874511
 MonoBehaviour:
   m_ObjectHideFlags: 0

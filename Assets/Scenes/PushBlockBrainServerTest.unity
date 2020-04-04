@@ -611,31 +611,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: brainServerIp
-      value: localhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: brainServerPort
-      value: 50051
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: robotBackendPort
-      value: 50051
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: robotBackendIp
-      value: localhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 1517530689647144089, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2681797761539115324, guid: a1be2597a374b8dd5b8027d26f2408b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -695,11 +670,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RemoteArea
-      objectReference: {fileID: 0}
-    - target: {fileID: 8417361200142401802, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1be2597a374b8dd5b8027d26f2408b1, type: 3}

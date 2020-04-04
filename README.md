@@ -18,7 +18,7 @@ git clone --branch 0.14.0 https://github.com/Unity-Technologies/ml-agents.git
 ```
 
 ## Install ML-Agents Unity Package
-Copy the `com.unity.ml-agents`-folder from the just cloned ml-agents-repo/folder to this project's `Package`-folder. You can now delete the `ml-agents`-repo's folder if you want.
+Copy the `com.unity.ml-agents`-folder from the just cloned ml-agents-repo/folder to this project's `Packages`-folder. The `Packages` folder is created when the Unity starts this project the first time. You can now delete the `ml-agents`-repo's folder if you want.
 
 
 ## Create Python virtual environment if you want

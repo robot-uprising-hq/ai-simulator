@@ -548,7 +548,6 @@ GameObject:
   - component: {fileID: 2681741496086017790}
   - component: {fileID: 2736874227207008322}
   - component: {fileID: 2725690518875044916}
-  - component: {fileID: 432244919804160925}
   - component: {fileID: 7030564203634874511}
   - component: {fileID: 1517530689647144089}
   - component: {fileID: 8417361200142401802}
@@ -603,26 +602,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &432244919804160925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683264048092613112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbcdddc37dc20391e93377e33922b039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  remoteAgent: {fileID: 7030564203634874511}
-  screenStreamer: {fileID: 0}
-  sendScreenCapture: 0
-  brainServerIp: localhost
-  brainServerPort: 50051
-  robotBackendIp: localhost
-  robotBackendPort: 50051
 --- !u!114 &7030564203634874511
 MonoBehaviour:
   m_ObjectHideFlags: 0

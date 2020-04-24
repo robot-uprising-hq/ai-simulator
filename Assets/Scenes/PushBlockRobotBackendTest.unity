@@ -251,6 +251,54 @@ Transform:
   m_Father: {fileID: 318490717}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &449935292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449935294}
+  - component: {fileID: 449935293}
+  m_Layer: 0
+  m_Name: UnitySimulationServer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &449935293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449935292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340780e56615f4b31a6ab247f0e198e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  remoteAgent: {fileID: 2682338384493389315}
+  screenStreamer: {fileID: 1581769840}
+  camera: {fileID: 1711019998}
+  testScript: {fileID: 612138099}
+  port: 50051
+--- !u!4 &449935294
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449935292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6086112, y: 1.0662808, z: -0.6430807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &502449554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -304,6 +352,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5889392e3f05b448a8a06c5def6c2dec, type: 3}
+--- !u!1 &612138098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 612138100}
+  - component: {fileID: 612138099}
+  m_Layer: 0
+  m_Name: TestObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &612138099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612138098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e96402578ba616339fbe1d52ef271a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testInt: 44
+  camera: {fileID: 1711019998}
+--- !u!4 &612138100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612138098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6086112, y: 1.0662808, z: -0.6430807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257687048
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,11 +554,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1711019998}
-  captureWidth: 1080
-  captureHeight: 1080
+  testCaptureWidth: 1080
+  testCaptureHeight: 1080
   hideGameObject: {fileID: 0}
   optimizeForManyScreenshots: 1
-  format: 1
   folder: 
 --- !u!4 &1581769841
 Transform:
@@ -661,41 +753,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: brainServerIp
-      value: localhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: robotBackendIp
-      value: localhost
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: brainServerPort
-      value: 50051
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: robotBackendPort
-      value: 50051
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: sendScreenCapture
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: screenStreamer
-      value: 
-      objectReference: {fileID: 1581769840}
-    - target: {fileID: 432244919804160925, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: DecisionPeriod
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2681797761539115324, guid: a1be2597a374b8dd5b8027d26f2408b1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -756,17 +813,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: RemoteArea
       objectReference: {fileID: 0}
-    - target: {fileID: 7030564203634874511, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: lowerSensor
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7030564203634874511, guid: a1be2597a374b8dd5b8027d26f2408b1,
-        type: 3}
-      propertyPath: upperSensor
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1517530689647144089, guid: a1be2597a374b8dd5b8027d26f2408b1, type: 3}
-    - {fileID: 8417361200142401802, guid: a1be2597a374b8dd5b8027d26f2408b1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1be2597a374b8dd5b8027d26f2408b1, type: 3}
+--- !u!114 &2682338384493389315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7030564203634874511, guid: a1be2597a374b8dd5b8027d26f2408b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2682338384493389314}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d87f1ddb75ee93c9b133c8441e1f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

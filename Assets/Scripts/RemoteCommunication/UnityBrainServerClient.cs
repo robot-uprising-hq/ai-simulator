@@ -1,20 +1,20 @@
 using Grpc.Core;
-using Braincommunication;
+using Robotsystemcommunication;
 using UnityEngine;
 
-public class BrainServerClient
+public class UnityBrainServerClient
 {
     
-    private readonly BrainCommunicator.BrainCommunicatorClient _client;
+    private readonly BrainServer.BrainServerClient _client;
     private readonly Channel _channel;
 
-    public BrainServerClient(string ip, string port) {
+    public UnityBrainServerClient(string ip, string port) {
         _channel = new Channel(ip + ":" + port, ChannelCredentials.Insecure);
-        _client = new BrainCommunicator.BrainCommunicatorClient(_channel);
+        _client = new BrainServer.BrainServerClient(_channel);
     }
 
     public int GetAction(float[] lowerObservations, float[] upperObservations) {
-        Observations obs = new Observations();
+        BrainActionRequest obs = new BrainActionRequest();
         obs.LowerObservations.AddRange(lowerObservations);
         obs.UpperObservations.AddRange(upperObservations);
 

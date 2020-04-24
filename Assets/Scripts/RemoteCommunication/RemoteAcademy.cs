@@ -27,7 +27,7 @@ public class RemoteAcademy : MonoBehaviour
     public string robotBackendPort;
 
     private int stepCount = 0;
-    private BrainServerClient brainServerClient;
+    private UnityBrainServerClient brainServerClient;
     private RobotBackendClient robotBackendClient;
 
     void Awake()
@@ -39,7 +39,7 @@ public class RemoteAcademy : MonoBehaviour
         }
         else
         {
-            brainServerClient = new BrainServerClient(brainServerIp, brainServerPort);
+            brainServerClient = new UnityBrainServerClient(brainServerIp, brainServerPort);
         }
     }
 

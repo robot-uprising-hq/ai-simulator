@@ -349,7 +349,7 @@ MonoBehaviour:
   remoteAgent: {fileID: 105468485}
   screenStreamer: {fileID: 0}
   brainServerIp: localhost
-  brainServerPort: 50051
+  brainServerPort: 50052
 --- !u!4 &1049006104
 Transform:
   m_ObjectHideFlags: 0

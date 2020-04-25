@@ -283,7 +283,6 @@ MonoBehaviour:
   remoteAgent: {fileID: 2682338384493389315}
   screenStreamer: {fileID: 1581769840}
   camera: {fileID: 1711019998}
-  testScript: {fileID: 612138099}
   port: 50051
 --- !u!4 &449935294
 Transform:
@@ -383,6 +382,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testInt: 44
   camera: {fileID: 1711019998}
+  rect:
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  renderTexture: {fileID: 0}
+  screenShot: {fileID: 0}
 --- !u!4 &612138100
 Transform:
   m_ObjectHideFlags: 0
@@ -554,11 +560,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1711019998}
-  testCaptureWidth: 1080
-  testCaptureHeight: 1080
-  hideGameObject: {fileID: 0}
-  optimizeForManyScreenshots: 1
+  captureWidth: 1080
+  captureHeight: 1080
+  imageType: 0
+  jpegQuality: 75
   folder: 
+  latestScreenCapture: 
 --- !u!4 &1581769841
 Transform:
   m_ObjectHideFlags: 0
@@ -654,6 +661,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1537641056927260, guid: 3ce107b4a79bc4eef83afde434932a68, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224194346362733190, guid: 3ce107b4a79bc4eef83afde434932a68,
         type: 3}
       propertyPath: m_LocalPosition.x

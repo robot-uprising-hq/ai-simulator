@@ -220,7 +220,7 @@ public class PushAgentBasic : Agent
     {
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
-        area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
+        area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));  
 
         ResetBlock();
         transform.position = GetRandomSpawnPos();

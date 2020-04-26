@@ -380,15 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e96402578ba616339fbe1d52ef271a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInt: 44
-  camera: {fileID: 1711019998}
-  rect:
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  renderTexture: {fileID: 0}
-  screenShot: {fileID: 0}
 --- !u!4 &612138100
 Transform:
   m_ObjectHideFlags: 0

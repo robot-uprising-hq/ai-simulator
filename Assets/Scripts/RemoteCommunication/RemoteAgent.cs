@@ -40,6 +40,7 @@ public class RemoteAgent : MonoBehaviour
     public RemoteGoalDetect goalDetect;
 
     public bool useVectorObs;
+    public bool randomRotateArenaOnReset;
 
     // For testing purposes you can stop the agent from moving and
     // for example move it manually to see the debug log's sensor values
@@ -219,9 +220,12 @@ public class RemoteAgent : MonoBehaviour
     /// </summary>
     public void AgentReset()
     {
-        var rotation = Random.Range(0, 4);
-        var rotationAngle = rotation * 90f;
-        area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
+        if (randomRotateArenaOnReset)
+        {
+            var rotation = Random.Range(0, 4);
+            var rotationAngle = rotation * 90f;
+            area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
+        }
 
         ResetBlock();
         transform.position = GetRandomSpawnPos();

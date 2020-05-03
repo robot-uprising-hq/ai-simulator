@@ -343,16 +343,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 0
-    numStackedVectorObservations: 2
-    vectorActionSize: 07000000
-    vectorActionDescriptions: []
-    vectorActionSpaceType: 0
+    VectorObservationSize: 0
+    NumStackedVectorObservations: 2
+    VectorActionSize: 07000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
   m_Model: {fileID: 5022602860645237092, guid: 4e5e8f117aa0013e89850d29ab4aa138, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PushBlock
-  m_TeamID: 0
+  TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &114505490781873732
 MonoBehaviour:
@@ -369,13 +369,13 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  maxStep: 5000
-  ground: {fileID: 0}
+  MaxStep: 5000
+  ground: {fileID: 2182999794072664260}
   area: {fileID: 1125452240183160}
   areaBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  goal: {fileID: 0}
+  goal: {fileID: 2013832259270099983}
   block: {fileID: 1831337770648600}
   goalDetect: {fileID: 0}
   useVectorObs: 1
@@ -405,26 +405,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorName: RayPerceptionSensor
-  detectableTags:
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
   - block
   - goal
   - wall
-  raysPerDirection: 3
-  maxRayDegrees: 90
-  sphereCastRadius: 0.5
-  rayLength: 12
-  rayLayerMask:
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 90
+  m_SphereCastRadius: 0.5
+  m_RayLength: 12
+  m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  observationStacks: 3
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  printSensorDetections: 0
-  sortSensorDetections: 0
-  useWorldPositions: 1
-  startVerticalOffset: 0
-  endVerticalOffset: 0
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!114 &114451319691753174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,26 +434,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorName: OffsetRayPerceptionSensor
-  detectableTags:
+  m_SensorName: OffsetRayPerceptionSensor
+  m_DetectableTags:
   - block
   - goal
   - wall
-  raysPerDirection: 3
-  maxRayDegrees: 90
-  sphereCastRadius: 0.5
-  rayLength: 12
-  rayLayerMask:
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 90
+  m_SphereCastRadius: 0.5
+  m_RayLength: 12
+  m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  observationStacks: 3
+  m_ObservationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  printSensorDetections: 0
-  sortSensorDetections: 0
-  useWorldPositions: 1
-  startVerticalOffset: 1.5
-  endVerticalOffset: 1.5
+  m_StartVerticalOffset: 1.5
+  m_EndVerticalOffset: 1.5
 --- !u!114 &8964598783836598940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,8 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
-  RepeatAction: 1
-  offsetStep: 0
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &1587735394719530
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +849,7 @@ Transform:
   m_GameObject: {fileID: 308506197346989098}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: -5.4, y: 1.5, z: -5.4}
-  m_LocalScale: {x: 6.6, y: 3, z: 0.5}
+  m_LocalScale: {x: 6.6, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 4
@@ -1353,7 +1346,7 @@ Transform:
   m_GameObject: {fileID: 977777532830419730}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -7.7, y: 1.5, z: 0}
-  m_LocalScale: {x: 15.9, y: 3, z: 0.5}
+  m_LocalScale: {x: 15.9, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 3
@@ -2574,7 +2567,7 @@ Transform:
   m_GameObject: {fileID: 3517052599077343687}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 5.4, y: 1.5, z: -5.4}
-  m_LocalScale: {x: 6.6, y: 3, z: 0.5}
+  m_LocalScale: {x: 6.6, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 6
@@ -2853,7 +2846,7 @@ Transform:
   m_GameObject: {fileID: 3657382755483473393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: 7.7}
-  m_LocalScale: {x: 15.9, y: 3, z: 0.5}
+  m_LocalScale: {x: 15.9, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 0
@@ -3025,7 +3018,7 @@ Transform:
   m_GameObject: {fileID: 4376805745806616426}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 5.4, y: 1.5, z: 5.4}
-  m_LocalScale: {x: 6.6, y: 3, z: 0.5}
+  m_LocalScale: {x: 6.6, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 5
@@ -3784,7 +3777,7 @@ Transform:
   m_GameObject: {fileID: 4978633833211130140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.5, z: -7.7}
-  m_LocalScale: {x: 15.9, y: 3, z: 0.5}
+  m_LocalScale: {x: 15.9, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 1
@@ -4621,7 +4614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6240471168639660364
 Transform:
   m_ObjectHideFlags: 0
@@ -4983,7 +4976,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6920021810416644066
 Transform:
   m_ObjectHideFlags: 0
@@ -5086,7 +5079,7 @@ Transform:
   m_GameObject: {fileID: 9011870463210908240}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 7.7, y: 1.5, z: 0}
-  m_LocalScale: {x: 15.9, y: 3, z: 0.5}
+  m_LocalScale: {x: 15.9, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 6369365107067766371}
   m_RootOrder: 2
@@ -5203,7 +5196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3622342905150290821
 Transform:
   m_ObjectHideFlags: 0
@@ -5236,7 +5229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2016911994171445799
 Transform:
   m_ObjectHideFlags: 0

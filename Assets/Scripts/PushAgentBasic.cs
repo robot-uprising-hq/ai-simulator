@@ -1,8 +1,10 @@
 //Put this script on your blue cube.
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using MLAgents;
+using Unity.MLAgents;
+using Unity.MLAgents.Sensors;
 
 public class PushAgentBasic : Agent
 {
@@ -27,7 +29,7 @@ public class PushAgentBasic : Agent
     public GameObject goal;
 
     /// <summary>
-    /// The block to be puslogStringhed to the goal.
+    /// The block to be pushed to the goal.
     /// </summary>
     public GameObject block;
 
@@ -39,9 +41,7 @@ public class PushAgentBasic : Agent
 
     public bool useVectorObs;
 
-    // For testing purposes you can stop the agent from moving and
-    // for example move it manually to see the debug log's sensor values
-    public bool stopAgent;
+    public List<SectorObserver> m_SectorObservers;
 
     Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
@@ -52,14 +52,15 @@ public class PushAgentBasic : Agent
     /// </summary>
     Renderer m_GroundRenderer;
 
+    EnvironmentParameters m_ResetParams;
+
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
     }
 
-    public override void InitializeAgent()
+    public override void Initialize()
     {
-        base.InitializeAgent();
         goalDetect = block.GetComponent<GoalDetect>();
         goalDetect.agent = this;
 
@@ -74,7 +75,17 @@ public class PushAgentBasic : Agent
         // Starting material
         m_GroundMaterial = m_GroundRenderer.material;
 
+        m_ResetParams = Academy.Instance.EnvironmentParameters;
+
         SetResetParameters();
+    }
+
+    public override void CollectObservations(VectorSensor vectorSensor)
+    {
+        foreach (SectorObserver sectorObserver in m_SectorObservers)
+        {
+            vectorSensor.AddObservation(sectorObserver.GetObservations());
+        }
     }
 
     /// <summary>
@@ -109,7 +120,7 @@ public class PushAgentBasic : Agent
         AddReward(5f);
 
         // By marking an agent as done AgentReset() will be called automatically.
-        Done();
+        EndEpisode();
 
         // Swap ground material for a bit to indicate we scored.
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
@@ -130,8 +141,6 @@ public class PushAgentBasic : Agent
     /// </summary>
     public void MoveAgent(float[] act)
     {
-        if (stopAgent) return;
-
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
@@ -167,13 +176,13 @@ public class PushAgentBasic : Agent
     /// <summary>
     /// Called every step of the engine. Here the agent takes an action.
     /// </summary>
-    public override void AgentAction(float[] vectorAction)
+    public override void OnActionReceived(float[] vectorAction)
     {
         // Move the agent using the action.
         MoveAgent(vectorAction);
 
         // Penalty given each step to encourage agent to finish task quickly.
-        AddReward(-1f / maxStep);
+        AddReward(-1f / MaxStep);
     }
 
     /// <summary>
@@ -195,11 +204,11 @@ public class PushAgentBasic : Agent
     /// In the editor, if "Reset On Done" is checked then AgentReset() will be
     /// called automatically anytime we mark done = true in an agent script.
     /// </summary>
-    public override void AgentReset()
+    public override void OnEpisodeBegin()
     {
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
-        area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));  
+        area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
 
         ResetBlock();
         transform.position = GetRandomSpawnPos();
@@ -211,29 +220,23 @@ public class PushAgentBasic : Agent
 
     public void SetGroundMaterialFriction()
     {
-        var resetParams = Academy.Instance.FloatProperties;
-
         var groundCollider = ground.GetComponent<Collider>();
 
-        groundCollider.material.dynamicFriction = resetParams.GetPropertyWithDefault("dynamic_friction", 0);
-        groundCollider.material.staticFriction = resetParams.GetPropertyWithDefault("static_friction", 0);
+        groundCollider.material.dynamicFriction = m_ResetParams.GetWithDefault("dynamic_friction", 0);
+        groundCollider.material.staticFriction = m_ResetParams.GetWithDefault("static_friction", 0);
     }
 
     public void SetBlockProperties()
     {
-        var resetParams = Academy.Instance.FloatProperties;
-
-        var scale = resetParams.GetPropertyWithDefault("block_scale", 2);
+        var scale = m_ResetParams.GetWithDefault("block_scale", 2);
         //Set the scale of the block
         m_BlockRb.transform.localScale = new Vector3(scale, 0.75f, scale);
 
         // Set the drag of the block
-        m_BlockRb.drag = resetParams.GetPropertyWithDefault("block_drag", 0.5f);
-
-        maxStep = (int) resetParams.GetPropertyWithDefault("max_steps", maxStep);
+        m_BlockRb.drag = m_ResetParams.GetWithDefault("block_drag", 0.5f);
     }
 
-    public void SetResetParameters()
+    void SetResetParameters()
     {
         SetGroundMaterialFriction();
         SetBlockProperties();

@@ -8,40 +8,46 @@ using Unity.MLAgents.Sensors;
 
 public class PushAgentBasic : Agent
 {
-    /// <summary>
-    /// The ground. The bounds are used to spawn the elements.
-    /// </summary>
-    public GameObject ground;
-
     public GameObject area;
 
+    public List<GameObject> arenas = new List<GameObject>();
+
+    [Space(10)]
+    public GameObject blockGo;
+    public GameObject ballGo;
     /// <summary>
     /// The area bounds.
     /// </summary>
     [HideInInspector]
     public Bounds areaBounds;
 
-    PushBlockSettings m_PushBlockSettings;
+    public InvaderRayPerception lowerSensor;
+    public InvaderRayPerception upperSensor;
 
     /// <summary>
     /// The goal to push the block to.
     /// </summary>
-    public GameObject goal;
+    private GameObject goal;
 
     /// <summary>
     /// The block to be pushed to the goal.
     /// </summary>
-    public GameObject block;
+    private GameObject block;
 
     /// <summary>
     /// Detects when the block touches the goal.
     /// </summary>
     [HideInInspector]
-    public GoalDetect goalDetect;
+    private GoalDetect goalDetect;
 
-    public bool useVectorObs;
+    // public bool useVectorObs;
 
-    public List<SectorObserver> m_SectorObservers;
+    /// <summary>
+    /// The ground. The bounds are used to spawn the elements.
+    /// </summary>
+    private GameObject ground;
+
+    PushBlockSettings m_PushBlockSettings;
 
     Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
@@ -54,6 +60,8 @@ public class PushAgentBasic : Agent
 
     EnvironmentParameters m_ResetParams;
 
+    private int currentLevel = -1;
+
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
@@ -61,33 +69,19 @@ public class PushAgentBasic : Agent
 
     public override void Initialize()
     {
-        goalDetect = block.GetComponent<GoalDetect>();
-        goalDetect.agent = this;
-
         // Cache the agent rigidbody
         m_AgentRb = GetComponent<Rigidbody>();
-        // Cache the block rigidbody
-        m_BlockRb = block.GetComponent<Rigidbody>();
-        // Get the ground's bounds
-        areaBounds = ground.GetComponent<Collider>().bounds;
-        // Get the ground renderer so we can change the material when a goal is scored
-        m_GroundRenderer = ground.GetComponent<Renderer>();
-        // Starting material
-        m_GroundMaterial = m_GroundRenderer.material;
 
         m_ResetParams = Academy.Instance.EnvironmentParameters;
 
         SetResetParameters();
     }
 
-    public override void CollectObservations(VectorSensor vectorSensor)
+    public override void CollectObservations(VectorSensor sensor)
     {
-        foreach (SectorObserver sectorObserver in m_SectorObservers)
-        {
-            vectorSensor.AddObservation(sectorObserver.GetObservations());
-        }
+        sensor.AddObservation(lowerSensor.GetObservations());
+        sensor.AddObservation(upperSensor.GetObservations());
     }
-
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
     /// </summary>
@@ -103,7 +97,7 @@ public class PushAgentBasic : Agent
             var randomPosZ = Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
-            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.01f, 2.5f)) == false)
+            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
             {
                 foundNewSpawnLocation = true;
             }
@@ -132,7 +126,7 @@ public class PushAgentBasic : Agent
     IEnumerator GoalScoredSwapGroundMaterial(Material mat, float time)
     {
         m_GroundRenderer.material = mat;
-        yield return new WaitForSeconds(time); // Wait for 2 sec
+        yield return new WaitForSeconds(time);
         m_GroundRenderer.material = m_GroundMaterial;
     }
 
@@ -174,7 +168,7 @@ public class PushAgentBasic : Agent
     }
 
     /// <summary>
-    /// Called every step of the engine. Here the agent takes an action.
+    /// Called every step for (var i = 0; i < args.Length - 1; i++)of the engine. Here the agent takes an action.
     /// </summary>
     public override void OnActionReceived(float[] vectorAction)
     {
@@ -206,6 +200,7 @@ public class PushAgentBasic : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        SetResetParameters();
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
@@ -214,8 +209,6 @@ public class PushAgentBasic : Agent
         transform.position = GetRandomSpawnPos();
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
-
-        SetResetParameters();
     }
 
     public void SetGroundMaterialFriction()
@@ -228,17 +221,57 @@ public class PushAgentBasic : Agent
 
     public void SetBlockProperties()
     {
-        var scale = m_ResetParams.GetWithDefault("block_scale", 2);
-        //Set the scale of the block
-        m_BlockRb.transform.localScale = new Vector3(scale, 0.75f, scale);
+        var ballType = (int)m_ResetParams.GetWithDefault("ball_type", 1);
+        if(ballType == 1)
+        {
+            blockGo.SetActive(true);
+            ballGo.SetActive(false);
+            block = blockGo;
+        }
+        else
+        {
+            blockGo.SetActive(false);
+            ballGo.SetActive(true);
+            block = ballGo;
+        }
 
-        // Set the drag of the block
-        m_BlockRb.drag = m_ResetParams.GetWithDefault("block_drag", 0.5f);
+        goalDetect = block.GetComponent<GoalDetect>();
+        goalDetect.agent = this;
+
+        // Cache the block rigidbody
+        m_BlockRb = block.GetComponent<Rigidbody>();
+    }
+
+    public void SetArena()
+    {
+        var levelNum = (int)m_ResetParams.GetWithDefault("level", 0);
+
+        if (levelNum == currentLevel) return;
+
+        currentLevel = levelNum;
+        for (var i = 0; i < arenas.Count; i++)
+        {
+            if (i == levelNum)
+            {
+                arenas[i].SetActive(true);
+                // goal = 
+                ground = Utils.FindGameObjectInChildWithTag(arenas[i], "ground");
+                // Get the ground's bounds
+                areaBounds = ground.GetComponent<Collider>().bounds;
+
+                // Get the ground renderer so we can change the material when a goal is scored
+                m_GroundRenderer = ground.GetComponent<Renderer>();
+                // Starting materialv
+                m_GroundMaterial = m_GroundRenderer.material;
+            }
+            else arenas[i].SetActive(false);
+        }
     }
 
     void SetResetParameters()
     {
-        SetGroundMaterialFriction();
+        SetArena();
         SetBlockProperties();
+        SetGroundMaterialFriction();
     }
 }

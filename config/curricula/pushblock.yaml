@@ -1,7 +1,10 @@
 PushBlock:
     measure: reward
-    thresholds: [4, 4.8]
+    thresholds: [4, 4, 4, 4.2, 4.6]
     min_lesson_length: 100
     signal_smoothing: true
     parameters:
-        max_steps: [5000, 2000, 1000]
+        max_steps:  [5000, 4000, 4000, 3000, 2500, 1500]
+        level:      [0,    1,    1,    2,    3,    3]
+        ball_type:  [1,    1,    2,    2,    2,    2] # 1=block, 2=ball
+        # ray_length: [6, 12, 16, 20]

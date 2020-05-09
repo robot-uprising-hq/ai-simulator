@@ -1684,10 +1684,6 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 4188187884171146, guid: 03bcc81e249714a22bb411dddcc5d15e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03bcc81e249714a22bb411dddcc5d15e, type: 3}
 --- !u!1001 &1488759065
@@ -1854,64 +1850,6 @@ MonoBehaviour:
   spawnAreaMarginMultiplier: 0.5
   goalScoredMaterial: {fileID: 2100000, guid: df32cc593804f42df97464dc455057b8, type: 2}
   failMaterial: {fileID: 2100000, guid: a1daf31cdf41e484ca9ac33a5c6f524a, type: 2}
---- !u!1 &1603235469 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1489716781518988, guid: 03bcc81e249714a22bb411dddcc5d15e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1370013558}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1603235470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603235469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e0d0ef2fc31046a6c784aab775365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GizmoColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &1603235471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603235469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e0d0ef2fc31046a6c784aab775365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GizmoColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &1603235482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603235469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e0d0ef2fc31046a6c784aab775365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GizmoColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &1603235483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603235469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b0e0d0ef2fc31046a6c784aab775365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GizmoColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1633529868
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,58 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SectorPerceptionSensor : MonoBehaviour
+{
+    public List<float> m_Angles = new List<float>();
+    public float m_MaxDistance;
+    public float m_OffsetHeight;
+    [Space(10)]
+    public List<string> m_DetectableTags;
+
+    private SectorCaster[] m_SectorCasters;
+
+
+    void Awake()
+    {
+        m_SectorCasters = CreateSectorCaster(m_Angles, m_MaxDistance, m_OffsetHeight, m_DetectableTags);
+    }
+
+    SectorCaster[] CreateSectorCaster(List<float> angles, float maxDistance, float m_OffsetHeight, List<string> detectableTags)
+    {
+        SectorCaster[] sectorCasters = new SectorCaster[angles.Count - 1];
+        for (int i = 0; i < angles.Count -1; i++)
+        {
+            sectorCasters[i] = new SectorCaster(transform, maxDistance, m_OffsetHeight, angles[i], angles[i+1], detectableTags);
+        }
+        return sectorCasters;
+    }
+
+    public float[] GetObservations()
+    {
+        float[] allObs = new float[m_SectorCasters.Length * (m_DetectableTags.Count + 2)];
+        for (int i = 0; i < m_SectorCasters.Length; i++)
+        {
+            float[] sectorObs = m_SectorCasters[i].GetObservations();
+            // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2) - 1), (m_DetectableTags.Count + 2));
+        }
+
+        return allObs;
+    }
+
+    void OnValidate()
+    {
+        m_SectorCasters = CreateSectorCaster(m_Angles, m_MaxDistance, m_OffsetHeight, m_DetectableTags);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (m_SectorCasters == null || m_SectorCasters.Length < 1)  return;
+
+        foreach(SectorCaster sectorCaster in m_SectorCasters)
+        {
+            sectorCaster.DrawCasterGizmos();
+        }
+    }
+}

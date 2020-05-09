@@ -22,8 +22,8 @@ public class PushAgentBasic : Agent
     public Bounds areaBounds;
 
     [Space(10)]
-    public InvaderRayPerception lowerSensor;
-    public InvaderRayPerception upperSensor;
+    public SectorPerceptionSensor lowerSensor;
+    public SectorPerceptionSensor upperSensor;
 
     public List<float> rayAngles = new List<float>();
 
@@ -86,6 +86,12 @@ public class PushAgentBasic : Agent
         m_ResetParams = Academy.Instance.EnvironmentParameters;
 
         SetResetParameters();
+    }
+
+    void Update()
+    {
+        float[] obs = lowerSensor.GetObservations();
+        // Debug.Log("Obs: " + obs);
     }
 
     // public override void CollectObservations(VectorSensor sensor)

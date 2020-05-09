@@ -29,7 +29,11 @@ public class PushAgentBasic : Agent
 
     public float rayDistance;
 
+    [Space(10)]
     public List<Material> sectorMaterials = new List<Material>();
+
+    [Space(10)]
+    public bool stopAgent;
 
     /// <summary>
     /// The goal to push the block to.
@@ -72,20 +76,7 @@ public class PushAgentBasic : Agent
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
-
-        CreateSectors();
     }
-
-    // int coutner = 0;
-    // void Update()
-    // {
-    //     coutner++;
-    //     if(coutner == 500)
-    //     {
-    //         Debug.Log("======CreateSectors");
-    //         CreateSectors();
-    //     }
-    // }
 
     public override void Initialize()
     {
@@ -97,63 +88,12 @@ public class PushAgentBasic : Agent
         SetResetParameters();
     }
 
-    void CreateSectors()
-    {
-        Vector2[][] sectorVertices = GeometryUtils.SectorVertices(transform, rayAngles.ToArray(), rayDistance);
-
-        CreateSectorMeshes(sectorVertices);
-    }
-    void CreateSectorMeshes(Vector2[][] sectorVertices)
-    {
-        int sectorIndex = 0;
-        foreach(Vector2[] vertices in sectorVertices)
-        {
-            int[] newTriangles = new int[]{0, 1, 2, 3, 5, 4, 0, 3, 4, 0, 4, 1, 0, 5, 3, 0, 2, 5, 1, 5, 2, 1, 4, 5};
-            Vector3[] newVertices = new Vector3[6];
-            int verticeIndex = 0;
-            for(int i = 0; i < 3; i++)
-            {
-                newVertices[verticeIndex] = new Vector3(vertices[i].x, 1.0f, vertices[i].y);
-                verticeIndex++;
-            }
-            for(int i = 0; i < 3; i++)
-            {
-                newVertices[verticeIndex] = new Vector3(vertices[i].x, 0.5f, vertices[i].y);
-                verticeIndex++;
-            }
-
-            GameObject sector = new GameObject("Sector");
-            sector.transform.parent = transform;
-            Mesh mesh = new Mesh();
-            sector.AddComponent<MeshFilter>().mesh = mesh;
-            if(sectorMaterials.Count > 0)
-            {
-                if(sectorIndex % 2 == 0)
-                    sector.AddComponent<MeshRenderer>().material = sectorMaterials[0];
-                else
-                    sector.AddComponent<MeshRenderer>().material = sectorMaterials[1];
-            }
-            mesh.vertices = newVertices;
-            mesh.triangles = newTriangles;
-            mesh.RecalculateNormals();
-
-            sector.AddComponent<MeshCollider>();
-            MeshCollider col = sector.GetComponent<MeshCollider>();
-            col.enabled = false;
-            col.sharedMesh = mesh;
-            col.convex = true;
-            col.isTrigger = true;
-            //asdas
-
-            sectorIndex++;
-        }
-    }
-
     // public override void CollectObservations(VectorSensor sensor)
     // {
     //     sensor.AddObservation(lowerSensor.GetObservations());
     //     sensor.AddObservation(upperSensor.GetObservations());
     // }
+
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
     /// </summary>
@@ -207,6 +147,8 @@ public class PushAgentBasic : Agent
     /// </summary>
     public void MoveAgent(float[] act)
     {
+        if (stopAgent) return;
+
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 

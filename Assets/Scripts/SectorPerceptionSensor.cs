@@ -21,6 +21,8 @@ public class SectorPerceptionSensor : MonoBehaviour
 
     SectorCaster[] CreateSectorCaster(List<float> angles, float maxDistance, float m_OffsetHeight, List<string> detectableTags)
     {
+        if (angles.Count < 1) return null;
+
         SectorCaster[] sectorCasters = new SectorCaster[angles.Count - 1];
         for (int i = 0; i < angles.Count -1; i++)
         {
@@ -31,11 +33,13 @@ public class SectorPerceptionSensor : MonoBehaviour
 
     public float[] GetObservations()
     {
+        if (m_SectorCasters == null || m_SectorCasters.Length < 1) return null;
+
         float[] allObs = new float[m_SectorCasters.Length * (m_DetectableTags.Count + 2)];
         for (int i = 0; i < m_SectorCasters.Length; i++)
         {
             float[] sectorObs = m_SectorCasters[i].GetObservations();
-            // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2) - 1), (m_DetectableTags.Count + 2));
+            Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
         }
 
         return allObs;

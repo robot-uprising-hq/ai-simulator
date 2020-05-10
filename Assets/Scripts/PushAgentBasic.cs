@@ -25,13 +25,6 @@ public class PushAgentBasic : Agent
     public SectorPerceptionSensor lowerSensor;
     public SectorPerceptionSensor upperSensor;
 
-    public List<float> rayAngles = new List<float>();
-
-    public float rayDistance;
-
-    [Space(10)]
-    public List<Material> sectorMaterials = new List<Material>();
-
     [Space(10)]
     public bool stopAgent;
 
@@ -90,8 +83,9 @@ public class PushAgentBasic : Agent
 
     void Update()
     {
-        float[] obs = lowerSensor.GetObservations();
-        // Debug.Log("Obs: " + obs);
+        float[] obs = upperSensor.GetObservations();
+        // float[] obs = lowerSensor.GetObservations();
+        Debug.Log(string.Join(":", obs));
     }
 
     // public override void CollectObservations(VectorSensor sensor)

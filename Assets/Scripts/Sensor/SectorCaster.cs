@@ -13,7 +13,9 @@ public class SectorCaster
     private Color m_GizmoColor = Color.red;
     Transform m_RobotTrans;
     float m_OffsetHeight;
+    float m_CastingDistance;
     float m_MaxDistance;
+
     float m_StartAngleDeg;
     float m_EndAngleDeg;
     List<string> m_DetectableTags;
@@ -22,12 +24,12 @@ public class SectorCaster
     float m_CastingDirAngleDeg;
     RaycastHit m_Hit;
     Vector3 m_CastingDir;
-    float castHeight = 0.5f;
+    float castHeight = 0.1f;
     float castDepth = 0.1f;
     bool m_HitDetect;
     float m_CastWidth;
 
-    public SectorCaster(Transform robotTrans, float maxDistance, float offsetHeight, float startAngle, float endAngle, List<string> detectableTags)
+    public SectorCaster(Transform robotTrans, float distance, float offsetHeight, float startAngle, float endAngle, List<string> detectableTags)
     {
         m_RobotTrans = robotTrans;
         m_OffsetHeight = offsetHeight;
@@ -35,10 +37,10 @@ public class SectorCaster
         m_EndAngleDeg = endAngle;
         m_DetectableTags = detectableTags;
         m_CastingAngleWidthDeg = Mathf.Abs(m_StartAngleDeg - m_EndAngleDeg);
-        m_MaxDistance = Mathf.Cos(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * maxDistance;
-        m_CastWidth = (Mathf.Tan(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * m_MaxDistance) * 2;
+        m_CastingDistance = Mathf.Cos(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * distance;
+        m_MaxDistance = distance;
+        m_CastWidth = (Mathf.Tan(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * m_CastingDistance) * 2;
         m_CastingDirAngleDeg = m_EndAngleDeg - m_CastingAngleWidthDeg / 2;
-        // m_CastingDir = Quaternion.Euler(0, m_CastingDirAngleDeg, 0) * m_RobotTrans.forward;
     }
 
     public float[] GetObservations()
@@ -64,10 +66,10 @@ public class SectorCaster
             observations[observations.Length - 2] = 1.0f;
         }
 
-        Debug.LogFormat(
-            "m_StartAngleDeg: {0:0.0}, observations: {1}",
-            m_StartAngleDeg,
-            string.Join(":", observations));
+        // Debug.LogFormat(
+        //     "m_StartAngleDeg: {0:0.0}, observations: {1}",
+        //     m_StartAngleDeg,
+        //     string.Join(":", observations));
         return observations;
     }
  
@@ -80,7 +82,7 @@ public class SectorCaster
             m_CastingDir,
             out m_Hit,
             m_RobotTrans.rotation * Quaternion.Euler(0, m_CastingDirAngleDeg, 0),
-            m_MaxDistance);
+            m_CastingDistance);
 
         PerceptionOutput output = new PerceptionOutput();
         if (m_HitDetect)
@@ -111,6 +113,12 @@ public class SectorCaster
         return output;
     }
 
+    bool DistanceInSector(float hitDistance, float maxDistance, float castingAngleWidthDeg)
+    {
+        float allowedDistance = maxDistance / Mathf.Cos(castingAngleWidthDeg * Mathf.Deg2Rad / 2);
+        return hitDistance < allowedDistance;
+    }
+
     bool HitBetweenAngles(RaycastHit hit, float startAngle, float endAngle)
     {
         Vector3 directionToHit = hit.point - m_RobotTrans.position;
@@ -119,14 +127,12 @@ public class SectorCaster
 
         float angleToHit = Vector3.Angle(m_RobotTrans.forward, directionToHit);
         float side = AngleDir(m_RobotTrans.forward, directionToHit, m_RobotTrans.up);
-        // float lowerAngle = Vector3.Angle(m_RobotTrans.forward, startVec);
-        // float upperAngle = Vector3.Angle(m_RobotTrans.forward, endVec);
 
-        Debug.LogFormat(
-            "Sector {0:0}/{1:0}: angleToHit: {2:0.0}",
-            m_StartAngleDeg,
-            m_EndAngleDeg,
-            angleToHit * side);
+        // Debug.LogFormat(
+        //     "Sector {0:0}/{1:0}: angleToHit: {2:0.0}",
+        //     m_StartAngleDeg,
+        //     m_EndAngleDeg,
+        //     angleToHit * side);
         return angleToHit * side < m_EndAngleDeg && angleToHit * side > m_StartAngleDeg;
     }
 
@@ -161,7 +167,7 @@ public class SectorCaster
         Gizmos.color = m_GizmoColor;
 
         Matrix4x4 cubeTransform = Matrix4x4.TRS(
-            m_RobotTrans.position + m_CastingDir * m_MaxDistance,
+            m_RobotTrans.position + m_CastingDir * m_CastingDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f),
             m_RobotTrans.rotation * Quaternion.Euler(0, m_CastingDirAngleDeg, 0),
             m_RobotTrans.lossyScale);
         Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
@@ -169,14 +175,10 @@ public class SectorCaster
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(m_CastWidth, castHeight, castDepth));
 
         Gizmos.matrix = oldGizmosMatrix;
-        float sideLength = m_MaxDistance / Mathf.Cos(m_CastingAngleWidthDeg / 2 * Mathf.Deg2Rad);
+        float sideLength = m_MaxDistance;
         Vector3 startVec = Quaternion.Euler(0, m_StartAngleDeg, 0) * m_RobotTrans.forward * sideLength;
-        Gizmos.DrawRay(m_RobotTrans.position, startVec);
+        Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);
         Vector3 endVec = Quaternion.Euler(0, m_EndAngleDeg, 0) * m_RobotTrans.forward * sideLength;
-        Gizmos.DrawRay(m_RobotTrans.position, endVec);
-
-        // Gizmos.color = Color.green;
-        // Vector3 castVec = m_CastingDir * m_MaxDistance;
-        // Gizmos.DrawRay(m_RobotTrans.position, castVec);
+        Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), endVec);
     }
 }

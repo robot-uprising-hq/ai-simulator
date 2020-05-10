@@ -13,6 +13,15 @@ public class SectorPerceptionSensor : MonoBehaviour
 
     private SectorCaster[] m_SectorCasters;
 
+    public int SectorObservationCount
+    {
+        get => m_DetectableTags.Count + 2;
+    }
+
+    public int SectorCount
+    {
+        get => m_SectorCasters.Length;
+    }
 
     void Awake()
     {
@@ -43,6 +52,15 @@ public class SectorPerceptionSensor : MonoBehaviour
         }
 
         return allObs;
+    }
+
+    public void UpdateCastingDistance(float distance)
+    {
+        m_MaxDistance = distance;
+        foreach(SectorCaster sectorCaster in m_SectorCasters)
+        {
+            sectorCaster.UpdateCastingDistance(distance);
+        }
     }
 
     void OnValidate()

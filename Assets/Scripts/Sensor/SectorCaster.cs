@@ -43,6 +43,13 @@ public class SectorCaster
         m_CastingDirAngleDeg = m_EndAngleDeg - m_CastingAngleWidthDeg / 2;
     }
 
+    public void UpdateCastingDistance(float distance)
+    {
+        m_CastingDistance = Mathf.Cos(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * distance;
+        m_MaxDistance = distance;
+        m_CastWidth = (Mathf.Tan(m_CastingAngleWidthDeg * Mathf.Deg2Rad / 2) * m_CastingDistance) * 2;
+    }
+
     public float[] GetObservations()
     {
         float[] observations = new float[m_DetectableTags.Count + 2];

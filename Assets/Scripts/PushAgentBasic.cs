@@ -1,8 +1,9 @@
 //Put this script on your blue cube.
-
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
@@ -25,6 +26,9 @@ public class PushAgentBasic : Agent
     public SectorPerceptionSensor lowerSensor;
     public SectorPerceptionSensor upperSensor;
 
+    [Space(10)]
+    public bool m_ShowObservationDebug;
+    public Text m_ObservationDebugText;
     [Space(10)]
     public bool stopAgent;
 
@@ -81,18 +85,30 @@ public class PushAgentBasic : Agent
         SetResetParameters();
     }
 
-    void Update()
+    public override void CollectObservations(VectorSensor sensor)
     {
-        float[] obs = upperSensor.GetObservations();
-        // float[] obs = lowerSensor.GetObservations();
-        Debug.Log(string.Join(":", obs));
-    }
+        var lowerObs = lowerSensor.GetObservations();
+        var upperObs = upperSensor.GetObservations();
 
-    // public override void CollectObservations(VectorSensor sensor)
-    // {
-    //     sensor.AddObservation(lowerSensor.GetObservations());
-    //     sensor.AddObservation(upperSensor.GetObservations());
-    // }
+        if (m_ObservationDebugText != null && m_ShowObservationDebug)
+        {
+            string observation = "";
+            var sectorCount = lowerSensor.SectorCount;
+            var sectorObservationCount = lowerSensor.SectorObservationCount;
+            for (int i = 0; i < sectorCount; i++)
+            {   
+                float[] sectorObs = new float[sectorObservationCount];
+                // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
+                Array.Copy(lowerObs, i * sectorObservationCount, sectorObs, 0, sectorObservationCount);
+                var sectorObsStr = string.Join(":", sectorObs);
+                observation += sectorObsStr + "\n";
+            }
+            m_ObservationDebugText.text = observation;
+        }
+        
+        sensor.AddObservation(lowerObs);
+        sensor.AddObservation(upperObs);
+    }
 
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
@@ -103,10 +119,10 @@ public class PushAgentBasic : Agent
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
         {
-            var randomPosX = Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
+            var randomPosX = UnityEngine.Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
                 areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier);
 
-            var randomPosZ = Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
+            var randomPosZ = UnityEngine.Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
             if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
@@ -151,32 +167,36 @@ public class PushAgentBasic : Agent
 
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
+        var rotationSpeed = 200f;
 
         var action = Mathf.FloorToInt(act[0]);
-
         // Goalies and Strikers have slightly different action spaces.
         switch (action)
         {
-            case 1:
+            case 1:  // Go forward
                 dirToGo = transform.forward * 1f;
                 break;
-            case 2:
+            case 2:  // Go backward
                 dirToGo = transform.forward * -1f;
                 break;
-            case 3:
+            case 3:  // Turn right
                 rotateDir = transform.up * 1f;
                 break;
-            case 4:
+            case 4:  // Turn left
                 rotateDir = transform.up * -1f;
                 break;
-            case 5:
-                dirToGo = transform.right * -0.75f;
-                break;
-            case 6:
-                dirToGo = transform.right * 0.75f;
-                break;
+            // case 5:  // Go forward and turn right
+            //     dirToGo = transform.forward * 0.75f;
+            //     rotateDir  = transform.up * 1f;
+            //     rotationSpeed = 150f;
+            //     break;
+            // case 6:  // Go forward and turn left
+            //     dirToGo = transform.forward * 0.75f;
+            //     rotateDir = transform.up * -1f;
+            //     rotationSpeed = 150f;
+            //     break;
         }
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * 200f);
+        transform.Rotate(rotateDir, Time.fixedDeltaTime * rotationSpeed);
         m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
             ForceMode.VelocityChange);
     }
@@ -215,7 +235,7 @@ public class PushAgentBasic : Agent
     public override void OnEpisodeBegin()
     {
         SetResetParameters();
-        var rotation = Random.Range(0, 4);
+        var rotation = UnityEngine.Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
 
@@ -287,5 +307,11 @@ public class PushAgentBasic : Agent
         SetArena();
         SetBlockProperties();
         SetGroundMaterialFriction();
+
+        var distance = m_ResetParams.GetWithDefault("ray_length", 17);
+        lowerSensor.UpdateCastingDistance(distance);
+        upperSensor.UpdateCastingDistance(distance);
+
+        MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", 5000);
     }
 }

@@ -104,7 +104,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125452240183160}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -295,8 +295,6 @@ GameObject:
   - component: {fileID: 114306175693660464}
   - component: {fileID: 114505490781873732}
   - component: {fileID: 65880096262939968}
-  - component: {fileID: 114807072692257076}
-  - component: {fileID: 114451319691753174}
   - component: {fileID: 8964598783836598940}
   - component: {fileID: 4081319787948195948}
   - component: {fileID: 7042524996402440195}
@@ -316,7 +314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489716781518988}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -4.34, y: 1, z: 1.5}
+  m_LocalPosition: {x: -5.3, y: 1, z: 5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4544987641442146}
@@ -353,12 +351,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 0
-    NumStackedVectorObservations: 2
-    VectorActionSize: 07000000
+    VectorObservationSize: 70
+    NumStackedVectorObservations: 3
+    VectorActionSize: 05000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ef9ed69046a0c53ddb8dd731cfd662cb, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 8e351cc1081645f1fa517239bdc8268a, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PushBlock
@@ -393,19 +391,8 @@ MonoBehaviour:
     m_Extent: {x: 0, y: 0, z: 0}
   lowerSensor: {fileID: 7042524996402440195}
   upperSensor: {fileID: 8666507058400713741}
-  rayAngles:
-  - -180
-  - -90
-  - -45
-  - -20
-  - 20
-  - 45
-  - 90
-  - 180
-  rayDistance: 12
-  sectorMaterials:
-  - {fileID: 2100000, guid: a75dea2e0f0b6a3f1be2bd597ff86a5d, type: 2}
-  - {fileID: 2100000, guid: 9c869d7fa4d172466b448f80c842d372, type: 2}
+  m_ShowObservationDebug: 0
+  m_ObservationDebugText: {fileID: 0}
   stopAgent: 0
 --- !u!65 &65880096262939968
 BoxCollider:
@@ -420,64 +407,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114807072692257076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489716781518988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - block
-  - goal
-  - wall
-  m_RaysPerDirection: 4
-  m_MaxRayDegrees: 135
-  m_SphereCastRadius: 1
-  m_RayLength: 25
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 3
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
---- !u!114 &114451319691753174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1489716781518988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: OffsetRayPerceptionSensor
-  m_DetectableTags:
-  - block
-  - goal
-  - wall
-  m_RaysPerDirection: 4
-  m_MaxRayDegrees: 135
-  m_SphereCastRadius: 1
-  m_RayLength: 25
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 3
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 1.5
-  m_EndVerticalOffset: 1.5
 --- !u!114 &8964598783836598940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,12 +449,12 @@ MonoBehaviour:
   - -180
   - -90
   - -45
-  - -20
-  - 20
+  - -1
+  - 1
   - 45
   - 90
   - 180
-  m_MaxDistance: 15
+  m_MaxDistance: 17
   m_OffsetHeight: 0
   m_DetectableTags:
   - block
@@ -547,12 +476,12 @@ MonoBehaviour:
   - -180
   - -90
   - -45
-  - -20
-  - 20
+  - -1
+  - 1
   - 45
   - 90
   - 180
-  m_MaxDistance: 15
+  m_MaxDistance: 17
   m_OffsetHeight: 1
   m_DetectableTags:
   - block

@@ -7,4 +7,4 @@ PushBlock:
         max_steps:  [5000, 4000, 4000, 3000, 2000, 1500]
         level:      [0,    1,    1,    2,    3,    3]
         ball_type:  [1,    1,    2,    2,    2,    2] # 1=block, 2=ball
-        ray_length: [17,  30,   30,   45,   55,   55]
+        ray_length: [15,  25,   25,   40,   50,   50]

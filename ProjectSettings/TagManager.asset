@@ -9,6 +9,7 @@ TagManager:
   - goal
   - wall
   - ground
+  - debug_text
   layers:
   - Default
   - TransparentFX

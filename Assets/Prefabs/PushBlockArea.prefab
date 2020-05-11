@@ -297,8 +297,8 @@ GameObject:
   - component: {fileID: 65880096262939968}
   - component: {fileID: 8964598783836598940}
   - component: {fileID: 4081319787948195948}
-  - component: {fileID: 7042524996402440195}
-  - component: {fileID: 8666507058400713741}
+  - component: {fileID: 1357104546871097046}
+  - component: {fileID: 9007683735771120210}
   m_Layer: 0
   m_Name: Agent
   m_TagString: agent
@@ -314,7 +314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489716781518988}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -5.3, y: 1, z: 5.3}
+  m_LocalPosition: {x: -2.76, y: 1, z: 0.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4544987641442146}
@@ -351,12 +351,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 70
+    VectorObservationSize: 310
     NumStackedVectorObservations: 3
     VectorActionSize: 05000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 8e351cc1081645f1fa517239bdc8268a, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 4ab6b11ba5238595188d20fc92e89544, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PushBlock
@@ -389,10 +389,8 @@ MonoBehaviour:
   areaBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  lowerSensor: {fileID: 7042524996402440195}
-  upperSensor: {fileID: 8666507058400713741}
-  m_ShowObservationDebug: 0
-  m_ObservationDebugText: {fileID: 0}
+  lowerSensor: {fileID: 1357104546871097046}
+  upperSensor: {fileID: 9007683735771120210}
   stopAgent: 0
 --- !u!65 &65880096262939968
 BoxCollider:
@@ -433,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ba69c034c63c5e8787ea49f5da6a4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7042524996402440195
+--- !u!114 &1357104546871097046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -442,25 +440,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489716781518988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cddef3ddceb0a9042a49f4f46082d738, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e3a5ff92fea144f87a775733148a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Angles:
-  - -180
-  - -90
-  - -45
-  - -1
-  - 1
-  - 45
-  - 90
-  - 180
-  m_MaxDistance: 17
+  m_MaxAnglePerSide: 170
+  m_NumberOfRaysPerSide: 15
+  m_MaxDistance: 15
   m_OffsetHeight: 0
+  m_CastingSphereSize: 0.6
   m_DetectableTags:
   - block
   - goal
   - wall
---- !u!114 &8666507058400713741
+  m_ShowObservationDebug: 0
+--- !u!114 &9007683735771120210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -469,24 +462,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1489716781518988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cddef3ddceb0a9042a49f4f46082d738, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e3a5ff92fea144f87a775733148a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Angles:
-  - -180
-  - -90
-  - -45
-  - -1
-  - 1
-  - 45
-  - 90
-  - 180
-  m_MaxDistance: 17
+  m_MaxAnglePerSide: 170
+  m_NumberOfRaysPerSide: 15
+  m_MaxDistance: 15
   m_OffsetHeight: 1
+  m_CastingSphereSize: 0.6
   m_DetectableTags:
   - block
   - goal
   - wall
+  m_ShowObservationDebug: 0
 --- !u!1 &1587735394719530
 GameObject:
   m_ObjectHideFlags: 0

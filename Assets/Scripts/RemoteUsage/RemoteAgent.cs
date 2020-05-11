@@ -6,8 +6,8 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 public class RemoteAgent : MonoBehaviour
 {
-    public SectorPerceptionSensor lowerSensor;
-    public SectorPerceptionSensor upperSensor;
+    public RayObservationSensor lowerSensor;
+    public RayObservationSensor upperSensor;
     /// <summary>
     /// The ground. The bounds are used to spawn the elements.
     /// </summary>

@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 
@@ -23,12 +22,9 @@ public class PushAgentBasic : Agent
     public Bounds areaBounds;
 
     [Space(10)]
-    public SectorPerceptionSensor lowerSensor;
-    public SectorPerceptionSensor upperSensor;
+    public RayObservationSensor lowerSensor;
+    public RayObservationSensor upperSensor;
 
-    [Space(10)]
-    public bool m_ShowObservationDebug;
-    public Text m_ObservationDebugText;
     [Space(10)]
     public bool stopAgent;
 
@@ -87,27 +83,8 @@ public class PushAgentBasic : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
-        var lowerObs = lowerSensor.GetObservations();
-        var upperObs = upperSensor.GetObservations();
-
-        if (m_ObservationDebugText != null && m_ShowObservationDebug)
-        {
-            string observation = "";
-            var sectorCount = lowerSensor.SectorCount;
-            var sectorObservationCount = lowerSensor.SectorObservationCount;
-            for (int i = 0; i < sectorCount; i++)
-            {   
-                float[] sectorObs = new float[sectorObservationCount];
-                // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
-                Array.Copy(lowerObs, i * sectorObservationCount, sectorObs, 0, sectorObservationCount);
-                var sectorObsStr = string.Join(":", sectorObs);
-                observation += sectorObsStr + "\n";
-            }
-            m_ObservationDebugText.text = observation;
-        }
-        
-        sensor.AddObservation(lowerObs);
-        sensor.AddObservation(upperObs);
+        sensor.AddObservation(lowerSensor.GetObservations());
+        sensor.AddObservation(upperSensor.GetObservations());
     }
 
     /// <summary>

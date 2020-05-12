@@ -1,56 +1,71 @@
 ﻿//Put this script on your blue cube.
-
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+
 public class RemoteAgent : MonoBehaviour
 {
-    public RayObservationSensor lowerSensor;
-    public RayObservationSensor upperSensor;
-    /// <summary>
-    /// The ground. The bounds are used to spawn the elements.
-    /// </summary>
-    public GameObject ground;
+    public bool randomRotateArenaOnReset;
+
+    public int MaxStep = 5000;
+    public int ballType = 2;
+    public int levelNum = 3;
+    public float rayLength = 50f;
 
     public GameObject area;
 
+    public List<GameObject> arenas = new List<GameObject>();
+
+    [Space(10)]
+    public GameObject blockGo;
+    public GameObject ballGo;
     /// <summary>
     /// The area bounds.
     /// </summary>
     [HideInInspector]
     public Bounds areaBounds;
 
-    PushBlockSettings m_PushBlockSettings;
+    [Space(10)]
+    public RayObservationSensor lowerSensor;
+    public RayObservationSensor upperSensor;
+
+    [Space(10)]
+    // For testing purposes you can stop the agent from moving and
+    // for example move it manually to see the debug log's sensor values
+    public bool stopAgent;
 
     /// <summary>
     /// The goal to push the block to.
     /// </summary>
-    public GameObject goal;
+    private GameObject goal;
 
     /// <summary>
-    /// The block to be puslogStringhed to the goal.
+    /// The block to be pushed to the goal.
     /// </summary>
-    public GameObject block;
+    private GameObject block;
 
     /// <summary>
     /// Detects when the block touches the goal.
     /// </summary>
     [HideInInspector]
-    public RemoteGoalDetect goalDetect;
+    private GoalDetect goalDetect;
 
-    public bool useVectorObs;
-    public bool randomRotateArenaOnReset;
+    // public bool useVectorObs;
 
-    // For testing purposes you can stop the agent from moving and
-    // for example move it manually to see the debug log's sensor values
-    public bool stopAgent;
+    /// <summary>
+    /// The ground. The bounds are used to spawn the elements.
+    /// </summary>
+    private GameObject ground;
+
+    PushBlockSettings m_PushBlockSettings;
 
     Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
     Material m_GroundMaterial; //cached on Awake()
 
-    float[] agentAction = new float[] {0};
     /// <summary>
     /// We will be changing the ground material based on success/failue
     /// </summary>
@@ -58,57 +73,45 @@ public class RemoteAgent : MonoBehaviour
 
     EnvironmentParameters m_ResetParams;
 
+    private int currentLevel = -1;
+    private int currentStep = 0;
+
+    // private float[] action = new float[] {0};
+
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
-        InitializeAgent();
+        Initialize();
     }
 
     void Update()
     {
-        MoveAgent(agentAction);
+        // MoveAgent(action);
+        if (currentStep > MaxStep)
+        {
+            OnEpisodeBegin();
+            currentStep = 0;
+        }
+        else
+        {
+            currentStep++;
+        }
     }
 
     public float[] GetLowerObservations()
     {
-        // RayPerceptionSensor lowerRaySensor = lowerSensor.RaySensor;
-        // RayPerceptionSensor upperRaySensor = lowerSensor.RaySensor;
-
-        // RayPerceptionInput lowerInput = lowerRaySensor.GetRayPerceptionInput();
-        // RayPerceptionInput upperInput = upperRaySensor.GetRayPerceptionInput();
-
-        // RayPerceptionOutput lowerObs = lowerRaySensor.Perceive(lowerInput);
-        // RayPerceptionOutput upperObs = upperRaySensor.Perceive(upperInput);
-
-        // float[] lowerObsBuffer = null;
-        // for (var rayIndex = 0; rayIndex < numRays; rayIndex++)
-        // {
-        // }
-        return new float[]{0.0f, 0.0f};
+        return lowerSensor.GetObservations();
     }
 
     public float[] GetUpperObservations()
     {
-        return new float[]{0.0f, 0.0f};
-        // return upperSensor.Perceive();
+        return upperSensor.GetObservations();
     }
 
-    public void InitializeAgent()
+    public void Initialize()
     {
-        // base.InitializeAgent();
-        goalDetect = block.GetComponent<RemoteGoalDetect>();
-        goalDetect.agent = this;
-
         // Cache the agent rigidbody
         m_AgentRb = GetComponent<Rigidbody>();
-        // Cache the block rigidbody
-        m_BlockRb = block.GetComponent<Rigidbody>();
-        // Get the ground's bounds
-        areaBounds = ground.GetComponent<Collider>().bounds;
-        // Get the ground renderer so we can change the material when a goal is scored
-        m_GroundRenderer = ground.GetComponent<Renderer>();
-        // Starting material
-        m_GroundMaterial = m_GroundRenderer.material;
 
         m_ResetParams = Academy.Instance.EnvironmentParameters;
 
@@ -124,10 +127,10 @@ public class RemoteAgent : MonoBehaviour
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
         {
-            var randomPosX = Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
+            var randomPosX = UnityEngine.Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
                 areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier);
 
-            var randomPosZ = Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
+            var randomPosZ = UnityEngine.Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
             if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.01f, 2.5f)) == false)
@@ -147,7 +150,7 @@ public class RemoteAgent : MonoBehaviour
         // AddReward(5f);
         
         // By marking an agent as done AgentReset() will be called automatically.
-        EndEpisode();
+        OnEpisodeBegin();
 
         // Swap ground material for a bit to indicate we scored.
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
@@ -159,7 +162,7 @@ public class RemoteAgent : MonoBehaviour
     IEnumerator GoalScoredSwapGroundMaterial(Material mat, float time)
     {
         m_GroundRenderer.material = mat;
-        yield return new WaitForSeconds(time); // Wait for 2 sec
+        yield return new WaitForSeconds(time);
         m_GroundRenderer.material = m_GroundMaterial;
     }
 
@@ -168,51 +171,68 @@ public class RemoteAgent : MonoBehaviour
     /// </summary>
     public void MoveAgent(float[] act)
     {
-        if (stopAgent) return;
+        if (stopAgent)
+        {
+            transform.Rotate(Vector3.zero, 0.0f);
+            m_AgentRb.velocity = Vector3.zero;
+        };
 
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
+        var rotationSpeed = m_PushBlockSettings.agentRotationSpeed;
+        var agentSpeed = m_PushBlockSettings.agentRunSpeed;
 
         var action = Mathf.FloorToInt(act[0]);
-
         // Goalies and Strikers have slightly different action spaces.
         switch (action)
         {
-            case 1:
+            case 0: // Do nothing
+                transform.Rotate(Vector3.zero, 0.0f);
+                m_AgentRb.velocity = Vector3.zero;
+                break;
+            case 1:  // Go forward
                 dirToGo = transform.forward * 1f;
                 break;
-            case 2:
+            case 2:  // Go backward
                 dirToGo = transform.forward * -1f;
                 break;
-            case 3:
+            case 3:  // Turn right
                 rotateDir = transform.up * 1f;
                 break;
-            case 4:
+            case 4:  // Turn left
                 rotateDir = transform.up * -1f;
                 break;
-            case 5:
-                dirToGo = transform.right * -0.75f;
-                break;
-            case 6:
-                dirToGo = transform.right * 0.75f;
+            // case 5:  // Go forward and turn right
+            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
+            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
+            //     dirToGo = transform.forward * 0.75f;
+            //     rotateDir  = transform.up * 1f;
+            //     rotationSpeed = 150f;
+            //     break;
+            // case 6:  // Go forward and turn left
+            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
+            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
+            //     dirToGo = transform.forward * 0.75f;
+            //     rotateDir = transform.up * -1f;
+            //     rotationSpeed = 150f;
+            //     break;
+            default:
+                Debug.Log("Unknown action: " + action);
                 break;
         }
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * 200f);
-        m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
-            ForceMode.VelocityChange);
+        transform.Rotate(rotateDir, Time.fixedDeltaTime * rotationSpeed);
+        m_AgentRb.velocity = dirToGo * agentSpeed;
+        // m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
+        //     ForceMode.VelocityChange);
     }
 
     /// <summary>
     /// Called every step of the engine. Here the agent takes an action.
     /// </summary>
-    public void AgentAction(float[] vectorAction)
+    public void OnActionReceived(float[] vectorAction)
     {
-        // Move the agent using the action.
-        // MoveAgent(vectorAction);
-        agentAction = vectorAction;
-
-        // Penalty given each step to encourage agent to finish task quickly.
-        // AddReward(-1f / maxStep);
+        MoveAgent(vectorAction);
+        // action = vectorAction;
     }
 
     /// <summary>
@@ -234,11 +254,13 @@ public class RemoteAgent : MonoBehaviour
     /// In the editor, if "Reset On Done" is checked then AgentReset() will be
     /// called automatically anytime we mark done = true in an agent script.
     /// </summary>
-    public void EndEpisode()
+    public void OnEpisodeBegin()
     {
+        SetResetParameters();
+
         if (randomRotateArenaOnReset)
         {
-            var rotation = Random.Range(0, 4);
+            var rotation = UnityEngine.Random.Range(0, 4);
             var rotationAngle = rotation * 90f;
             area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
         }
@@ -247,8 +269,6 @@ public class RemoteAgent : MonoBehaviour
         transform.position = GetRandomSpawnPos();
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
-
-        SetResetParameters();
     }
 
     public void SetGroundMaterialFriction()
@@ -261,19 +281,57 @@ public class RemoteAgent : MonoBehaviour
 
     public void SetBlockProperties()
     {
-        var scale = m_ResetParams.GetWithDefault("block_scale", 2);
-        //Set the scale of the block
-        m_BlockRb.transform.localScale = new Vector3(scale, 0.75f, scale);
+        if(ballType == 1)
+        {
+            blockGo.SetActive(true);
+            ballGo.SetActive(false);
+            block = blockGo;
+        }
+        else
+        {
+            blockGo.SetActive(false);
+            ballGo.SetActive(true);
+            block = ballGo;
+        }
 
-        // Set the drag of the block
-        m_BlockRb.drag = m_ResetParams.GetWithDefault("block_drag", 0.5f);
+        goalDetect = block.GetComponent<GoalDetect>();
+        goalDetect.remoteAgent = this;
 
-        // maxStep = (int) m_ResetParams.GetWithDefault("max_steps", maxStep);
+        // Cache the block rigidbody
+        m_BlockRb = block.GetComponent<Rigidbody>();
     }
 
-    public void SetResetParameters()
+    public void SetArena()
     {
-        SetGroundMaterialFriction();
+        if (levelNum == currentLevel) return;
+
+        currentLevel = levelNum;
+        for (var i = 0; i < arenas.Count; i++)
+        {
+            if (i == levelNum)
+            {
+                arenas[i].SetActive(true);
+                // goal = 
+                ground = Utils.FindGameObjectInChildWithTag(arenas[i], "ground");
+                // Get the ground's bounds
+                areaBounds = ground.GetComponent<Collider>().bounds;
+
+                // Get the ground renderer so we can change the material when a goal is scored
+                m_GroundRenderer = ground.GetComponent<Renderer>();
+                // Starting materialv
+                m_GroundMaterial = m_GroundRenderer.material;
+            }
+            else arenas[i].SetActive(false);
+        }
+    }
+
+    void SetResetParameters()
+    {
+        SetArena();
         SetBlockProperties();
+        SetGroundMaterialFriction();
+
+        lowerSensor.UpdateCastingDistance(rayLength);
+        upperSensor.UpdateCastingDistance(rayLength);
     }
 }

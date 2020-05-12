@@ -23,6 +23,8 @@ public class RayCaster
     Vector3 m_CastingDir;
     bool m_HitDetect;
 
+    PerceptionOutput output;
+
     public RayCaster(Transform robotTrans, float castingDistance, float offsetHeight, float angle, float castSphereSize, List<string> detectableTags)
     {
         m_RobotTrans = robotTrans;
@@ -41,7 +43,7 @@ public class RayCaster
     public float[] GetObservations()
     {
         float[] observations = new float[m_DetectableTags.Count + 2];
-        PerceptionOutput output = Cast();
+        output = Cast();
         
         if (output.hitGo != null)
         {
@@ -97,6 +99,8 @@ public class RayCaster
 
     public void DrawCasterGizmos()
     {
+        output = Cast();
+
         m_CastingDir = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward;
         Gizmos.color = m_GizmoColor;
 
@@ -107,11 +111,12 @@ public class RayCaster
 
         // Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
         // Gizmos.matrix *= cubeTransform;
-        Gizmos.DrawWireSphere(m_RobotTrans.position + m_CastingDir * m_CastingDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_CastSphereSize);
+        float drawDistance = output.Distance > 0 ? output.Distance : m_CastingDistance;
+        Gizmos.DrawWireSphere(m_RobotTrans.position + m_CastingDir * drawDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_CastSphereSize);
 
         // Gizmos.matrix = oldGizmosMatrix;
         // float sideLength = m_MaxDistance;
-        Vector3 startVec = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward * m_CastingDistance;
+        Vector3 startVec = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward * drawDistance;
         Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);
         // Vector3 endVec = Quaternion.Euler(0, m_EndAngleDeg, 0) * m_RobotTrans.forward * sideLength;
         // Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), endVec);

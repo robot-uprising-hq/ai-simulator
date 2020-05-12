@@ -447,7 +447,8 @@ MonoBehaviour:
   m_NumberOfRaysPerSide: 15
   m_MaxDistance: 15
   m_OffsetHeight: 0
-  m_CastingSphereSize: 0.6
+  m_CastingSphereSize: 0.5
+  m_FrontCastingSphereSize: 0.1
   m_DetectableTags:
   - block
   - goal
@@ -469,7 +470,8 @@ MonoBehaviour:
   m_NumberOfRaysPerSide: 15
   m_MaxDistance: 15
   m_OffsetHeight: 1
-  m_CastingSphereSize: 0.6
+  m_CastingSphereSize: 0.5
+  m_FrontCastingSphereSize: 0.1
   m_DetectableTags:
   - block
   - goal

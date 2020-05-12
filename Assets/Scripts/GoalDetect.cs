@@ -13,14 +13,18 @@ public class GoalDetect : MonoBehaviour
     /// Don't need to manually set.
     /// </summary>
     [HideInInspector]
-    public PushAgentBasic agent;  //
+    public PushAgentBasic agent;
+
+    [HideInInspector]
+    public RemoteAgent remoteAgent;
 
     void OnCollisionEnter(Collision col)
     {
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            agent.ScoredAGoal();
+            if (agent != null) agent.ScoredAGoal();
+            else if (remoteAgent != null) remoteAgent.ScoredAGoal();
         }
     }
 }

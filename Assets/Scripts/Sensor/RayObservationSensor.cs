@@ -11,6 +11,7 @@ public class RayObservationSensor : MonoBehaviour
     public float m_MaxDistance;
     public float m_OffsetHeight;
     public float m_CastingSphereSize;
+    public float m_FrontCastingSphereSize;
 
     [Space(10)]
     public List<string> m_DetectableTags;
@@ -30,19 +31,34 @@ public class RayObservationSensor : MonoBehaviour
             m_MaxDistance,
             m_OffsetHeight,
             m_CastingSphereSize,
+            m_FrontCastingSphereSize,
             m_DetectableTags);
         
         m_ObservationDebugText = GameObject.FindWithTag("debug_text")?.GetComponent<Text>();
     }
 
-    RayCaster[] CreateRayCasterSensor(float maxAnglePerSide, int numberOfRaysPerSide, float maxDistance, float m_OffsetHeight, float castingSphereSize, List<string> detectableTags)
+    RayCaster[] CreateRayCasterSensor(
+        float maxAnglePerSide,
+        int numberOfRaysPerSide,
+        float maxDistance,
+        float m_OffsetHeight,
+        float castingSphereSize,
+        float frontCastingSphereSize,
+        List<string> detectableTags)
     {
         float[] angles = GetAngles(maxAnglePerSide, numberOfRaysPerSide);
 
         RayCaster[] rayCasters = new RayCaster[angles.Length];
         for (int i = 0; i < angles.Length; i++)
         {
-            rayCasters[i] = new RayCaster(transform, maxDistance, m_OffsetHeight, angles[i], castingSphereSize, detectableTags);
+            float sphereSize = Mathf.FloorToInt(angles[i]) == 0 ? frontCastingSphereSize : castingSphereSize;
+            rayCasters[i] = new RayCaster(
+                transform,
+                maxDistance,
+                m_OffsetHeight,
+                angles[i],
+                sphereSize,
+                detectableTags);
         }
         return rayCasters;
     }
@@ -111,6 +127,7 @@ public class RayObservationSensor : MonoBehaviour
             m_MaxDistance,
             m_OffsetHeight,
             m_CastingSphereSize,
+            m_FrontCastingSphereSize,
             m_DetectableTags);
     }
 

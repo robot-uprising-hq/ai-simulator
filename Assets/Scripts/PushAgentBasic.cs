@@ -26,6 +26,8 @@ public class PushAgentBasic : Agent
     public RayObservationSensor upperSensor;
 
     [Space(10)]
+    // For testing purposes you can stop the agent from moving and
+    // for example move it manually to see the debug log's sensor values
     public bool stopAgent;
 
     /// <summary>
@@ -66,9 +68,25 @@ public class PushAgentBasic : Agent
 
     private int currentLevel = -1;
 
+    private bool inferenceModeOn = false;
+    private float ballTypeDefault = 2.0f;
+    private float levelDefault = 3.0f;
+    private float rayLengthDefault = 50.0f;
+
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
+
+        inferenceModeOn = !Academy.Instance.IsCommunicatorOn;
+
+        if (inferenceModeOn)
+        {
+            Debug.Log("In Inference mode, setting game settings from PushBlockSettings.");
+            ballTypeDefault = m_PushBlockSettings.ballType;
+            levelDefault = m_PushBlockSettings.level;
+            rayLengthDefault = m_PushBlockSettings.rayLength;
+            MaxStep = m_PushBlockSettings.maxSteps;
+        }
     }
 
     public override void Initialize()
@@ -232,7 +250,7 @@ public class PushAgentBasic : Agent
 
     public void SetBlockProperties()
     {
-        var ballType = (int)m_ResetParams.GetWithDefault("ball_type", 1);
+        var ballType = (int)m_ResetParams.GetWithDefault("ball_type", ballTypeDefault);
         if(ballType == 1)
         {
             blockGo.SetActive(true);
@@ -255,7 +273,7 @@ public class PushAgentBasic : Agent
 
     public void SetArena()
     {
-        var levelNum = (int)m_ResetParams.GetWithDefault("level", 0);
+        var levelNum = (int)m_ResetParams.GetWithDefault("level", levelDefault);
 
         if (levelNum == currentLevel) return;
 
@@ -285,10 +303,10 @@ public class PushAgentBasic : Agent
         SetBlockProperties();
         SetGroundMaterialFriction();
 
-        var distance = m_ResetParams.GetWithDefault("ray_length", 17);
+        var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
         lowerSensor.UpdateCastingDistance(distance);
         upperSensor.UpdateCastingDistance(distance);
 
-        MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", 5000);
+        MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", MaxStep);
     }
 }

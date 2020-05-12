@@ -13,6 +13,9 @@ public class PushBlockSettings : MonoBehaviour
     /// </summary>
     public float agentRotationSpeed;
 
+    public float agentMoveAndTurnMoveSpeed;
+    public float agentMoveAndTurnTurnSpeed;
+
     /// <summary>
     /// The spawn area margin multiplier.
     /// ex: .9 means 90% of spawn area will be used.
@@ -31,5 +34,11 @@ public class PushBlockSettings : MonoBehaviour
     /// When an agent fails, the ground will turn this material for a few seconds.
     /// </summary>
     public Material failMaterial;
+
+    [Space(10)]
+    public float ballType;
+    public float level;
+    public float rayLength;
+    public int maxSteps;
 
 }

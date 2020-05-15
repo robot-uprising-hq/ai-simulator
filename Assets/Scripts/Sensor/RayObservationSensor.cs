@@ -18,10 +18,12 @@ public class RayObservationSensor : MonoBehaviour
 
     [Space(10)]
     public bool m_ShowObservationDebug;
+    public bool m_DebugPrintObservationDebug;
 
     private RayCaster[] m_RayCasters;
 
     private Text m_ObservationDebugText;
+    private float[] angles;
 
     void Awake()
     {
@@ -46,7 +48,7 @@ public class RayObservationSensor : MonoBehaviour
         float frontCastingSphereSize,
         List<string> detectableTags)
     {
-        float[] angles = GetAngles(maxAnglePerSide, numberOfRaysPerSide);
+        angles = GetAngles(maxAnglePerSide, numberOfRaysPerSide);
 
         RayCaster[] rayCasters = new RayCaster[angles.Length];
         for (int i = 0; i < angles.Length; i++)
@@ -74,7 +76,7 @@ public class RayObservationSensor : MonoBehaviour
             Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
         }
 
-        if (m_ObservationDebugText != null && m_ShowObservationDebug)
+        if (m_ShowObservationDebug || m_DebugPrintObservationDebug)
         {
             string observation = "";
             var rayCount = m_RayCasters.Length;
@@ -84,10 +86,13 @@ public class RayObservationSensor : MonoBehaviour
                 float[] sectorObs = new float[sectorObservationCount];
                 // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
                 Array.Copy(allObs, i * sectorObservationCount, sectorObs, 0, sectorObservationCount);
-                var sectorObsStr = string.Join(":", sectorObs);
+                var sectorObsStr = String.Format("{0:0.0}: ", angles[i]) + string.Join(":", sectorObs);
                 observation += sectorObsStr + "\n";
             }
-            m_ObservationDebugText.text = observation;
+            if (m_ShowObservationDebug && m_ObservationDebugText != null)
+                m_ObservationDebugText.text = observation;
+            if (m_DebugPrintObservationDebug)
+                Debug.Log(observation);
         }
 
         return allObs;
@@ -135,9 +140,10 @@ public class RayObservationSensor : MonoBehaviour
     {
         if (m_RayCasters == null || m_RayCasters.Length < 1)  return;
 
+        bool inEditMode = Application.isEditor && !Application.isPlaying;
         foreach(RayCaster rayCaster in m_RayCasters)
         {
-            rayCaster.DrawCasterGizmos();
+            rayCaster.DrawCasterGizmos(inEditMode);
         }
     }
 }

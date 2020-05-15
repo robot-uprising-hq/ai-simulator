@@ -14,16 +14,16 @@ namespace MLAgents.Sensor
     public class UnitySimulationServer : MonoBehaviour
     {
         public RemoteAgent remoteAgent;
-        public ScreenStreamer screenStreamer;
-        public Camera camera;
 
         [Space(10)]
         public int port = 50051;
 
         private Server server;
+        private ScreenStreamer screenStreamer;
 
         void Start()
         {
+            screenStreamer = FindObjectOfType<ScreenStreamer>();
             StartServer();
         }
 
@@ -57,7 +57,7 @@ namespace MLAgents.Sensor
         {
             public RemoteAgent remoteAgent;
             public ScreenStreamer screenStreamer;
-            public Camera camera;
+            // public Camera camera;
 
             private Rect rect;
             private RenderTexture renderTexture;
@@ -79,7 +79,8 @@ namespace MLAgents.Sensor
             {
                 int action = req.Action;
 
-                remoteAgent.OnActionReceived(new float[] {action});
+                // remoteAgent.OnActionReceived(new float[] {action});
+                remoteAgent.agentAction = action;
 
                 return Task.FromResult(new SimulationActionResponse { Status = StatusType.Ok });
             }

@@ -10,10 +10,10 @@ public class RemoteAgent : MonoBehaviour
 {
     public bool randomRotateArenaOnReset;
 
-    public int MaxStep = 5000;
-    public int ballType = 2;
-    public int levelNum = 3;
-    public float rayLength = 50f;
+    // public int MaxStep = 5000;
+    // public int ballType = 2;
+    // public int levelNum = 3;
+    // public float rayLength = 50f;
 
     public GameObject area;
 
@@ -33,9 +33,11 @@ public class RemoteAgent : MonoBehaviour
     public RayObservationSensor upperSensor;
 
     [Space(10)]
+    [Header("Debuging and testing options")]
     // For testing purposes you can stop the agent from moving and
     // for example move it manually to see the debug log's sensor values
     public bool stopAgent;
+    public bool m_MakeRayObservations;
 
     /// <summary>
     /// The goal to push the block to.
@@ -75,12 +77,20 @@ public class RemoteAgent : MonoBehaviour
 
     private int currentLevel = -1;
     private int currentStep = 0;
+    private float ballTypeDefault = 2.0f;
+    private float levelDefault = 3.0f;
+    private float rayLengthDefault = 50.0f;
+    private int MaxStep = 5000;
 
-    // private float[] action = new float[] {0};
+    [HideInInspector]
+    public volatile int agentAction = -1;
 
     void Awake()
     {
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
+
+        Debug.Log("In Inference mode, setting game settings from PushBlockSettings.");
+
         Initialize();
     }
 
@@ -95,6 +105,14 @@ public class RemoteAgent : MonoBehaviour
         else
         {
             currentStep++;
+        }
+        if (agentAction > -1 && !stopAgent)
+            MoveAgent(new float[]{agentAction});
+        
+        if (m_MakeRayObservations)
+        {
+            GetLowerObservations();
+            GetUpperObservations();
         }
     }
 
@@ -175,6 +193,7 @@ public class RemoteAgent : MonoBehaviour
         {
             transform.Rotate(Vector3.zero, 0.0f);
             m_AgentRb.velocity = Vector3.zero;
+            return;
         };
 
         var dirToGo = Vector3.zero;
@@ -232,7 +251,6 @@ public class RemoteAgent : MonoBehaviour
     public void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
-        // action = vectorAction;
     }
 
     /// <summary>
@@ -281,6 +299,7 @@ public class RemoteAgent : MonoBehaviour
 
     public void SetBlockProperties()
     {
+        var ballType = (int)m_ResetParams.GetWithDefault("ball_type", ballTypeDefault);
         if(ballType == 1)
         {
             blockGo.SetActive(true);
@@ -303,6 +322,8 @@ public class RemoteAgent : MonoBehaviour
 
     public void SetArena()
     {
+        var levelNum = (int)m_ResetParams.GetWithDefault("level", levelDefault);
+
         if (levelNum == currentLevel) return;
 
         currentLevel = levelNum;
@@ -327,11 +348,19 @@ public class RemoteAgent : MonoBehaviour
 
     void SetResetParameters()
     {
+        ballTypeDefault = m_PushBlockSettings.ballType;
+        levelDefault = m_PushBlockSettings.level;
+        rayLengthDefault = m_PushBlockSettings.rayLength;
+        MaxStep = m_PushBlockSettings.maxSteps;
+
         SetArena();
         SetBlockProperties();
         SetGroundMaterialFriction();
 
-        lowerSensor.UpdateCastingDistance(rayLength);
-        upperSensor.UpdateCastingDistance(rayLength);
+        var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
+        if (lowerSensor != null) lowerSensor.UpdateCastingDistance(distance);
+        if (upperSensor != null) upperSensor.UpdateCastingDistance(distance);
+
+        MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", MaxStep);
     }
 }

@@ -1,10 +1,12 @@
 PushBlock:
     measure: reward
-    thresholds: [4, 4, 4, 4.2, 4.6]
+    thresholds: [4, 4, 4, 4.2, 4.3, 4.4, 4.5]
     min_lesson_length: 100
     signal_smoothing: true
     parameters:
-        max_steps:  [5000, 4000, 4000, 3000, 2000, 1500]
-        level:      [0,    1,    1,    2,    3,    3]
-        ball_type:  [1,    1,    2,    2,    2,    2] # 1=block, 2=ball
-        ray_length: [15,  25,   25,   40,   50,   50]
+        max_steps:              [5000, 3700, 3400, 2900, 2000, 1500, 1000, 500]
+        agent_speed:            [20,   17,   15,   12,   8,    5,    3,    3]
+        agent_rotation_speed:   [250,  240,  230,  210,  200,  200,  200,  200]
+        level:                  [0,    1,    1,    2,    3,    3,    3,    3]
+        ball_type:              [1,    1,    2,    2,    2,    2,    2,    2] # 1=block, 2=ball
+        ray_length:             [15,   25,   25,   40,   50,   50,   50,   50]

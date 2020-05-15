@@ -26,9 +26,13 @@ public class PushAgentBasic : Agent
     public RayObservationSensor upperSensor;
 
     [Space(10)]
+    [Header("Debuging and testing options")]
     // For testing purposes you can stop the agent from moving and
     // for example move it manually to see the debug log's sensor values
     public bool stopAgent;
+
+    public bool m_ForceAction;
+    public int m_ActionToForce;
 
     /// <summary>
     /// The goal to push the block to.
@@ -72,6 +76,11 @@ public class PushAgentBasic : Agent
     private float ballTypeDefault = 2.0f;
     private float levelDefault = 3.0f;
     private float rayLengthDefault = 50.0f;
+    private float rotationSpeedDefault = 200.0f;
+    private float agentSpeedDefault = 20.0f;
+
+    private float m_RotationSpeed;
+    private float m_AgentSpeed;
 
     void Awake()
     {
@@ -86,6 +95,8 @@ public class PushAgentBasic : Agent
             levelDefault = m_PushBlockSettings.level;
             rayLengthDefault = m_PushBlockSettings.rayLength;
             MaxStep = m_PushBlockSettings.maxSteps;
+            rotationSpeedDefault = m_PushBlockSettings.agentRotationSpeed;
+            agentSpeedDefault = m_PushBlockSettings.agentRunSpeed;
         }
     }
 
@@ -158,16 +169,29 @@ public class PushAgentBasic : Agent
     /// </summary>
     public void MoveAgent(float[] act)
     {
-        if (stopAgent) return;
+        if (stopAgent)
+        {
+            transform.Rotate(Vector3.zero, 0.0f);
+            m_AgentRb.velocity = Vector3.zero;
+            return;
+        }
 
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
-        var rotationSpeed = 200f;
 
         var action = Mathf.FloorToInt(act[0]);
+        if (m_ForceAction && m_ActionToForce > -1)
+        {
+            action = m_ActionToForce;
+        }
+
         // Goalies and Strikers have slightly different action spaces.
         switch (action)
         {
+            case 0: // Do nothing
+                transform.Rotate(Vector3.zero, 0.0f);
+                m_AgentRb.velocity = Vector3.zero;
+                break;
             case 1:  // Go forward
                 dirToGo = transform.forward * 1f;
                 break;
@@ -181,19 +205,27 @@ public class PushAgentBasic : Agent
                 rotateDir = transform.up * -1f;
                 break;
             // case 5:  // Go forward and turn right
+            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
+            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
             //     dirToGo = transform.forward * 0.75f;
             //     rotateDir  = transform.up * 1f;
             //     rotationSpeed = 150f;
             //     break;
             // case 6:  // Go forward and turn left
+            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
+            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
             //     dirToGo = transform.forward * 0.75f;
             //     rotateDir = transform.up * -1f;
             //     rotationSpeed = 150f;
             //     break;
+            default:
+                Debug.Log("Unknown action: " + action);
+                break;
         }
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * rotationSpeed);
-        m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
-            ForceMode.VelocityChange);
+        transform.Rotate(rotateDir, Time.fixedDeltaTime * m_RotationSpeed);
+        m_AgentRb.velocity = dirToGo * m_AgentSpeed;
+        // m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
+        //     ForceMode.VelocityChange);
     }
 
     /// <summary>
@@ -299,6 +331,9 @@ public class PushAgentBasic : Agent
 
     void SetResetParameters()
     {
+        m_RotationSpeed = m_ResetParams.GetWithDefault("agent_rotation_speed", rotationSpeedDefault);
+        m_AgentSpeed = m_ResetParams.GetWithDefault("agent_speed", agentSpeedDefault);
+
         SetArena();
         SetBlockProperties();
         SetGroundMaterialFriction();

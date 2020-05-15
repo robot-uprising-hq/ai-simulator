@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PushBlockSimulation.unity
+    guid: 8612325e677a3345e9dbdce4794ad2e9
   m_configObjects: {}

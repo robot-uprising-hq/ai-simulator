@@ -10,6 +10,7 @@ TagManager:
   - wall
   - ground
   - debug_text
+  - fps_text
   layers:
   - Default
   - TransparentFX

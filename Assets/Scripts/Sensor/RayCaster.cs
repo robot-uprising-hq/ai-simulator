@@ -11,6 +11,7 @@ public struct PerceptionOutput
 public class RayCaster
 {
     private Color m_GizmoColor = Color.red;
+    private Color m_GizmoFrontColor = Color.yellow;
     Transform m_RobotTrans;
     float m_OffsetHeight;
     float m_CastingDistance;
@@ -63,10 +64,6 @@ public class RayCaster
             observations[observations.Length - 2] = 1.0f;
         }
 
-        // Debug.LogFormat(
-        //     "m_StartAngleDeg: {0:0.0}, observations: {1}",
-        //     m_StartAngleDeg,
-        //     string.Join(":", observations));
         return observations;
     }
  
@@ -81,7 +78,7 @@ public class RayCaster
             out m_Hit,
             m_CastingDistance);
 
-        PerceptionOutput output = new PerceptionOutput();
+        output = new PerceptionOutput();
         if (m_HitDetect)
         {
             float hitDistance = Vector3.Distance(m_RobotTrans.position, m_Hit.point);
@@ -97,28 +94,21 @@ public class RayCaster
         return output;
     }
 
-    public void DrawCasterGizmos()
+    public void DrawCasterGizmos(bool inEditMode)
     {
+        // if (inEditMode)
         output = Cast();
 
         m_CastingDir = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward;
-        Gizmos.color = m_GizmoColor;
+        if (Mathf.FloorToInt(m_AngleDeg) == 0)
+            Gizmos.color = m_GizmoFrontColor;
+        else
+            Gizmos.color = m_GizmoColor;
 
-        // Matrix4x4 cubeTransform = Matrix4x4.TRS(
-        //     m_RobotTrans.position + m_CastingDir * m_CastingDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f),
-        //     m_RobotTrans.rotation * Quaternion.Euler(0, m_AngleDeg, 0),
-        //     m_RobotTrans.lossyScale);
-
-        // Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
-        // Gizmos.matrix *= cubeTransform;
         float drawDistance = output.Distance > 0 ? output.Distance : m_CastingDistance;
         Gizmos.DrawWireSphere(m_RobotTrans.position + m_CastingDir * drawDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_CastSphereSize);
 
-        // Gizmos.matrix = oldGizmosMatrix;
-        // float sideLength = m_MaxDistance;
         Vector3 startVec = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward * drawDistance;
         Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);
-        // Vector3 endVec = Quaternion.Euler(0, m_EndAngleDeg, 0) * m_RobotTrans.forward * sideLength;
-        // Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), endVec);
     }
 }

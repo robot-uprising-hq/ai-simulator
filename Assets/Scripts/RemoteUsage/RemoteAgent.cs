@@ -10,11 +10,6 @@ public class RemoteAgent : MonoBehaviour
 {
     public bool randomRotateArenaOnReset;
 
-    // public int MaxStep = 5000;
-    // public int ballType = 2;
-    // public int levelNum = 3;
-    // public float rayLength = 50f;
-
     public GameObject area;
 
     public List<GameObject> arenas = new List<GameObject>();
@@ -37,6 +32,8 @@ public class RemoteAgent : MonoBehaviour
     // For testing purposes you can stop the agent from moving and
     // for example move it manually to see the debug log's sensor values
     public bool stopAgent;
+    public bool m_ForceAction;
+    public int m_ActionToForce;
     public bool m_MakeRayObservations;
 
     /// <summary>
@@ -80,7 +77,20 @@ public class RemoteAgent : MonoBehaviour
     private float ballTypeDefault = 2.0f;
     private float levelDefault = 3.0f;
     private float rayLengthDefault = 50.0f;
+    private float m_SpawnAreaMarginMultiplier;
     private int MaxStep = 5000;
+
+    // Rotation
+    private float m_RotationSpeed;
+    private float m_RotationSpeedRandom;
+
+    // Speed
+    private float m_AgentSpeed;
+    private float m_AgentSpeedRandom;
+
+    // Move and rotate
+    private float m_AgentMoveRotMoveSpeed;
+    private float m_AgentMoveRotTurnSpeed;
 
     [HideInInspector]
     public volatile int agentAction = -1;
@@ -145,13 +155,15 @@ public class RemoteAgent : MonoBehaviour
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
         {
-            var randomPosX = UnityEngine.Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
-                areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier);
+            var randomPosX = UnityEngine.Random.Range(
+                -areaBounds.extents.x * m_SpawnAreaMarginMultiplier,
+                areaBounds.extents.x * m_SpawnAreaMarginMultiplier);
 
-            var randomPosZ = UnityEngine.Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
-                areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier);
+            var randomPosZ = UnityEngine.Random.Range(
+                -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
+                areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
-            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.01f, 2.5f)) == false)
+            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
             {
                 foundNewSpawnLocation = true;
             }
@@ -194,14 +206,19 @@ public class RemoteAgent : MonoBehaviour
             transform.Rotate(Vector3.zero, 0.0f);
             m_AgentRb.velocity = Vector3.zero;
             return;
-        };
+        }
 
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
-        var rotationSpeed = m_PushBlockSettings.agentRotationSpeed;
-        var agentSpeed = m_PushBlockSettings.agentRunSpeed;
 
         var action = Mathf.FloorToInt(act[0]);
+        if (m_ForceAction && m_ActionToForce > -1)
+        {
+            action = m_ActionToForce;
+        }
+
+        var agentSpeed = m_AgentSpeed;
+        var rotationSpeed = m_RotationSpeed;
         // Goalies and Strikers have slightly different action spaces.
         switch (action)
         {
@@ -221,28 +238,27 @@ public class RemoteAgent : MonoBehaviour
             case 4:  // Turn left
                 rotateDir = transform.up * -1f;
                 break;
-            // case 5:  // Go forward and turn right
-            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
-            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
-            //     dirToGo = transform.forward * 0.75f;
-            //     rotateDir  = transform.up * 1f;
-            //     rotationSpeed = 150f;
-            //     break;
-            // case 6:  // Go forward and turn left
-            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
-            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
-            //     dirToGo = transform.forward * 0.75f;
-            //     rotateDir = transform.up * -1f;
-            //     rotationSpeed = 150f;
-            //     break;
+            case 5:  // Go forward and turn right
+                agentSpeed = m_AgentMoveRotMoveSpeed;
+                rotationSpeed = m_AgentMoveRotTurnSpeed;
+                dirToGo = transform.forward * 1f;
+                rotateDir  = transform.up * 1f;
+                break;
+            case 6:  // Go forward and turn left
+                agentSpeed = m_AgentMoveRotMoveSpeed;
+                rotationSpeed = m_AgentMoveRotTurnSpeed;
+                dirToGo = transform.forward * 1f;
+                rotateDir = transform.up * -1f;
+                break;
             default:
                 Debug.Log("Unknown action: " + action);
                 break;
         }
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * rotationSpeed);
-        m_AgentRb.velocity = dirToGo * agentSpeed;
-        // m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
-        //     ForceMode.VelocityChange);
+
+        transform.Rotate(
+            rotateDir,
+            Time.fixedDeltaTime * (rotationSpeed + AddRandomFactor(rotationSpeed, m_RotationSpeedRandom)));
+        m_AgentRb.velocity = dirToGo * (agentSpeed + AddRandomFactor(agentSpeed, m_AgentSpeedRandom));
     }
 
     /// <summary>
@@ -251,6 +267,12 @@ public class RemoteAgent : MonoBehaviour
     public void OnActionReceived(float[] vectorAction)
     {
         MoveAgent(vectorAction);
+    }
+
+    float AddRandomFactor(float baseValue, float randomFactor)
+    {
+        float randomMultiplier = UnityEngine.Random.Range(-randomFactor, randomFactor);
+        return baseValue * randomMultiplier;
     }
 
     /// <summary>
@@ -353,13 +375,21 @@ public class RemoteAgent : MonoBehaviour
         rayLengthDefault = m_PushBlockSettings.rayLength;
         MaxStep = m_PushBlockSettings.maxSteps;
 
+        m_RotationSpeed = m_PushBlockSettings.agentRotationSpeed;
+        m_RotationSpeedRandom = m_PushBlockSettings.agentRotationSpeedRandom;
+        m_AgentSpeed = m_PushBlockSettings.agentRunSpeed;
+        m_AgentSpeedRandom = m_PushBlockSettings.agentRunSpeedRandom;
+        m_AgentMoveRotMoveSpeed = m_PushBlockSettings.agentMoveRotMoveSpeed;
+        m_AgentMoveRotTurnSpeed = m_PushBlockSettings.agentMoveRotTurnSpeed;
+        m_SpawnAreaMarginMultiplier = m_PushBlockSettings.spawnAreaMarginMultiplier;
+
         SetArena();
         SetBlockProperties();
         SetGroundMaterialFriction();
 
         var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
-        if (lowerSensor != null) lowerSensor.UpdateCastingDistance(distance);
-        if (upperSensor != null) upperSensor.UpdateCastingDistance(distance);
+        if (lowerSensor != null) lowerSensor.UpdateCasting(distance, 0.0f, 0.0f);
+        if (upperSensor != null) upperSensor.UpdateCasting(distance, 0.0f, 0.0f);
 
         MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", MaxStep);
     }

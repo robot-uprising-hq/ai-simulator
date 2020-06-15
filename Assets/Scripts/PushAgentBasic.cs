@@ -30,9 +30,12 @@ public class PushAgentBasic : Agent
     // For testing purposes you can stop the agent from moving and
     // for example move it manually to see the debug log's sensor values
     public bool stopAgent;
-
     public bool m_ForceAction;
     public int m_ActionToForce;
+
+    // Buffer for actions to be queued to simulate lag in real world where
+    // the action sent to robot might be a bit old.
+    private ActionLagBuffer m_ActionLagBuffer;
 
     /// <summary>
     /// The goal to push the block to.
@@ -61,7 +64,7 @@ public class PushAgentBasic : Agent
 
     Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
-    Material m_GroundMaterial; //cached on Awake()
+    Material m_GroundMaterial;
 
     /// <summary>
     /// We will be changing the ground material based on success/failue
@@ -76,27 +79,34 @@ public class PushAgentBasic : Agent
     private float ballTypeDefault = 2.0f;
     private float levelDefault = 3.0f;
     private float rayLengthDefault = 50.0f;
-    private float rotationSpeedDefault = 200.0f;
-    private float agentSpeedDefault = 20.0f;
+    private float m_SpawnAreaMarginMultiplier;
 
+    // Rotation
     private float m_RotationSpeed;
+    private float m_RotationSpeedRandom;
+
+    // Speed
     private float m_AgentSpeed;
+    private float m_AgentSpeedRandom;
+
+    // Move and rotate
+    private float m_AgentMoveRotMoveSpeed;
+    private float m_AgentMoveRotTurnSpeed;
+
 
     void Awake()
     {
+        m_ActionLagBuffer = GetComponent<ActionLagBuffer>();
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
 
         inferenceModeOn = !Academy.Instance.IsCommunicatorOn;
 
         if (inferenceModeOn)
         {
-            Debug.Log("In Inference mode, setting game settings from PushBlockSettings.");
             ballTypeDefault = m_PushBlockSettings.ballType;
             levelDefault = m_PushBlockSettings.level;
             rayLengthDefault = m_PushBlockSettings.rayLength;
             MaxStep = m_PushBlockSettings.maxSteps;
-            rotationSpeedDefault = m_PushBlockSettings.agentRotationSpeed;
-            agentSpeedDefault = m_PushBlockSettings.agentRunSpeed;
         }
     }
 
@@ -125,11 +135,13 @@ public class PushAgentBasic : Agent
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
         {
-            var randomPosX = UnityEngine.Random.Range(-areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier,
-                areaBounds.extents.x * m_PushBlockSettings.spawnAreaMarginMultiplier);
+            var randomPosX = UnityEngine.Random.Range(
+                -areaBounds.extents.x * m_SpawnAreaMarginMultiplier,
+                areaBounds.extents.x * m_SpawnAreaMarginMultiplier);
 
-            var randomPosZ = UnityEngine.Random.Range(-areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier,
-                areaBounds.extents.z * m_PushBlockSettings.spawnAreaMarginMultiplier);
+            var randomPosZ = UnityEngine.Random.Range(
+                -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
+                areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
             if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
             {
@@ -167,7 +179,7 @@ public class PushAgentBasic : Agent
     /// <summary>
     /// Moves the agent according to the selected action.
     /// </summary>
-    public void MoveAgent(float[] act)
+    public void MoveAgent(float act)
     {
         if (stopAgent)
         {
@@ -179,12 +191,14 @@ public class PushAgentBasic : Agent
         var dirToGo = Vector3.zero;
         var rotateDir = Vector3.zero;
 
-        var action = Mathf.FloorToInt(act[0]);
+        var action = Mathf.FloorToInt(act);
         if (m_ForceAction && m_ActionToForce > -1)
         {
             action = m_ActionToForce;
         }
 
+        var agentSpeed = m_AgentSpeed;
+        var rotationSpeed = m_RotationSpeed;
         // Goalies and Strikers have slightly different action spaces.
         switch (action)
         {
@@ -204,28 +218,27 @@ public class PushAgentBasic : Agent
             case 4:  // Turn left
                 rotateDir = transform.up * -1f;
                 break;
-            // case 5:  // Go forward and turn right
-            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
-            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
-            //     dirToGo = transform.forward * 0.75f;
-            //     rotateDir  = transform.up * 1f;
-            //     rotationSpeed = 150f;
-            //     break;
-            // case 6:  // Go forward and turn left
-            //     agentSpeed = m_PushBlockSettings.agentMoveAndTurnMoveSpeed;
-            //     rotationSpeed = m_PushBlockSettings.agentMoveAndTurnTurnSpeed;
-            //     dirToGo = transform.forward * 0.75f;
-            //     rotateDir = transform.up * -1f;
-            //     rotationSpeed = 150f;
-            //     break;
+            case 5:  // Go forward and turn right
+                agentSpeed = m_AgentMoveRotMoveSpeed;
+                rotationSpeed = m_AgentMoveRotTurnSpeed;
+                dirToGo = transform.forward * 1f;
+                rotateDir  = transform.up * 1f;
+                break;
+            case 6:  // Go forward and turn left
+                agentSpeed = m_AgentMoveRotMoveSpeed;
+                rotationSpeed = m_AgentMoveRotTurnSpeed;
+                dirToGo = transform.forward * 1f;
+                rotateDir = transform.up * -1f;
+                break;
             default:
                 Debug.Log("Unknown action: " + action);
                 break;
         }
-        transform.Rotate(rotateDir, Time.fixedDeltaTime * m_RotationSpeed);
-        m_AgentRb.velocity = dirToGo * m_AgentSpeed;
-        // m_AgentRb.AddForce(dirToGo * m_PushBlockSettings.agentRunSpeed,
-        //     ForceMode.VelocityChange);
+
+        transform.Rotate(
+            rotateDir,
+            Time.fixedDeltaTime * (rotationSpeed + AddRandomFactor(rotationSpeed, m_RotationSpeedRandom)));
+        m_AgentRb.velocity = dirToGo * (agentSpeed + AddRandomFactor(agentSpeed, m_AgentSpeedRandom));
     }
 
     /// <summary>
@@ -233,11 +246,19 @@ public class PushAgentBasic : Agent
     /// </summary>
     public override void OnActionReceived(float[] vectorAction)
     {
+        m_ActionLagBuffer.InsertAction(vectorAction[0]);
+        float laggedAction = m_ActionLagBuffer.GetAction();
         // Move the agent using the action.
-        MoveAgent(vectorAction);
+        MoveAgent(laggedAction);
 
         // Penalty given each step to encourage agent to finish task quickly.
         AddReward(-1f / MaxStep);
+    }
+
+    float AddRandomFactor(float baseValue, float randomFactor)
+    {
+        float randomMultiplier = UnityEngine.Random.Range(-randomFactor, randomFactor);
+        return baseValue * randomMultiplier;
     }
 
     /// <summary>
@@ -331,16 +352,45 @@ public class PushAgentBasic : Agent
 
     void SetResetParameters()
     {
-        m_RotationSpeed = m_ResetParams.GetWithDefault("agent_rotation_speed", rotationSpeedDefault);
-        m_AgentSpeed = m_ResetParams.GetWithDefault("agent_speed", agentSpeedDefault);
+        m_RotationSpeed = m_ResetParams.GetWithDefault(
+            "agent_rotation_speed",
+            m_PushBlockSettings.agentRotationSpeed);
+        m_RotationSpeedRandom = m_ResetParams.GetWithDefault(
+            "random_direction",
+            m_PushBlockSettings.agentRotationSpeedRandom);
+
+        m_AgentSpeed = m_ResetParams.GetWithDefault(
+            "agent_speed",
+            m_PushBlockSettings.agentRunSpeed);
+        m_AgentSpeedRandom = m_ResetParams.GetWithDefault(
+            "random_speed",
+            m_PushBlockSettings.agentRunSpeedRandom);
+
+        m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
+            "agent_moverot_move_speed",
+            m_PushBlockSettings.agentMoveRotMoveSpeed);
+        m_AgentMoveRotTurnSpeed = m_ResetParams.GetWithDefault(
+            "agent_moverot_rot_speed",
+            m_PushBlockSettings.agentMoveRotTurnSpeed);
+
+        m_SpawnAreaMarginMultiplier = m_ResetParams.GetWithDefault(
+            "spawn_area_margin",
+            m_PushBlockSettings.spawnAreaMarginMultiplier);
+
+        float observationDistanceRandom = m_ResetParams.GetWithDefault(
+            "random_obs_dist",
+            m_PushBlockSettings.observationDistanceRandom);
+        float observationAngleRandom = m_ResetParams.GetWithDefault(
+            "random_obs_angle",
+            m_PushBlockSettings.observationAngleRandom);
 
         SetArena();
         SetBlockProperties();
         SetGroundMaterialFriction();
 
         var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
-        lowerSensor.UpdateCastingDistance(distance);
-        upperSensor.UpdateCastingDistance(distance);
+        lowerSensor.UpdateCasting(distance, observationDistanceRandom, observationAngleRandom);
+        upperSensor.UpdateCasting(distance, observationDistanceRandom, observationAngleRandom);
 
         MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", MaxStep);
     }

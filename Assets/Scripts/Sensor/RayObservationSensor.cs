@@ -9,6 +9,7 @@ public class RayObservationSensor : MonoBehaviour
     public float m_MaxAnglePerSide;
     public int m_NumberOfRaysPerSide;
     public float m_MaxDistance;
+    // public float m_DistanceRandom;
     public float m_OffsetHeight;
     public float m_CastingSphereSize;
     public float m_FrontCastingSphereSize;
@@ -98,12 +99,12 @@ public class RayObservationSensor : MonoBehaviour
         return allObs;
     }
 
-    public void UpdateCastingDistance(float distance)
+    public void UpdateCasting(float distance, float distanceRandom, float angleRandom)
     {
         m_MaxDistance = distance;
         foreach(RayCaster rayCaster in m_RayCasters)
         {
-            rayCaster.UpdateCastingDistance(distance);
+            rayCaster.UpdateCasting(distance, distanceRandom, angleRandom);
         }
     }
 

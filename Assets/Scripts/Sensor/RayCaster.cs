@@ -15,9 +15,12 @@ public class RayCaster
     Transform m_RobotTrans;
     float m_OffsetHeight;
     float m_CastingDistance;
+    float m_CastingDistanceRandom = 0.0f;
     float m_CastSphereSize;
 
     float m_AngleDeg;
+    float m_AngleDegRandom = 0.0f;
+    float m_CurrentAngle;
     List<string> m_DetectableTags;
 
     RaycastHit m_Hit;
@@ -36,9 +39,11 @@ public class RayCaster
         m_DetectableTags = detectableTags;
     }
 
-    public void UpdateCastingDistance(float castingDistance)
+    public void UpdateCasting(float castingDistance, float distanceRandom, float angleRandom)
     {
         m_CastingDistance = castingDistance;
+        m_CastingDistanceRandom = distanceRandom;
+        m_AngleDegRandom = angleRandom;
     }
 
     public float[] GetObservations()
@@ -54,7 +59,9 @@ public class RayCaster
                 if (output.hitGo.CompareTag(m_DetectableTags[i]))
                 {
                     observations[i] = 1.0f;
-                    observations[observations.Length - 1] = output.Distance / m_CastingDistance;
+                    float distance = output.Distance / m_CastingDistance;
+                    distance = distance * Random.Range(1.0f - m_CastingDistanceRandom, 1.0f);
+                    observations[observations.Length - 1] = distance;
                     break;
                 }
             }
@@ -69,7 +76,8 @@ public class RayCaster
  
     public PerceptionOutput Cast()
     {
-        m_CastingDir = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward;
+        m_CurrentAngle = m_AngleDeg + Random.Range(-m_AngleDegRandom, m_AngleDegRandom);
+        m_CastingDir = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward;
 
         m_HitDetect = Physics.SphereCast(
             m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f),
@@ -96,10 +104,11 @@ public class RayCaster
 
     public void DrawCasterGizmos(bool inEditMode)
     {
+        // TODO: Draw the actual outputs which were created a moment ago. Now we make a new Cast
         // if (inEditMode)
         output = Cast();
 
-        m_CastingDir = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward;
+        m_CastingDir = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward;
         if (Mathf.FloorToInt(m_AngleDeg) == 0)
             Gizmos.color = m_GizmoFrontColor;
         else
@@ -108,7 +117,7 @@ public class RayCaster
         float drawDistance = output.Distance > 0 ? output.Distance : m_CastingDistance;
         Gizmos.DrawWireSphere(m_RobotTrans.position + m_CastingDir * drawDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_CastSphereSize);
 
-        Vector3 startVec = Quaternion.Euler(0, m_AngleDeg, 0) * m_RobotTrans.forward * drawDistance;
+        Vector3 startVec = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward * drawDistance;
         Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);
     }
 }

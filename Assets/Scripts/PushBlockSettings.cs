@@ -2,20 +2,34 @@ using UnityEngine;
 
 public class PushBlockSettings : MonoBehaviour
 {
+    [Space(10)]
     /// <summary>
     /// The "walking speed" of the agents in the scene.
     /// </summary>
     public float agentRunSpeed;
+    // Value is a percent of original which is added or substracted from original
+    public float agentRunSpeedRandom;
 
+    [Space(10)]
     /// <summary>
     /// The agent rotation speed.
     /// Every agent will use this setting.
     /// </summary>
     public float agentRotationSpeed;
+    // Value is a percent of original which is added or substracted from original
+    public float agentRotationSpeedRandom;
 
-    public float agentMoveAndTurnMoveSpeed;
-    public float agentMoveAndTurnTurnSpeed;
+    [Space(10)]
+    public float agentMoveRotMoveSpeed;
+    public float agentMoveRotTurnSpeed;
 
+    [Space(10)]
+    // Value is a percent of original which is added or substracted from original
+    public float observationDistanceRandom;
+    // Value is degrees which is added or substracted from original
+    public float observationAngleRandom;
+
+    [Space(10)]
     /// <summary>
     /// The spawn area margin multiplier.
     /// ex: .9 means 90% of spawn area will be used.

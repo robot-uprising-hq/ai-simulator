@@ -83,11 +83,11 @@ public class PushAgentBasic : Agent
 
     // Rotation
     private float m_RotationSpeed;
-    private float m_RotationSpeedRandom;
+    private float m_RotationSpeedRandomFactor;
 
     // Speed
     private float m_AgentSpeed;
-    private float m_AgentSpeedRandom;
+    private float m_AgentSpeedRandomFactor;
 
     // Move and rotate
     private float m_AgentMoveRotMoveSpeed;
@@ -237,8 +237,8 @@ public class PushAgentBasic : Agent
 
         transform.Rotate(
             rotateDir,
-            Time.fixedDeltaTime * (rotationSpeed + AddRandomFactor(rotationSpeed, m_RotationSpeedRandom)));
-        m_AgentRb.velocity = dirToGo * (agentSpeed + AddRandomFactor(agentSpeed, m_AgentSpeedRandom));
+            Time.fixedDeltaTime * rotationSpeed * m_RotationSpeedRandomFactor);
+        m_AgentRb.velocity = dirToGo * agentSpeed * m_AgentSpeedRandomFactor;
     }
 
     /// <summary>
@@ -255,10 +255,10 @@ public class PushAgentBasic : Agent
         AddReward(-1f / MaxStep);
     }
 
-    float AddRandomFactor(float baseValue, float randomFactor)
+    float AddRandomFactor(float randomFactor)
     {
         float randomMultiplier = UnityEngine.Random.Range(-randomFactor, randomFactor);
-        return baseValue * randomMultiplier;
+        return 1 + randomMultiplier;
     }
 
     /// <summary>
@@ -355,16 +355,20 @@ public class PushAgentBasic : Agent
         m_RotationSpeed = m_ResetParams.GetWithDefault(
             "agent_rotation_speed",
             m_PushBlockSettings.agentRotationSpeed);
-        m_RotationSpeedRandom = m_ResetParams.GetWithDefault(
+        
+        float rotationSpeedRandom = m_ResetParams.GetWithDefault(
             "random_direction",
             m_PushBlockSettings.agentRotationSpeedRandom);
+        m_RotationSpeedRandomFactor = AddRandomFactor(rotationSpeedRandom);
 
         m_AgentSpeed = m_ResetParams.GetWithDefault(
             "agent_speed",
             m_PushBlockSettings.agentRunSpeed);
-        m_AgentSpeedRandom = m_ResetParams.GetWithDefault(
+        
+        float agentSpeedRandom = m_ResetParams.GetWithDefault(
             "random_speed",
             m_PushBlockSettings.agentRunSpeedRandom);
+        m_AgentSpeedRandomFactor = AddRandomFactor(agentSpeedRandom);
 
         m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
             "agent_moverot_move_speed",

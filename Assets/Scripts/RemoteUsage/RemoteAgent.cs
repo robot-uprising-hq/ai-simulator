@@ -36,6 +36,10 @@ public class RemoteAgent : MonoBehaviour
     public int m_ActionToForce;
     public bool m_MakeRayObservations;
 
+    // Buffer for actions to be queued to simulate lag in real world where
+    // the action sent to robot might be a bit old.
+    private ActionLagBuffer m_ActionLagBuffer;
+
     /// <summary>
     /// The goal to push the block to.
     /// </summary>
@@ -82,11 +86,11 @@ public class RemoteAgent : MonoBehaviour
 
     // Rotation
     private float m_RotationSpeed;
-    private float m_RotationSpeedRandom;
+    private float m_RotationSpeedRandomFactor;
 
     // Speed
     private float m_AgentSpeed;
-    private float m_AgentSpeedRandom;
+    private float m_AgentSpeedRandomFactor;
 
     // Move and rotate
     private float m_AgentMoveRotMoveSpeed;
@@ -97,9 +101,15 @@ public class RemoteAgent : MonoBehaviour
 
     void Awake()
     {
+        m_ActionLagBuffer = GetComponent<ActionLagBuffer>();
         m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
 
         Debug.Log("In Inference mode, setting game settings from PushBlockSettings.");
+
+        ballTypeDefault = m_PushBlockSettings.ballType;
+        levelDefault = m_PushBlockSettings.level;
+        rayLengthDefault = m_PushBlockSettings.rayLength;
+        MaxStep = m_PushBlockSettings.maxSteps;
 
         Initialize();
     }
@@ -162,7 +172,7 @@ public class RemoteAgent : MonoBehaviour
             var randomPosZ = UnityEngine.Random.Range(
                 -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
-            randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
+            randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 0.5f, randomPosZ);
             if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
             {
                 foundNewSpawnLocation = true;
@@ -255,10 +265,13 @@ public class RemoteAgent : MonoBehaviour
                 break;
         }
 
+        // Set agent rotation
         transform.Rotate(
             rotateDir,
-            Time.fixedDeltaTime * (rotationSpeed + AddRandomFactor(rotationSpeed, m_RotationSpeedRandom)));
-        m_AgentRb.velocity = dirToGo * (agentSpeed + AddRandomFactor(agentSpeed, m_AgentSpeedRandom));
+            Time.fixedDeltaTime * rotationSpeed * m_RotationSpeedRandomFactor);
+        // Set agent speed
+        m_AgentRb.AddForce(dirToGo * agentSpeed * m_AgentSpeedRandomFactor,
+            ForceMode.VelocityChange);
     }
 
     /// <summary>
@@ -266,13 +279,15 @@ public class RemoteAgent : MonoBehaviour
     /// </summary>
     public void OnActionReceived(float[] vectorAction)
     {
+        m_ActionLagBuffer.InsertAction(vectorAction[0]);
+        float laggedAction = m_ActionLagBuffer.GetAction();
         MoveAgent(vectorAction);
     }
 
-    float AddRandomFactor(float baseValue, float randomFactor)
+    float AddRandomFactor(float randomFactor)
     {
         float randomMultiplier = UnityEngine.Random.Range(-randomFactor, randomFactor);
-        return baseValue * randomMultiplier;
+        return 1 + randomMultiplier;
     }
 
     /// <summary>
@@ -370,18 +385,41 @@ public class RemoteAgent : MonoBehaviour
 
     void SetResetParameters()
     {
-        ballTypeDefault = m_PushBlockSettings.ballType;
-        levelDefault = m_PushBlockSettings.level;
-        rayLengthDefault = m_PushBlockSettings.rayLength;
-        MaxStep = m_PushBlockSettings.maxSteps;
+        m_RotationSpeed = m_ResetParams.GetWithDefault(
+            "agent_rotation_speed",
+            m_PushBlockSettings.agentRotationSpeed);
+        
+        float rotationSpeedRandom = m_ResetParams.GetWithDefault(
+            "random_direction",
+            m_PushBlockSettings.agentRotationSpeedRandom);
+        m_RotationSpeedRandomFactor = AddRandomFactor(rotationSpeedRandom);
 
-        m_RotationSpeed = m_PushBlockSettings.agentRotationSpeed;
-        m_RotationSpeedRandom = m_PushBlockSettings.agentRotationSpeedRandom;
-        m_AgentSpeed = m_PushBlockSettings.agentRunSpeed;
-        m_AgentSpeedRandom = m_PushBlockSettings.agentRunSpeedRandom;
-        m_AgentMoveRotMoveSpeed = m_PushBlockSettings.agentMoveRotMoveSpeed;
-        m_AgentMoveRotTurnSpeed = m_PushBlockSettings.agentMoveRotTurnSpeed;
-        m_SpawnAreaMarginMultiplier = m_PushBlockSettings.spawnAreaMarginMultiplier;
+        m_AgentSpeed = m_ResetParams.GetWithDefault(
+            "agent_speed",
+            m_PushBlockSettings.agentRunSpeed);
+        
+        float agentSpeedRandom = m_ResetParams.GetWithDefault(
+            "random_speed",
+            m_PushBlockSettings.agentRunSpeedRandom);
+        m_AgentSpeedRandomFactor = AddRandomFactor(agentSpeedRandom);
+
+        m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
+            "agent_moverot_move_speed",
+            m_PushBlockSettings.agentMoveRotMoveSpeed);
+        m_AgentMoveRotTurnSpeed = m_ResetParams.GetWithDefault(
+            "agent_moverot_rot_speed",
+            m_PushBlockSettings.agentMoveRotTurnSpeed);
+
+        m_SpawnAreaMarginMultiplier = m_ResetParams.GetWithDefault(
+            "spawn_area_margin",
+            m_PushBlockSettings.spawnAreaMarginMultiplier);
+
+        float observationDistanceRandom = m_ResetParams.GetWithDefault(
+            "random_obs_dist",
+            m_PushBlockSettings.observationDistanceRandom);
+        float observationAngleRandom = m_ResetParams.GetWithDefault(
+            "random_obs_angle",
+            m_PushBlockSettings.observationAngleRandom);
 
         SetArena();
         SetBlockProperties();

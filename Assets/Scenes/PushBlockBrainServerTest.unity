@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 11
   m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
@@ -99,8 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000002, guid: 03723c7f910c3423aa1974f1b9ce8392,
     type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 64d35afcc25682ccf850be4c7ee0fb0e,
-    type: 2}
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -120,11 +119,21 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
-    maxJobWorkers: 0
-    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &230471124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6489012104491242257, guid: 15b4491435406c131a0d62be684b15e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7023050005463080586}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdec56d5782c84f18a1dcf85dc1d040c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &255077123
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,9 +345,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a61bd9cc988b2e15abcea135d78a1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 10
   TakeActionsBetweenDecisions: 1
-  remoteAgent: {fileID: 7023050005463080587}
+  remoteAgent: {fileID: 230471124}
   brainServerIp: localhost
   brainServerPort: 50052
 --- !u!4 &1049006104
@@ -476,16 +485,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ed63dbfa25542ecb8bc013adfba183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentRunSpeed: 20
-  agentRotationSpeed: 200
-  agentMoveAndTurnMoveSpeed: 0
-  agentMoveAndTurnTurnSpeed: 0
+  agentRunSpeed: 3
+  agentRunSpeedRandom: 0
+  agentRotationSpeed: 150
+  agentRotationSpeedRandom: 0
+  agentMoveRotMoveSpeed: 2
+  agentMoveRotTurnSpeed: 50
+  observationDistanceRandom: 0
+  observationAngleRandom: 0
   spawnAreaMarginMultiplier: 0.5
   goalScoredMaterial: {fileID: 2100000, guid: df32cc593804f42df97464dc455057b8, type: 2}
   failMaterial: {fileID: 2100000, guid: a1daf31cdf41e484ca9ac33a5c6f524a, type: 2}
   ballType: 2
   level: 3
-  rayLength: 50
+  rayLength: 17
   maxSteps: 2500
 --- !u!1001 &1678426472
 PrefabInstance:
@@ -748,15 +761,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15b4491435406c131a0d62be684b15e9, type: 3}
---- !u!114 &7023050005463080587 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8354073721643724626, guid: 15b4491435406c131a0d62be684b15e9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7023050005463080586}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdec56d5782c84f18a1dcf85dc1d040c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

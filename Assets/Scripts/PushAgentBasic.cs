@@ -77,7 +77,7 @@ public class PushAgentBasic : Agent
 
     private bool inferenceModeOn = false;
     private float ballTypeDefault = 2.0f;
-    private float levelDefault = 3.0f;
+    private float levelDefault = 0.0f;
     private float rayLengthDefault = 50.0f;
     private float m_SpawnAreaMarginMultiplier;
 
@@ -129,7 +129,7 @@ public class PushAgentBasic : Agent
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
     /// </summary>
-    public Vector3 GetRandomSpawnPos()
+    public Vector3 GetRandomSpawnPos(GameObject go)
     {
         var foundNewSpawnLocation = false;
         var randomSpawnPos = Vector3.zero;
@@ -143,7 +143,8 @@ public class PushAgentBasic : Agent
                 -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
-            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.1f, 2.5f)) == false)
+            Vector3 goSize = go.GetComponent<Collider>().bounds.extents;
+            if (Physics.CheckBox(randomSpawnPos, new Vector3(goSize.x + 0.1f, 0.1f, goSize.z + 0.1f)) == false)
             {
                 foundNewSpawnLocation = true;
             }
@@ -181,6 +182,11 @@ public class PushAgentBasic : Agent
     /// </summary>
     public void MoveAgent(float act)
     {
+        // Add a force downwards to compensate the high drag in rigidbody
+        // for making the gravity very slow
+        m_AgentRb.AddForce(transform.up * -1f * 1000f,
+            ForceMode.Force);
+
         if (stopAgent)
         {
             transform.Rotate(Vector3.zero, 0.0f);
@@ -203,8 +209,8 @@ public class PushAgentBasic : Agent
         switch (action)
         {
             case 0: // Do nothing
-                transform.Rotate(Vector3.zero, 0.0f);
-                m_AgentRb.velocity = Vector3.zero;
+            //     transform.Rotate(Vector3.zero, 0.0f);
+            //     m_AgentRb.velocity = Vector3.zero;
                 break;
             case 1:  // Go forward
                 dirToGo = transform.forward * 1f;
@@ -235,10 +241,13 @@ public class PushAgentBasic : Agent
                 break;
         }
 
+        // Set agent rotation
         transform.Rotate(
             rotateDir,
             Time.fixedDeltaTime * rotationSpeed * m_RotationSpeedRandomFactor);
-        m_AgentRb.velocity = dirToGo * agentSpeed * m_AgentSpeedRandomFactor;
+        // Set agent speed
+        m_AgentRb.AddForce(dirToGo * agentSpeed * m_AgentSpeedRandomFactor,
+            ForceMode.VelocityChange);
     }
 
     /// <summary>
@@ -267,7 +276,7 @@ public class PushAgentBasic : Agent
     void ResetBlock()
     {
         // Get a random position for the block.
-        block.transform.position = GetRandomSpawnPos();
+        block.transform.position = GetRandomSpawnPos(block);
 
         // Reset block velocity back to zero.
         m_BlockRb.velocity = Vector3.zero;
@@ -288,7 +297,9 @@ public class PushAgentBasic : Agent
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
 
         ResetBlock();
-        transform.position = GetRandomSpawnPos();
+        var randomRotY = UnityEngine.Random.Range(-180f, -180f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+        transform.position = GetRandomSpawnPos(transform.gameObject);
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
     }

@@ -4,15 +4,15 @@ PushBlock:
     min_lesson_length: 100
     signal_smoothing: true
     parameters:
-        max_steps:                [5000, 3700, 3400, 2900, 2000, 1500, 1000, 1000]
-        agent_speed:              [20,   17,   15,   12,   8,    5,    4,    4]
-        agent_rotation_speed:     [250,  240,  230,  210,  200,  200,  200,  200]
-        agent_moverot_move_speed: [15,   13,   11,   10,   6,    4,    3,    3]
-        agent_moverot_rot_speed:  [250,  240,  230,  210,  200,  200,  200,  200]
-        level:                    [0,    1,    1,    2,    3,    3,    3,    3]
+        max_steps:                [2500, 2300, 2000, 1500, 1000, 750, 500,   350]
+        agent_speed:              [6,    5,    4,    4,    4,    3,    3,    3]
+        agent_rotation_speed:     [220,  200,  180,  170,  150,  150,  150,  150]
+        agent_moverot_move_speed: [7,    5,    5,    4,    4,    3,    3,    3]
+        agent_moverot_rot_speed:  [220,  210,  200,  170,  150,  150,  150,  150]
+        level:                    [0,    1,    1,    2,    2,    3,    3,    3]
         ball_type:                [1,    1,    2,    2,    2,    2,    2,    2]    # 1=block, 2=ball
-        ray_length:               [24,   35,   35,   49,   59,   59,   59,   59]   # Hypotenuse of the two equal length walls of the arena
-        spawn_area_margin:        [0.5,  0.5,  0.5,  0.6,  0.7,  0.8,  0.9,  0.98]
+        ray_length:               [17,   17,   17,   17,   17,   17,   17,   17]   # Hypotenuse of the two equal length walls of the arena
+        spawn_area_margin:        [0.5,  0.7,  0.7,  0.7,  0.8,  0.9,  0.99, 0.99]
         random_direction:         [0.0,  0.01, 0.02, 0.04, 0.05, 0.07, 0.09, 0.10] # Add +/- Percent to original. 0.01 is 1%
         random_speed:             [0.0,  0.01, 0.02, 0.04, 0.05, 0.07, 0.09, 0.10] # Add +/- Percent to original
         random_obs_dist:          [0.0,  0.01, 0.01, 0.01, 0.02, 0.02, 0.03, 0.04] # Add +/- Percent to original

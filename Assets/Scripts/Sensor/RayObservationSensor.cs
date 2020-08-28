@@ -87,7 +87,7 @@ public class RayObservationSensor : MonoBehaviour
                 float[] sectorObs = new float[sectorObservationCount];
                 // Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
                 Array.Copy(allObs, i * sectorObservationCount, sectorObs, 0, sectorObservationCount);
-                var sectorObsStr = String.Format("{0:0.0}: ", angles[i]) + string.Join(":", sectorObs);
+                var sectorObsStr = String.Format("{0:0.0}: ", angles[i]) + string.Join(" | ", sectorObs);
                 observation += sectorObsStr + "\n";
             }
             if (m_ShowObservationDebug && m_ObservationDebugText != null)

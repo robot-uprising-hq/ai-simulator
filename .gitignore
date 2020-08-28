@@ -106,6 +106,8 @@ venv/
 # Code coverage report
 .coverage
 
-
 # Training results
 results/
+
+# visual studio
+.vs/

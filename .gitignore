@@ -9,7 +9,8 @@ Assets/AssetStoreTools*
 Assets/Plugins*
 Assets/Demonstrations*
 Assets/TFModels*
-Assets/ML-Agents/Timers*
+Assets/ML-Agents
+Assets/ML-Agents.meta
 
 # Tensorflow Model Info
 /models

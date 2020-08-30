@@ -30,7 +30,7 @@ See document [here](docs/Driving-with-AIRemoteBrain.md)
 See document [here](docs/Driving-with-AIBackendConnector.md)
 
 ##  If you make changes to the gRPC protocol
-See document [here](docs/Generating-gRPC-code.md)
+See document [here](https://github.com/robot-uprising-hq/ai-guide/blob/master/docs/Generating-gRPC-code.md)
 
 # Developing guide
 ## Changes to gRPC messages

@@ -1,4 +1,4 @@
-# AI Simulation
+# AI Simulator
 
 Read the summary of Micro Invaders from [here](https://github.com/robot-uprising-hq/ai-guide).
 

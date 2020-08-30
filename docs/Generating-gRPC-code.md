@@ -1,7 +1,7 @@
 WORK IN PROGRESS
 
 # Prerequisite
-The different components communicates through gRPC protocol. For instance AI Remote Brain communicates to AI Backend Connector and also to AI Simulation with gRPC:
+The different components communicates through gRPC protocol. For instance AI Remote Brain communicates to AI Backend Connector and also to AI Simulator with gRPC:
 
 ## Download gRPC plugins
 gRPC is a Remote Procedure Call developed by google, it is an open source high performance RPC framework that can run in any environment. More information at https://grpc.io/.

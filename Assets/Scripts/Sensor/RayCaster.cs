@@ -18,6 +18,9 @@ public class RayCaster
     float m_CastingDistanceRandom = 0.0f;
     float m_CastSphereSize;
 
+    float m_CastBoxWidth = 0.1f;
+    float m_CastBoxDepth = 0.05f;
+
     float m_AngleDeg;
     float m_AngleDegRandom = 0.0f;
     float m_CurrentAngle;
@@ -79,11 +82,12 @@ public class RayCaster
         m_CurrentAngle = m_AngleDeg + Random.Range(-m_AngleDegRandom, m_AngleDegRandom);
         m_CastingDir = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward;
 
-        m_HitDetect = Physics.SphereCast(
-            m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f),
-            m_CastSphereSize,
+        m_HitDetect = Physics.BoxCast(
+            m_RobotTrans.position,
+            new Vector3(m_CastSphereSize, m_CastBoxWidth, m_CastBoxDepth),
             m_CastingDir,
             out m_Hit,
+            Quaternion.identity,
             m_CastingDistance);
 
         output = new PerceptionOutput();
@@ -115,7 +119,15 @@ public class RayCaster
             Gizmos.color = m_GizmoColor;
 
         float drawDistance = output.Distance > 0 ? output.Distance : m_CastingDistance;
-        Gizmos.DrawWireSphere(m_RobotTrans.position + m_CastingDir * drawDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_CastSphereSize);
+
+        Matrix4x4 cubeTransform = Matrix4x4.TRS(
+            m_RobotTrans.position + m_CastingDir * drawDistance + new Vector3(0.0f, m_OffsetHeight, 0.0f),
+            m_RobotTrans.rotation * Quaternion.Euler(0, m_CurrentAngle, 0),
+            Vector3.one);
+        Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
+        Gizmos.matrix *= cubeTransform;
+        Gizmos.DrawWireCube(Vector3.zero, new Vector3(m_CastSphereSize, m_CastBoxWidth, m_CastBoxDepth));
+        Gizmos.matrix = oldGizmosMatrix;
 
         Vector3 startVec = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward * drawDistance;
         Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);

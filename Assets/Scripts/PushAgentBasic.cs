@@ -93,6 +93,10 @@ public class PushAgentBasic : Agent
     private float m_AgentMoveRotMoveSpeed;
     private float m_AgentMoveRotTurnSpeed;
 
+    float lastTime;
+    public bool printTime;
+    public bool makeSingleAction = false;
+    private int actionCounter = 0;
 
     void Awake()
     {
@@ -108,6 +112,8 @@ public class PushAgentBasic : Agent
             rayLengthDefault = m_PushBlockSettings.rayLength;
             MaxStep = m_PushBlockSettings.maxSteps;
         }
+
+        lastTime = Time.time;
     }
 
     public override void Initialize()
@@ -122,6 +128,10 @@ public class PushAgentBasic : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        float timeNow = Time.time;
+        float delay = timeNow - lastTime;
+        if (printTime == true) Debug.Log("==== delay: " + delay);
+        lastTime = timeNow;
         sensor.AddObservation(lowerSensor.GetObservations());
         sensor.AddObservation(upperSensor.GetObservations());
     }
@@ -143,8 +153,8 @@ public class PushAgentBasic : Agent
                 -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
-            Vector3 goSize = go.GetComponent<Collider>().bounds.extents;
-            if (Physics.CheckBox(randomSpawnPos, new Vector3(goSize.x + 0.1f, 0.1f, goSize.z + 0.1f)) == false)
+            // Vector3 goSize = go.GetComponent<Collider>().bounds.extents;
+            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.8f, 2.5f)) == false)
             {
                 foundNewSpawnLocation = true;
             }
@@ -191,7 +201,17 @@ public class PushAgentBasic : Agent
         {
             transform.Rotate(Vector3.zero, 0.0f);
             m_AgentRb.velocity = Vector3.zero;
-            return;
+            
+            if (!makeSingleAction) return;
+            else
+            {
+                actionCounter++;
+                if (actionCounter > 9)
+                {
+                    makeSingleAction = false;
+                    actionCounter = 0;
+                }
+            }
         }
 
         var dirToGo = Vector3.zero;

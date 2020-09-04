@@ -84,26 +84,26 @@ environment_parameters:
         signal_smoothing: true
         min_lesson_length: 100
         threshold: 4.5
-      value: 500
+      value: 600
     - name: Lesson7
-      value: 350
+      value: 500
   agent_speed:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 6
+      value: 3
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 5
+      value: 3
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 4
+      value: 3
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 4
+      value: 3
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 4
+      value: 3
     - name: Lesson5
       completion_criteria: *lesson5_defaults
       value: 3
@@ -116,16 +116,16 @@ environment_parameters:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 220
+      value: 150
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 200
+      value: 150
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 180
+      value: 150
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 170
+      value: 150
     - name: Lesson4
       completion_criteria: *lesson4_defaults
       value: 150
@@ -194,24 +194,24 @@ environment_parameters:
       value: 0
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 1
+      value: 0
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 1
+      value: 0
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 2
+      value: 0
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 2
+      value: 0
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 3
+      value: 0
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 3
+      value: 0
     - name: Lesson7
-      value: 3
+      value: 0
   ball_type:
     curriculum:
     - name: Lesson0
@@ -222,21 +222,21 @@ environment_parameters:
       value: 1
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 2
+      value: 1
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 2
+      value: 1
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 2
+      value: 1
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 2
+      value: 1
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 2
+      value: 1
     - name: Lesson7
-      value: 2
+      value: 1
   ray_length:
     curriculum:
     - name: Lesson0
@@ -284,9 +284,9 @@ environment_parameters:
       value: 0.9
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.99
+      value: 0.9
     - name: Lesson7
-      value: 0.99
+      value: 0.9
   random_direction:
     curriculum:
     - name: Lesson0
@@ -306,12 +306,12 @@ environment_parameters:
       value: 0.05
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 0.07
+      value: 0.05
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.09
+      value: 0.05
     - name: Lesson7
-      value: 0.1
+      value: 0.05
   random_speed:
     curriculum:
     - name: Lesson0
@@ -331,12 +331,12 @@ environment_parameters:
       value: 0.05
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 0.07
+      value: 0.05
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.09
+      value: 0.05
     - name: Lesson7
-      value: 0.1
+      value: 0.05
   random_obs_dist:
     curriculum:
     - name: Lesson0
@@ -359,9 +359,9 @@ environment_parameters:
       value: 0.02
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.03
+      value: 0.02
     - name: Lesson7
-      value: 0.04
+      value: 0.02
   random_obs_angle:
     curriculum:
     - name: Lesson0
@@ -378,12 +378,12 @@ environment_parameters:
       value: 2
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 3
+      value: 2
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 4
+      value: 2
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 5
+      value: 2
     - name: Lesson7
-      value: 5
+      value: 2

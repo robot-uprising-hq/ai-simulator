@@ -116,6 +116,16 @@ public class PushAgentBasic : Agent
         lastTime = Time.time;
     }
 
+    void Update()
+    {
+        // Check for occasional agent getting out of arena
+        // and dropping down.
+        if (transform.position.y < -2f)
+        {
+            EndEpisode();
+        }
+    }
+
     public override void Initialize()
     {
         // Cache the agent rigidbody
@@ -139,8 +149,10 @@ public class PushAgentBasic : Agent
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
     /// </summary>
-    public Vector3 GetRandomSpawnPos(GameObject go)
+    public Vector3 GetRandomSpawnPos()
     {
+        var maxTries = 100;
+        var tryCount = 0;
         var foundNewSpawnLocation = false;
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
@@ -153,11 +165,12 @@ public class PushAgentBasic : Agent
                 -areaBounds.extents.z * m_SpawnAreaMarginMultiplier,
                 areaBounds.extents.z * m_SpawnAreaMarginMultiplier);
             randomSpawnPos = ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
-            // Vector3 goSize = go.GetComponent<Collider>().bounds.extents;
-            if (Physics.CheckBox(randomSpawnPos, new Vector3(2.5f, 0.8f, 2.5f)) == false)
+            if (Physics.CheckBox(randomSpawnPos, new Vector3(0.75f, 0.65f, 0.75f)) == false)
             {
                 foundNewSpawnLocation = true;
             }
+            tryCount++;
+            if (tryCount > maxTries) throw new Exception("Could not find new spawn position");
         }
         return randomSpawnPos;
     }
@@ -296,13 +309,22 @@ public class PushAgentBasic : Agent
     void ResetBlock()
     {
         // Get a random position for the block.
-        block.transform.position = GetRandomSpawnPos(block);
+        block.transform.position = GetRandomSpawnPos();
 
         // Reset block velocity back to zero.
         m_BlockRb.velocity = Vector3.zero;
 
         // Reset block angularVelocity back to zero.
         m_BlockRb.angularVelocity = Vector3.zero;
+    }
+
+    void ResetAgent()
+    {
+        var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+        transform.position = GetRandomSpawnPos();
+        m_AgentRb.velocity = Vector3.zero;
+        m_AgentRb.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
@@ -316,12 +338,14 @@ public class PushAgentBasic : Agent
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
 
+        // Physics by default updates Transform changes only during Fixed Update which makes Physics.CheckBox
+        // to not work correctly when Transform changes and call to Physics.CheckBox are made at the same frame.
+        // Physics.SyncTransforms() updates the Transforms to the physics engine and Physics.CheckBox works
+        Physics.SyncTransforms();
+        ResetAgent();
+
+        Physics.SyncTransforms(); 
         ResetBlock();
-        var randomRotY = UnityEngine.Random.Range(-180f, -180f);
-        transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
-        transform.position = GetRandomSpawnPos(transform.gameObject);
-        m_AgentRb.velocity = Vector3.zero;
-        m_AgentRb.angularVelocity = Vector3.zero;
     }
 
     public void SetGroundMaterialFriction()

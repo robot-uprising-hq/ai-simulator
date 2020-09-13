@@ -59,7 +59,7 @@ environment_parameters:
         behavior: PushBlock
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.2
+        threshold: 4.1
       value: 1500
     - name: Lesson4
       completion_criteria: &lesson4_defaults
@@ -67,26 +67,26 @@ environment_parameters:
         behavior: PushBlock
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.3
-      value: 1000
+        threshold: 4.2
+      value: 1200
     - name: Lesson5
       completion_criteria: &lesson5_defaults
         measure: reward
         behavior: PushBlock
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.4
-      value: 750
+        threshold: 4.3
+      value: 950
     - name: Lesson6
       completion_criteria: &lesson6_defaults
         measure: reward
         behavior: PushBlock
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.5
-      value: 600
+        threshold: 4.4
+      value: 850
     - name: Lesson7
-      value: 500
+      value: 700
   agent_speed:
     curriculum:
     - name: Lesson0
@@ -116,27 +116,27 @@ environment_parameters:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 150
+      value: 110
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 150
+      value: 110
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 150
+      value: 110
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 150
+      value: 110
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 150
+      value: 110
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 150
+      value: 110
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 150
+      value: 110
     - name: Lesson7
-      value: 150
+      value: 110
   agent_moverot_move_speed:
     curriculum:
     - name: Lesson0
@@ -275,7 +275,7 @@ environment_parameters:
       value: 0.7
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 0.7
+      value: 0.8
     - name: Lesson4
       completion_criteria: *lesson4_defaults
       value: 0.8
@@ -284,59 +284,59 @@ environment_parameters:
       value: 0.9
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.9
+      value: 0.99
     - name: Lesson7
-      value: 0.9
+      value: 0.99
   random_direction:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 0.0
+      value: 0.4
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 0.01
+      value: 0.4
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 0.02
+      value: 0.4
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 0.04
+      value: 0.4
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson7
-      value: 0.05
+      value: 0.4
   random_speed:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 0.0
+      value: 0.4
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 0.01
+      value: 0.4
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 0.02
+      value: 0.4
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 0.04
+      value: 0.4
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 0.05
+      value: 0.4
     - name: Lesson7
-      value: 0.05
+      value: 0.4
   random_obs_dist:
     curriculum:
     - name: Lesson0

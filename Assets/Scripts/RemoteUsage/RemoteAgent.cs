@@ -305,6 +305,15 @@ public class RemoteAgent : MonoBehaviour
         m_BlockRb.angularVelocity = Vector3.zero;
     }
 
+    void ResetAgent()
+    {
+        var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+        transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+        transform.position = GetRandomSpawnPos();
+        m_AgentRb.velocity = Vector3.zero;
+        m_AgentRb.angularVelocity = Vector3.zero;
+    }
+
     /// <summary>
     /// In the editor, if "Reset On Done" is checked then AgentReset() will be
     /// called automatically anytime we mark done = true in an agent script.
@@ -319,11 +328,11 @@ public class RemoteAgent : MonoBehaviour
             var rotationAngle = rotation * 90f;
             area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
         }
+        Physics.SyncTransforms();
+        ResetAgent();
 
+        Physics.SyncTransforms();
         ResetBlock();
-        transform.position = GetRandomSpawnPos();
-        m_AgentRb.velocity = Vector3.zero;
-        m_AgentRb.angularVelocity = Vector3.zero;
     }
 
     public void SetGroundMaterialFriction()

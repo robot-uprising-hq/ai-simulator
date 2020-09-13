@@ -101,6 +101,7 @@ public class RayObservationSensor : MonoBehaviour
 
     public void UpdateCasting(float distance, float distanceRandom, float angleRandom)
     {
+        if (m_RayCasters == null) return;
         m_MaxDistance = distance;
         foreach(RayCaster rayCaster in m_RayCasters)
         {

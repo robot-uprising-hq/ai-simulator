@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8284906830606400551}
   - component: {fileID: 5109975559273750733}
   m_Layer: 0
-  m_Name: BlueGoal
-  m_TagString: blue_goal
+  m_Name: RedGoal
+  m_TagString: red_goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,7 +140,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: a4557376176fcfe06a14c8e6c2b887b8, type: 2}
+      objectReference: {fileID: 2100000, guid: b8a9f5dcf818b4758b6638859097f503, type: 2}
     - target: {fileID: -927199367670048503, guid: af1b22852808bbf679e90e127f2164f7,
         type: 3}
       propertyPath: m_Name

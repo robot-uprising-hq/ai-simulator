@@ -209,8 +209,6 @@ public class PushAgentBasic : Agent
         // for making the gravity very slow
         m_AgentRb.AddForce(transform.up * -1f * 1000f,
             ForceMode.Force);
-
-        if (stopAgent)
         {
             transform.Rotate(Vector3.zero, 0.0f);
             m_AgentRb.velocity = Vector3.zero;

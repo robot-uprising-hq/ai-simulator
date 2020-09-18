@@ -74,18 +74,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
       propertyPath: m_DetectableTags.Array.data[0]
       value: blue_goal
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[1]
-      value: red_goal
+      value: positive_energy_core
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[2]
-      value: blue_agent
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
@@ -114,18 +119,23 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a4557376176fcfe06a14c8e6c2b887b8, type: 2}
     - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
       propertyPath: m_DetectableTags.Array.data[0]
       value: blue_goal
       objectReference: {fileID: 0}
     - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[1]
-      value: red_goal
+      value: positive_energy_core
       objectReference: {fileID: 0}
     - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[2]
-      value: blue_agent
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
@@ -146,6 +156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DetectableTags.Array.data[6]
       value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004133975700455847, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 310
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3480fa01a475590bf902b0dc04ed034b, type: 3}

@@ -191,27 +191,27 @@ environment_parameters:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 2
+      value: 3
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 2
+      value: 3
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 2
+      value: 3
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 2
+      value: 3
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 2
+      value: 3
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 2
+      value: 3
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 2
+      value: 3
     - name: Lesson7
-      value: 2
+      value: 3
   ball_shape:
     curriculum:
     - name: Lesson0
@@ -241,27 +241,27 @@ environment_parameters:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 17
+      value: 1.6
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 17
+      value: 1.6
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 17
+      value: 1.6
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 17
+      value: 1.6
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 17
+      value: 1.6
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 17
+      value: 1.6
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 17
+      value: 1.6
     - name: Lesson7
-      value: 17
+      value: 1.6
   spawn_area_margin:
     curriculum:
     - name: Lesson0

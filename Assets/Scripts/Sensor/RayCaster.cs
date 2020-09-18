@@ -83,7 +83,7 @@ public class RayCaster
         m_CastingDir = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward;
 
         m_HitDetect = Physics.BoxCast(
-            m_RobotTrans.position,
+            m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f),
             new Vector3(m_CastSphereSize, m_CastBoxWidth, m_CastBoxDepth),
             m_CastingDir,
             out m_Hit,
@@ -93,7 +93,7 @@ public class RayCaster
         output = new PerceptionOutput();
         if (m_HitDetect)
         {
-            float hitDistance = Vector3.Distance(m_RobotTrans.position, m_Hit.point);
+            float hitDistance = Vector3.Distance(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), m_Hit.point);
             output.Distance = hitDistance;
             output.hitGo = m_Hit.collider.gameObject;
         }
@@ -126,7 +126,7 @@ public class RayCaster
             Vector3.one);
         Matrix4x4 oldGizmosMatrix = Gizmos.matrix;
         Gizmos.matrix *= cubeTransform;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(m_CastSphereSize, m_CastBoxWidth, m_CastBoxDepth));
+        Gizmos.DrawWireCube(Vector3.zero - new Vector3(0f, 0f, 0.01f), new Vector3(m_CastSphereSize, m_CastBoxWidth, m_CastBoxDepth) * 1.5f);
         Gizmos.matrix = oldGizmosMatrix;
 
         Vector3 startVec = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward * drawDistance;

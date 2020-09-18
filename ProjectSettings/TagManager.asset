@@ -4,15 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - agent
   - wall
-  - ground
   - debug_text
-  - fps_text
   - blue_goal
   - red_goal
-  - good_ball
-  - bad_ball
+  - blue_agent
+  - red_agent
+  - positive_energy_core
+  - negative_energy_core
+  - ground
   layers:
   - Default
   - TransparentFX

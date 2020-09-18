@@ -5,7 +5,7 @@ using Robotsystemcommunication;
  
 public class ScreenStreamer : MonoBehaviour
 {
-    public Camera camera;
+    public Camera cameraToStream;
 
     public volatile int captureWidth = 1080;
     public volatile int captureHeight = 1080;
@@ -106,14 +106,14 @@ public class ScreenStreamer : MonoBehaviour
             renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
             screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
         }
-        camera.targetTexture = renderTexture;
-        camera.Render();
+        cameraToStream.targetTexture = renderTexture;
+        cameraToStream.Render();
         // read pixels will read from the currently active render texture so make our offscreen 
         // render texture active and then read the pixels
         RenderTexture.active = renderTexture;
         screenShot.ReadPixels(rect, 0, 0);
         // reset active camera texture and render texture
-        camera.targetTexture = null;
+        cameraToStream.targetTexture = null;
         RenderTexture.active = null;
     }
 

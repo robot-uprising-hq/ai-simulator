@@ -10,7 +10,7 @@ public struct PerceptionOutput
 
 public class RayCaster
 {
-    private Color m_GizmoColor = Color.red;
+    private Color m_GizmoColor = Color.green;
     private Color m_GizmoFrontColor = Color.yellow;
     Transform m_RobotTrans;
     float m_OffsetHeight;
@@ -18,8 +18,8 @@ public class RayCaster
     float m_CastingDistanceRandom = 0.0f;
     float m_CastSphereSize;
 
-    float m_CastBoxWidth = 0.1f;
-    float m_CastBoxDepth = 0.05f;
+    float m_CastBoxWidth = 0.01f;
+    float m_CastBoxDepth = 0.01f;
 
     float m_AngleDeg;
     float m_AngleDegRandom = 0.0f;

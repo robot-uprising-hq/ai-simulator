@@ -10,7 +10,7 @@ public class RemoteAcademy : MonoBehaviour
     public int DecisionPeriod = 50;
     public bool TakeActionsBetweenDecisions = true;
 
-    public RemoteAgent remoteAgent;
+    public RemoteAIRobotAgent remoteAgent;
 
     [Space(10)]
     [Tooltip("If sendScreenCapture is 'false' set the brain server's ip and port")]

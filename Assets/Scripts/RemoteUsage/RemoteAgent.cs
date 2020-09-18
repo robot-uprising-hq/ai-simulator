@@ -84,17 +84,9 @@ public class RemoteAgent : MonoBehaviour
     private float m_SpawnAreaMarginMultiplier;
     private int MaxStep = 5000;
 
-    // Rotation
-    private float m_RotationSpeed;
-    private float m_RotationSpeedRandomFactor;
-
     // Speed
     private float m_AgentSpeed;
     private float m_AgentSpeedRandomFactor;
-
-    // Move and rotate
-    private float m_AgentMoveRotMoveSpeed;
-    private float m_AgentMoveRotTurnSpeed;
 
     [HideInInspector]
     public volatile int agentAction = -1;
@@ -108,33 +100,32 @@ public class RemoteAgent : MonoBehaviour
 
         ballTypeDefault = m_PushBlockSettings.ballType;
         levelDefault = m_PushBlockSettings.level;
-        rayLengthDefault = m_PushBlockSettings.rayLength;
         MaxStep = m_PushBlockSettings.maxSteps;
 
         Initialize();
     }
 
-    void Update()
-    {
-        // MoveAgent(action);
-        if (currentStep > MaxStep)
-        {
-            OnEpisodeBegin();
-            currentStep = 0;
-        }
-        else
-        {
-            currentStep++;
-        }
-        if (agentAction > -1 && !stopAgent)
-            MoveAgent(new float[]{agentAction});
+    //void Update()
+    //{
+    //    // MoveAgent(action);
+    //    if (currentStep > MaxStep)
+    //    {
+    //        OnEpisodeBegin();
+    //        currentStep = 0;
+    //    }
+    //    else
+    //    {
+    //        currentStep++;
+    //    }
+    //    if (agentAction > -1 && !stopAgent)
+    //        MoveAgent(new float[]{agentAction});
         
-        if (m_MakeRayObservations)
-        {
-            GetLowerObservations();
-            GetUpperObservations();
-        }
-    }
+    //    if (m_MakeRayObservations)
+    //    {
+    //        GetLowerObservations();
+    //        GetUpperObservations();
+    //    }
+    //}
 
     public float[] GetLowerObservations()
     {
@@ -207,81 +198,13 @@ public class RemoteAgent : MonoBehaviour
     }
 
     /// <summary>
-    /// Moves the agent according to the selected action.
-    /// </summary>
-    public void MoveAgent(float[] act)
-    {
-        if (stopAgent)
-        {
-            transform.Rotate(Vector3.zero, 0.0f);
-            m_AgentRb.velocity = Vector3.zero;
-            return;
-        }
-
-        var dirToGo = Vector3.zero;
-        var rotateDir = Vector3.zero;
-
-        var action = Mathf.FloorToInt(act[0]);
-        if (m_ForceAction && m_ActionToForce > -1)
-        {
-            action = m_ActionToForce;
-        }
-
-        var agentSpeed = m_AgentSpeed;
-        var rotationSpeed = m_RotationSpeed;
-        // Goalies and Strikers have slightly different action spaces.
-        switch (action)
-        {
-            case 0: // Do nothing
-                transform.Rotate(Vector3.zero, 0.0f);
-                m_AgentRb.velocity = Vector3.zero;
-                break;
-            case 1:  // Go forward
-                dirToGo = transform.forward * 1f;
-                break;
-            case 2:  // Go backward
-                dirToGo = transform.forward * -1f;
-                break;
-            case 3:  // Turn right
-                rotateDir = transform.up * 1f;
-                break;
-            case 4:  // Turn left
-                rotateDir = transform.up * -1f;
-                break;
-            case 5:  // Go forward and turn right
-                agentSpeed = m_AgentMoveRotMoveSpeed;
-                rotationSpeed = m_AgentMoveRotTurnSpeed;
-                dirToGo = transform.forward * 1f;
-                rotateDir  = transform.up * 1f;
-                break;
-            case 6:  // Go forward and turn left
-                agentSpeed = m_AgentMoveRotMoveSpeed;
-                rotationSpeed = m_AgentMoveRotTurnSpeed;
-                dirToGo = transform.forward * 1f;
-                rotateDir = transform.up * -1f;
-                break;
-            default:
-                Debug.Log("Unknown action: " + action);
-                break;
-        }
-
-        // Set agent rotation
-        transform.Rotate(
-            rotateDir,
-            Time.fixedDeltaTime * rotationSpeed * m_RotationSpeedRandomFactor);
-        // Set agent speed
-        m_AgentRb.AddForce(dirToGo * agentSpeed * m_AgentSpeedRandomFactor,
-            ForceMode.VelocityChange);
-    }
-
-    /// <summary>
     /// Called every step of the engine. Here the agent takes an action.
     /// </summary>
     public void OnActionReceived(float[] vectorAction)
     {
         m_ActionLagBuffer.InsertAction(vectorAction[0]);
         float laggedAction = m_ActionLagBuffer.GetAction();
-        MoveAgent(vectorAction);
+        // TODO: tracked move
     }
 
     float AddRandomFactor(float randomFactor)
@@ -385,15 +308,6 @@ public class RemoteAgent : MonoBehaviour
 
     void SetResetParameters()
     {
-        m_RotationSpeed = m_ResetParams.GetWithDefault(
-            "agent_rotation_speed",
-            m_PushBlockSettings.agentRotationSpeed);
-        
-        float rotationSpeedRandom = m_ResetParams.GetWithDefault(
-            "random_direction",
-            m_PushBlockSettings.agentRotationSpeedRandom);
-        m_RotationSpeedRandomFactor = AddRandomFactor(rotationSpeedRandom);
-
         m_AgentSpeed = m_ResetParams.GetWithDefault(
             "agent_speed",
             m_PushBlockSettings.agentRunSpeed);
@@ -402,13 +316,6 @@ public class RemoteAgent : MonoBehaviour
             "random_speed",
             m_PushBlockSettings.agentRunSpeedRandom);
         m_AgentSpeedRandomFactor = AddRandomFactor(agentSpeedRandom);
-
-        m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
-            "agent_moverot_move_speed",
-            m_PushBlockSettings.agentMoveRotMoveSpeed);
-        m_AgentMoveRotTurnSpeed = m_ResetParams.GetWithDefault(
-            "agent_moverot_rot_speed",
-            m_PushBlockSettings.agentMoveRotTurnSpeed);
 
         m_SpawnAreaMarginMultiplier = m_ResetParams.GetWithDefault(
             "spawn_area_margin",

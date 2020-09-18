@@ -78,7 +78,6 @@ public class PushAgentBasic : Agent
     private bool inferenceModeOn = false;
     private float ballTypeDefault = 2.0f;
     private float levelDefault = 0.0f;
-    private float rayLengthDefault = 50.0f;
     private float m_SpawnAreaMarginMultiplier;
 
     // Rotation
@@ -93,7 +92,6 @@ public class PushAgentBasic : Agent
     private float m_AgentMoveRotMoveSpeed;
     private float m_AgentMoveRotTurnSpeed;
 
-
     void Awake()
     {
         m_ActionLagBuffer = GetComponent<ActionLagBuffer>();
@@ -105,7 +103,6 @@ public class PushAgentBasic : Agent
         {
             ballTypeDefault = m_PushBlockSettings.ballType;
             levelDefault = m_PushBlockSettings.level;
-            rayLengthDefault = m_PushBlockSettings.rayLength;
             MaxStep = m_PushBlockSettings.maxSteps;
         }
     }
@@ -177,77 +174,9 @@ public class PushAgentBasic : Agent
         m_GroundRenderer.material = m_GroundMaterial;
     }
 
-    /// <summary>
-    /// Moves the agent according to the selected action.
-    /// </summary>
-    public void MoveAgent(float act)
+    static float ScaleAction(float act)
     {
-        // Add a force downwards to compensate the high drag in rigidbody
-        // for making the gravity very slow
-        m_AgentRb.AddForce(transform.up * -1f * 1000f,
-            ForceMode.Force);
-
-        if (stopAgent)
-        {
-            transform.Rotate(Vector3.zero, 0.0f);
-            m_AgentRb.velocity = Vector3.zero;
-            return;
-        }
-
-        var dirToGo = Vector3.zero;
-        var rotateDir = Vector3.zero;
-
-        var action = Mathf.FloorToInt(act);
-        if (m_ForceAction && m_ActionToForce > -1)
-        {
-            action = m_ActionToForce;
-        }
-
-        var agentSpeed = m_AgentSpeed;
-        var rotationSpeed = m_RotationSpeed;
-        // Goalies and Strikers have slightly different action spaces.
-        switch (action)
-        {
-            case 0: // Do nothing
-            //     transform.Rotate(Vector3.zero, 0.0f);
-            //     m_AgentRb.velocity = Vector3.zero;
-                break;
-            case 1:  // Go forward
-                dirToGo = transform.forward * 1f;
-                break;
-            case 2:  // Go backward
-                dirToGo = transform.forward * -1f;
-                break;
-            case 3:  // Turn right
-                rotateDir = transform.up * 1f;
-                break;
-            case 4:  // Turn left
-                rotateDir = transform.up * -1f;
-                break;
-            case 5:  // Go forward and turn right
-                agentSpeed = m_AgentMoveRotMoveSpeed;
-                rotationSpeed = m_AgentMoveRotTurnSpeed;
-                dirToGo = transform.forward * 1f;
-                rotateDir  = transform.up * 1f;
-                break;
-            case 6:  // Go forward and turn left
-                agentSpeed = m_AgentMoveRotMoveSpeed;
-                rotationSpeed = m_AgentMoveRotTurnSpeed;
-                dirToGo = transform.forward * 1f;
-                rotateDir = transform.up * -1f;
-                break;
-            default:
-                Debug.Log("Unknown action: " + action);
-                break;
-        }
-
-        // Set agent rotation
-        transform.Rotate(
-            rotateDir,
-            Time.fixedDeltaTime * rotationSpeed * m_RotationSpeedRandomFactor);
-        // Set agent speed
-        m_AgentRb.AddForce(dirToGo * agentSpeed * m_AgentSpeedRandomFactor,
-            ForceMode.VelocityChange);
+        return (float)((act / 5.0) * 2.0 - 1.0);
     }
 
     /// <summary>
@@ -255,11 +184,13 @@ public class PushAgentBasic : Agent
     /// </summary>
     public override void OnActionReceived(float[] vectorAction)
     {
-        m_ActionLagBuffer.InsertAction(vectorAction[0]);
-        float laggedAction = m_ActionLagBuffer.GetAction();
+        //m_ActionLagBuffer.InsertAction(vectorAction[0]);
+        //float laggedAction = m_ActionLagBuffer.GetAction();
         // Move the agent using the action.
-        MoveAgent(laggedAction);
-
+        //MoveAgent(laggedAction);
+        GetComponent<MovableRobot>().MoveRobot(ScaleAction(vectorAction[0]), ScaleAction(vectorAction[1]),
+                                                // 0..5 * 0.1 -> 0 .. 500ms and a little extra to make it always non-zero
+                                                (float)(vectorAction[2] + 0.001));
         // Penalty given each step to encourage agent to finish task quickly.
         AddReward(-1f / MaxStep);
     }
@@ -363,15 +294,6 @@ public class PushAgentBasic : Agent
 
     void SetResetParameters()
     {
-        m_RotationSpeed = m_ResetParams.GetWithDefault(
-            "agent_rotation_speed",
-            m_PushBlockSettings.agentRotationSpeed);
-        
-        float rotationSpeedRandom = m_ResetParams.GetWithDefault(
-            "random_direction",
-            m_PushBlockSettings.agentRotationSpeedRandom);
-        m_RotationSpeedRandomFactor = AddRandomFactor(rotationSpeedRandom);
-
         m_AgentSpeed = m_ResetParams.GetWithDefault(
             "agent_speed",
             m_PushBlockSettings.agentRunSpeed);
@@ -380,13 +302,6 @@ public class PushAgentBasic : Agent
             "random_speed",
             m_PushBlockSettings.agentRunSpeedRandom);
         m_AgentSpeedRandomFactor = AddRandomFactor(agentSpeedRandom);
-
-        m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
-            "agent_moverot_move_speed",
-            m_PushBlockSettings.agentMoveRotMoveSpeed);
-        m_AgentMoveRotTurnSpeed = m_ResetParams.GetWithDefault(
-            "agent_moverot_rot_speed",
-            m_PushBlockSettings.agentMoveRotTurnSpeed);
 
         m_SpawnAreaMarginMultiplier = m_ResetParams.GetWithDefault(
             "spawn_area_margin",
@@ -403,9 +318,8 @@ public class PushAgentBasic : Agent
         SetBlockProperties();
         SetGroundMaterialFriction();
 
-        var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
-        lowerSensor.UpdateCasting(distance, observationDistanceRandom, observationAngleRandom);
-        upperSensor.UpdateCasting(distance, observationDistanceRandom, observationAngleRandom);
+        lowerSensor.UpdateCasting(lowerSensor.m_MaxDistance, observationDistanceRandom, observationAngleRandom);
+        upperSensor.UpdateCasting(upperSensor.m_MaxDistance, observationDistanceRandom, observationAngleRandom);
 
         MaxStep = (int)m_ResetParams.GetWithDefault("max_steps", MaxStep);
     }

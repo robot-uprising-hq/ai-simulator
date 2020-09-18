@@ -79,8 +79,8 @@ namespace MLAgents.Sensor
             {
                 int action = req.Action;
 
-                // remoteAgent.OnActionReceived(new float[] {action});
-                remoteAgent.agentAction = action;
+                remoteAgent.OnActionReceived(new float[] {action});
+                //remoteAgent.agentAction = action;
 
                 return Task.FromResult(new SimulationActionResponse { Status = StatusType.Ok });
             }

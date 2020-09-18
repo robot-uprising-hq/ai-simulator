@@ -21,7 +21,7 @@ behaviors:
         strength: 1.0
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 15000000
+    max_steps: 150000000
     time_horizon: 64
     summary_freq: 60000
     threaded: true
@@ -112,81 +112,6 @@ environment_parameters:
       value: 3
     - name: Lesson7
       value: 3
-  agent_rotation_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 220
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 200
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 180
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 170
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 150
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 150
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 150
-    - name: Lesson7
-      value: 150
-  agent_moverot_move_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 7
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 5
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 5
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 4
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 4
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 3
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 3
-    - name: Lesson7
-      value: 3
-  agent_moverot_rot_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 220
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 210
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 200
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 170
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 150
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 150
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 150
-    - name: Lesson7
-      value: 150
   level:
     curriculum:
     - name: Lesson0
@@ -237,31 +162,6 @@ environment_parameters:
       value: 2
     - name: Lesson7
       value: 2
-  ray_length:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 17
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 17
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 17
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 17
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 17
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 17
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 17
-    - name: Lesson7
-      value: 17
   spawn_area_margin:
     curriculum:
     - name: Lesson0

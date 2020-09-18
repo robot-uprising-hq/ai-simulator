@@ -11,19 +11,6 @@ public class PushBlockSettings : MonoBehaviour
     public float agentRunSpeedRandom;
 
     [Space(10)]
-    /// <summary>
-    /// The agent rotation speed.
-    /// Every agent will use this setting.
-    /// </summary>
-    public float agentRotationSpeed;
-    // Value is a percent of original which is added or substracted from original
-    public float agentRotationSpeedRandom;
-
-    [Space(10)]
-    public float agentMoveRotMoveSpeed;
-    public float agentMoveRotTurnSpeed;
-
-    [Space(10)]
     // Value is a percent of original which is added or substracted from original
     public float observationDistanceRandom;
     // Value is degrees which is added or substracted from original
@@ -52,7 +39,6 @@ public class PushBlockSettings : MonoBehaviour
     [Space(10)]
     public float ballType;
     public float level;
-    public float rayLength;
     public int maxSteps;
 
 }

@@ -601,6 +601,11 @@ PrefabInstance:
       propertyPath: size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1817979554109313391, guid: 15b4491435406c131a0d62be684b15e9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7022551434748452200, guid: 15b4491435406c131a0d62be684b15e9,
         type: 3}
       propertyPath: m_Name
@@ -661,6 +666,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9007859623599564183, guid: 15b4491435406c131a0d62be684b15e9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 01256b57b01981a32ac268a76d3099e6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15b4491435406c131a0d62be684b15e9, type: 3}
 --- !u!1 &1574236047
@@ -726,10 +736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentRunSpeed: 2
   agentRunSpeedRandom: 0
-  agentRotationSpeed: 110
-  agentRotationSpeedRandom: 0
-  agentMoveRotMoveSpeed: 2
-  agentMoveRotTurnSpeed: 50
   observationDistanceRandom: 0
   observationAngleRandom: 0
   spawnAreaMarginMultiplier: 0.99
@@ -737,7 +743,6 @@ MonoBehaviour:
   failMaterial: {fileID: 2100000, guid: a1daf31cdf41e484ca9ac33a5c6f524a, type: 2}
   ballType: 2
   level: 3
-  rayLength: 17
   maxSteps: 2500
 --- !u!1 &1581769839
 GameObject:

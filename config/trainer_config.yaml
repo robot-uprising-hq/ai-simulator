@@ -1,5 +1,5 @@
 behaviors:
-  PushBlock:
+  AIRobotGeneric:
     trainer_type: ppo
     hyperparameters:
       batch_size: 128
@@ -25,6 +25,12 @@ behaviors:
     time_horizon: 64
     summary_freq: 60000
     threaded: true
+    self_play:
+      window: 10
+      play_against_latest_model_ratio: 0.5
+      save_steps: 20000
+      team_change: 100000
+      swap_steps: 10000
 
 environment_parameters:
   max_steps:
@@ -32,7 +38,7 @@ environment_parameters:
     - name: Lesson0
       completion_criteria: &lesson0_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
         threshold: 3.5
@@ -40,153 +46,53 @@ environment_parameters:
     - name: Lesson1
       completion_criteria: &lesson1_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 3.8
+        threshold: 5
       value: 2300
     - name: Lesson2
       completion_criteria: &lesson2_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.0
+        threshold: 6
       value: 2000
     - name: Lesson3
       completion_criteria: &lesson3_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.1
-      value: 1500
+        threshold: 7
+      value: 2000
     - name: Lesson4
       completion_criteria: &lesson4_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.2
-      value: 1200
+        threshold: 8
+      value: 2000
     - name: Lesson5
       completion_criteria: &lesson5_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.3
-      value: 950
+        threshold: 8.5
+      value: 2000
     - name: Lesson6
       completion_criteria: &lesson6_defaults
         measure: reward
-        behavior: PushBlock
+        behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 4.4
-      value: 850
+        threshold: 9
+      value: 2000
     - name: Lesson7
-      value: 700
-  agent_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 0.6
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 0.6
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 0.6
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 0.6
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 0.6
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 0.6
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 0.6
-    - name: Lesson7
-      value: 0.6
-  agent_rotation_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 110
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 110
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 110
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 110
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 110
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 110
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 110
-    - name: Lesson7
-      value: 110
-  agent_moverot_move_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 7
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 5
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 5
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 4
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 4
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 3
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 3
-    - name: Lesson7
-      value: 3
-  agent_moverot_rot_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 220
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 210
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 200
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 170
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 150
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 150
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 150
-    - name: Lesson7
-      value: 150
+      value: 2000
   level:
     curriculum:
     - name: Lesson0
@@ -197,71 +103,21 @@ environment_parameters:
       value: 3
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 3
+      value: 2
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 3
+      value: 2
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 3
+      value: 2
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 3
+      value: 1
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 3
+      value: 1
     - name: Lesson7
-      value: 3
-  ball_shape:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 0
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 0
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 0
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 0
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 0
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 0
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 0
-    - name: Lesson7
-      value: 0
-  ray_length:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 1.6
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 1.6
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 1.6
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 1.6
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 1.6
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 1.6
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 1.6
-    - name: Lesson7
-      value: 1.6
+      value: 1
   spawn_area_margin:
     curriculum:
     - name: Lesson0
@@ -272,71 +128,21 @@ environment_parameters:
       value: 0.7
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 0.7
+      value: 0.8
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 0.8
+      value: 0.85
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 0.8
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
       value: 0.9
+    - name: Lesson5
+      completion_criteria: *lesson5_defaults
+      value: 0.99
     - name: Lesson6
       completion_criteria: *lesson6_defaults
       value: 0.99
     - name: Lesson7
       value: 0.99
-  random_direction:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 0.3
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 0.3
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 0.3
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 0.3
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 0.3
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 0.3
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 0.3
-    - name: Lesson7
-      value: 0.3
-  random_speed:
-    curriculum:
-    - name: Lesson0
-      completion_criteria: *lesson0_defaults
-      value: 0.3
-    - name: Lesson1
-      completion_criteria: *lesson1_defaults
-      value: 0.3
-    - name: Lesson2
-      completion_criteria: *lesson2_defaults
-      value: 0.3
-    - name: Lesson3
-      completion_criteria: *lesson3_defaults
-      value: 0.3
-    - name: Lesson4
-      completion_criteria: *lesson4_defaults
-      value: 0.3
-    - name: Lesson5
-      completion_criteria: *lesson5_defaults
-      value: 0.3
-    - name: Lesson6
-      completion_criteria: *lesson6_defaults
-      value: 0.3
-    - name: Lesson7
-      value: 0.3
   random_obs_dist:
     curriculum:
     - name: Lesson0
@@ -387,3 +193,103 @@ environment_parameters:
       value: 2
     - name: Lesson7
       value: 2
+  number_of_blue_agents:
+    curriculum:
+    - name: Lesson0
+      completion_criteria: *lesson0_defaults
+      value: 1
+    - name: Lesson1
+      completion_criteria: *lesson1_defaults
+      value: 1
+    - name: Lesson2
+      completion_criteria: *lesson2_defaults
+      value: 2
+    - name: Lesson3
+      completion_criteria: *lesson3_defaults
+      value: 2
+    - name: Lesson4
+      completion_criteria: *lesson4_defaults
+      value: 2
+    - name: Lesson5
+      completion_criteria: *lesson5_defaults
+      value: 2
+    - name: Lesson6
+      completion_criteria: *lesson6_defaults
+      value: 2
+    - name: Lesson7
+      value: 2
+  number_of_red_agents:
+    curriculum:
+    - name: Lesson0
+      completion_criteria: *lesson0_defaults
+      value: 1
+    - name: Lesson1
+      completion_criteria: *lesson1_defaults
+      value: 1
+    - name: Lesson2
+      completion_criteria: *lesson2_defaults
+      value: 2
+    - name: Lesson3
+      completion_criteria: *lesson3_defaults
+      value: 2
+    - name: Lesson4
+      completion_criteria: *lesson4_defaults
+      value: 2
+    - name: Lesson5
+      completion_criteria: *lesson5_defaults
+      value: 2
+    - name: Lesson6
+      completion_criteria: *lesson6_defaults
+      value: 2
+    - name: Lesson7
+      value: 2
+  number_of_positive_energy_cores:
+    curriculum:
+    - name: Lesson0
+      completion_criteria: *lesson0_defaults
+      value: 1
+    - name: Lesson1
+      completion_criteria: *lesson1_defaults
+      value: 1
+    - name: Lesson2
+      completion_criteria: *lesson2_defaults
+      value: 2
+    - name: Lesson3
+      completion_criteria: *lesson3_defaults
+      value: 2
+    - name: Lesson4
+      completion_criteria: *lesson4_defaults
+      value: 3
+    - name: Lesson5
+      completion_criteria: *lesson5_defaults
+      value: 3
+    - name: Lesson6
+      completion_criteria: *lesson6_defaults
+      value: 4
+    - name: Lesson7
+      value: 5
+  number_of_negative_energy_cores:
+    curriculum:
+    - name: Lesson0
+      completion_criteria: *lesson0_defaults
+      value: 1
+    - name: Lesson1
+      completion_criteria: *lesson1_defaults
+      value: 1
+    - name: Lesson2
+      completion_criteria: *lesson2_defaults
+      value: 2
+    - name: Lesson3
+      completion_criteria: *lesson3_defaults
+      value: 2
+    - name: Lesson4
+      completion_criteria: *lesson4_defaults
+      value: 3
+    - name: Lesson5
+      completion_criteria: *lesson5_defaults
+      value: 3
+    - name: Lesson6
+      completion_criteria: *lesson6_defaults
+      value: 4
+    - name: Lesson7
+      value: 5

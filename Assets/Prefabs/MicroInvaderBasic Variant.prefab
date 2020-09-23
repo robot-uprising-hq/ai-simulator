@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6407402035053489738
+--- !u!1001 &6779864116989847029
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,12 +10,7 @@ PrefabInstance:
     - target: {fileID: 1677693854713359603, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_Name
-      value: MicroInvaderBlue Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 1677693854713359603, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_TagString
-      value: blue_agent
+      value: MicroInvaderBasic Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2383253527890583264, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
@@ -74,78 +69,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
       propertyPath: m_DetectableTags.Array.data[0]
-      value: blue_goal
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[1]
-      value: red_goal
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[2]
-      value: blue_agent
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[3]
-      value: red_agent
-      objectReference: {fileID: 0}
-    - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[4]
       value: positive_energy_core
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
-      propertyPath: m_DetectableTags.Array.data[5]
-      value: negative_energy_core
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: blue_goal
       objectReference: {fileID: 0}
     - target: {fileID: 4381360690862994439, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
-      propertyPath: m_DetectableTags.Array.data[6]
+      propertyPath: m_DetectableTags.Array.data[2]
       value: wall
       objectReference: {fileID: 0}
-    - target: {fileID: 4967762122527182596, guid: 3480fa01a475590bf902b0dc04ed034b,
+    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: m_DetectableTags.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[0]
+      value: positive_energy_core
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[1]
+      value: blue_goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_DetectableTags.Array.data[2]
+      value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004133975700455847, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 310
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004133975700455847, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_Model
       value: 
-      objectReference: {fileID: 2100000, guid: a4557376176fcfe06a14c8e6c2b887b8, type: 2}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
+      objectReference: {fileID: 5022602860645237092, guid: c702811ac24bbb84294d912e0e5fafa2,
         type: 3}
-      propertyPath: m_DetectableTags.Array.data[0]
-      value: blue_goal
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[1]
-      value: red_goal
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[2]
-      value: blue_agent
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[3]
-      value: red_agent
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[4]
-      value: positive_energy_core
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[5]
-      value: negative_energy_core
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
-        type: 3}
-      propertyPath: m_DetectableTags.Array.data[6]
-      value: wall
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3480fa01a475590bf902b0dc04ed034b, type: 3}

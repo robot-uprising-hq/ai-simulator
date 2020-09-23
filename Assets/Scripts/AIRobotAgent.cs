@@ -13,7 +13,6 @@ public class AIRobotAgent : Agent
         Red = 1
     }
 
-
     #region ======= PUBLIC VARIABLES =======
     [Space(10)]
     public RayObservationSensor lowerSensor;
@@ -46,8 +45,6 @@ public class AIRobotAgent : Agent
     EnvironmentParameters m_ResetParams;
     Rigidbody m_AgentRb;
     GameObject m_ArenaGO;
-    
-    private float rayLengthDefault = 50.0f;
 
     // Rotation
     private float m_RotationSpeed;
@@ -227,20 +224,20 @@ public class AIRobotAgent : Agent
         m_RotationSpeed = m_ResetParams.GetWithDefault(
             "agent_rotation_speed",
             m_AIRobotSettings.agentRotationSpeed);
-        
-        float rotationSpeedRandom = m_ResetParams.GetWithDefault(
-            "random_direction",
-            m_AIRobotSettings.agentRotationSpeedRandom);
-        m_RotationSpeedRandomFactor = Utils.AddRandomFactor(rotationSpeedRandom);
+        m_RotationSpeedRandomFactor = m_GameArena.m_AgentSpeedRandomFactor;
+        // float rotationSpeedRandom = m_ResetParams.GetWithDefault(
+        //     "random_direction",
+        //     m_AIRobotSettings.agentRotationSpeedRandom);
+        // m_RotationSpeedRandomFactor = Utils.AddRandomFactor(rotationSpeedRandom);
 
         m_AgentSpeed = m_ResetParams.GetWithDefault(
             "agent_speed",
             m_AIRobotSettings.agentRunSpeed);
-        
-        float agentSpeedRandom = m_ResetParams.GetWithDefault(
-            "random_speed",
-            m_AIRobotSettings.agentRunSpeedRandom);
-        m_AgentSpeedRandomFactor = Utils.AddRandomFactor(agentSpeedRandom);
+        m_AgentSpeedRandomFactor = m_GameArena.m_AgentSpeedRandomFactor;
+        // float agentSpeedRandom = m_ResetParams.GetWithDefault(
+        //     "random_speed",
+        //     m_AIRobotSettings.agentRunSpeedRandom);
+        // m_AgentSpeedRandomFactor = Utils.AddRandomFactor(agentSpeedRandom);
 
         m_AgentMoveRotMoveSpeed = m_ResetParams.GetWithDefault(
             "agent_moverot_move_speed",
@@ -256,7 +253,9 @@ public class AIRobotAgent : Agent
             "random_obs_angle",
             m_AIRobotSettings.observationAngleRandom);
 
-        var distance = m_ResetParams.GetWithDefault("ray_length", rayLengthDefault);
+        var distance = m_ResetParams.GetWithDefault(
+            "ray_length",
+            m_AIRobotSettings.rayLength);
         if (lowerSensor != null)
             lowerSensor.UpdateCasting(distance, observationDistanceRandom, observationAngleRandom);
         if (upperSensor != null)

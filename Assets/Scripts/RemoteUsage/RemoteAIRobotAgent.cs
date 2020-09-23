@@ -3,10 +3,11 @@ using UnityEngine;
 public class RemoteAIRobotAgent : AIRobotAgent
 {
     #region ======= PUBLIC VARIABLES =======
-    public bool randomRotateArenaOnReset;
-
     [HideInInspector]
     public volatile int agentAction = -1;
+    [Space(10)]
+    [Header("Remote Agent options")]
+    public int m_ArucoMarkerID;
     public bool m_MakeRayObservations;
     #endregion // ======= END PUBLIC VARIABLES =======
 
@@ -50,7 +51,7 @@ public class RemoteAIRobotAgent : AIRobotAgent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        m_GameArena.OnEpisodeBegin(true, randomRotateArenaOnReset);
+        m_GameArena.OnEpisodeBegin();
         SetAIRobotResetParameters();
         ResetAgent();
 

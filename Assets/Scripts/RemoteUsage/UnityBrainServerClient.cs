@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class UnityBrainServerClient
 {
-    
     private readonly BrainServer.BrainServerClient _client;
     private readonly Channel _channel;
 
@@ -13,14 +12,9 @@ public class UnityBrainServerClient
         _client = new BrainServer.BrainServerClient(_channel);
     }
 
-    public int GetAction(float[] lowerObservations, float[] upperObservations) {
-        BrainActionRequest obs = new BrainActionRequest();
-        obs.LowerObservations.AddRange(lowerObservations);
-        obs.UpperObservations.AddRange(upperObservations);
-
-        var action = _client.GetAction(obs);
-
-        return action.Action;
+    public BrainActionResponse GetAction(BrainActionRequest actionReqs) {
+        var actions = _client.GetAction(actionReqs);
+        return actions;
     }
 
     private void OnDisable() {

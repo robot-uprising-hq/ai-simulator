@@ -13,7 +13,7 @@ namespace MLAgents.Sensor
 {
     public class UnitySimulationServer : MonoBehaviour
     {
-        public RemoteAgent remoteAgent;
+        public List<RemoteAIRobotAgent> m_AgentList = new List<RemoteAIRobotAgent>();
 
         [Space(10)]
         public int port = 50051;
@@ -32,10 +32,21 @@ namespace MLAgents.Sensor
             StopServer();
         }
 
+        Dictionary<int, RemoteAIRobotAgent> ListToDict(List<RemoteAIRobotAgent> agentList)
+        {
+            Dictionary<int, RemoteAIRobotAgent> agentDict = new Dictionary<int, RemoteAIRobotAgent>(); 
+
+            foreach (var agent in agentList)
+            {
+                agentDict.Add(agent.m_ArucoMarkerID, agent);
+            }
+            return agentDict;
+        }
+
         private void StartServer()
         {
             SimulationServerImpl simulationServerImpl = new SimulationServerImpl();
-            simulationServerImpl.remoteAgent = remoteAgent;
+            simulationServerImpl.agentDict = ListToDict(m_AgentList);
             simulationServerImpl.screenStreamer = screenStreamer;
 
             server = new Server
@@ -55,7 +66,7 @@ namespace MLAgents.Sensor
 
         class SimulationServerImpl : SimulationServer.SimulationServerBase
         {
-            public RemoteAgent remoteAgent;
+            public Dictionary<int, RemoteAIRobotAgent> agentDict;
             public ScreenStreamer screenStreamer;
             // public Camera camera;
 
@@ -77,10 +88,12 @@ namespace MLAgents.Sensor
 
             public override Task<SimulationActionResponse> MakeAction(SimulationActionRequest req, ServerCallContext context)
             {
-                int action = req.Action;
+                var actions = req.Actions;
 
-                // remoteAgent.OnActionReceived(new float[] {action});
-                remoteAgent.agentAction = action;
+                foreach (var action in actions)
+                {
+                    agentDict[action.ArucoMarkerID].agentAction = action.Action;
+                }
 
                 return Task.FromResult(new SimulationActionResponse { Status = StatusType.Ok });
             }

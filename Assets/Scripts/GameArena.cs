@@ -127,7 +127,7 @@ public class GameArena : MonoBehaviour
             m_RotationSpeedRandomFactor = Utils.AddRandomFactor(rotationSpeedRandom);
 
             SetArena();
-            SetAgents();
+            if (!m_AssignRobotsManually) SetAgents();
             SetEnergyCores();
         }
 

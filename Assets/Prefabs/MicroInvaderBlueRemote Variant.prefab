@@ -15,7 +15,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 5000
   lowerSensor: {fileID: 5686918454094555989}
   upperSensor: {fileID: 3059286822854540035}
   stopAgent: 0

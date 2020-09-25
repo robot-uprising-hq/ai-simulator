@@ -59,24 +59,20 @@ public class RemoteAcademy : MonoBehaviour
             {
                 float[] lowerObs = agent.Value.remoteAgent.GetLowerObservations();
                 float[] upperObs = agent.Value.remoteAgent.GetUpperObservations();
-
                 var obs = new Observations(){};
                 obs.LowerObservations.AddRange(lowerObs);
                 obs.UpperObservations.AddRange(upperObs);
                 obs.ArucoMarkerID = agent.Value.remoteAgent.m_ArucoMarkerID;
                 actionReq.Observations.Add(obs);
             }
-
             // Send sensor data to remote brain
             brainActionRes = brainServerClient.GetAction(actionReq);
-
             MakeActions(brainActionRes);
         }
         else if (TakeActionsBetweenDecisions)
         {
             MakeActions(brainActionRes);
         }
-
         stepCount++;
     }
 
@@ -87,7 +83,6 @@ public class RemoteAcademy : MonoBehaviour
             var action = robotAction.Action;
             var arucoMarkerID = robotAction.ArucoMarkerID;
             m_RemoteAgents[arucoMarkerID].remoteAgent.OnActionReceived(new float[] {action});
-            
         }   
     }
 }

@@ -1,5 +1,30 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &8896539969808477050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626654854720527668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474cf5d139d84e70f9bea40d74604db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 5000
+  lowerSensor: {fileID: 7318350763614012864}
+  upperSensor: {fileID: 76343639650882966}
+  stopAgent: 0
+  m_ForceAction: 0
+  m_ActionToForce: 0
+  makeSingleAction: 0
+  agentAction: -1
+  m_ArucoMarkerID: 0
+  m_MakeRayObservations: 0
 --- !u!1001 &1192637908892352506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72,5 +97,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 670417531329163600, guid: 5b0148cbfbbb39a5aa4f8badcecbe94b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5b0148cbfbbb39a5aa4f8badcecbe94b, type: 3}
+--- !u!1 &5626654854720527668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6816476335014765262, guid: 5b0148cbfbbb39a5aa4f8badcecbe94b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1192637908892352506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7318350763614012864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8438928649660234298, guid: 5b0148cbfbbb39a5aa4f8badcecbe94b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1192637908892352506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626654854720527668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e3a5ff92fea144f87a775733148a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &76343639650882966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1261610398968261228, guid: 5b0148cbfbbb39a5aa4f8badcecbe94b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1192637908892352506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5626654854720527668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e3a5ff92fea144f87a775733148a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

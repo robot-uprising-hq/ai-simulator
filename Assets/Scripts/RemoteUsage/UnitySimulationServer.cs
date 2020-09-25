@@ -1,13 +1,10 @@
 using UnityEngine;
-using System.Threading;
 using System.Threading.Tasks;
-using System;
-using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using Grpc.Core;
 using Google.Protobuf;
 using Robotsystemcommunication;
+using Unity.MLAgents;
 
 namespace MLAgents.Sensor
 {
@@ -23,6 +20,7 @@ namespace MLAgents.Sensor
 
         void Start()
         {
+            Academy.Instance.Dispose();
             screenStreamer = FindObjectOfType<ScreenStreamer>();
             StartServer();
         }

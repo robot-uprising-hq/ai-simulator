@@ -17,6 +17,7 @@ public class ScreenStreamer : MonoBehaviour
     // folder to write output (defaults to data path)
     public string folder;
 
+    [HideInInspector]
     // The variable holds the latest screen capture. It is set 
     // volatile to allow thread safe reading from the gRPC server's
     // thread and writing in this main thread

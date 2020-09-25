@@ -376,6 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentList:
   - {fileID: 517896611}
+  - {fileID: 1175536792}
   port: 50051
 --- !u!4 &449935294
 Transform:
@@ -519,7 +520,7 @@ PrefabInstance:
     - target: {fileID: 7308809815325635489, guid: 31f2042de14f8d199a5ac9dd17e96a99,
         type: 3}
       propertyPath: m_Name
-      value: MicroInvaderBlueRemote Variant
+      value: MicroInvaderBlueRemote Variant Aruco 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31f2042de14f8d199a5ac9dd17e96a99, type: 3}
@@ -675,7 +676,7 @@ Camera:
   far clip plane: 1000
   field of view: 56.2
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 0.905
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -705,6 +706,97 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1001 &1175536791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 818027859}
+    m_Modifications:
+    - target: {fileID: 53219963811409467, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_ArucoMarkerID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846274889906592864, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbd1dae88d894c8fbb4ab4e33887bf24, type: 2}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.285
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308809815325635489, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_Name
+      value: MicroInvaderBlueRemote Variant Aruco 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 31f2042de14f8d199a5ac9dd17e96a99, type: 3}
+--- !u!114 &1175536792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 53219963811409467, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1175536791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474cf5d139d84e70f9bea40d74604db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1257687048
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd703162ed33716e1ba06f7ce35e5736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraToStream: {fileID: 0}
+  cameraToStream: {fileID: 1167798418}
   captureWidth: 1080
   captureHeight: 1080
   imageType: 0
@@ -1154,3 +1246,82 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1001 &2061695884
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 818027859}
+    m_Modifications:
+    - target: {fileID: 53219963811409467, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_ArucoMarkerID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846274889906592864, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3203f87b043f472108b72623b117eaa9, type: 2}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.285
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.248
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995771138130149810, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308809815325635489, guid: 31f2042de14f8d199a5ac9dd17e96a99,
+        type: 3}
+      propertyPath: m_Name
+      value: MicroInvaderBlueRemote Variant Aruco 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 31f2042de14f8d199a5ac9dd17e96a99, type: 3}

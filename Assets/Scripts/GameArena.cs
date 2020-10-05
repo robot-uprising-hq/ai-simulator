@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Unity.MLAgents;
 
 [System.Serializable]
@@ -29,6 +30,8 @@ class Rewards{
 public class GameArena : MonoBehaviour
 {
     #region ======= PUBLIC VARIABLES =======
+    public Text m_RewardText;
+    public Text m_StepsLeftText;
     public List<GameObject> m_Arenas = new List<GameObject>();
 
     [Space(10)]
@@ -54,6 +57,7 @@ public class GameArena : MonoBehaviour
 
     [HideInInspector]
     public float m_AgentSpeedRandomFactor = 1.0f;
+    [HideInInspector]
     public float m_RotationSpeedRandomFactor = 1.0f;
     #endregion // ======= END PUBLIC VARIABLES =======
 
@@ -75,6 +79,10 @@ public class GameArena : MonoBehaviour
     int currentLevel = -1;
     int resetCounter = 0;
     int goalCounter = 0;
+    int posECoreHitsOpponentGoalReward;
+    int posECoreHitsOwnGoalReward;
+    int negECoreHitsOpponentGoalReward;
+    int negECoreHitsOwnGoalReward;
 
     #endregion // ======= END PRIVATE VARIABLES =======
 
@@ -98,6 +106,19 @@ public class GameArena : MonoBehaviour
         m_ResetParams = Academy.Instance.EnvironmentParameters;
 
         OnEpisodeBegin();
+    }
+
+    void Update()
+    {
+        if (m_RewardText != null && m_RewardText.IsActive() == true)
+        {
+            m_RewardText.text = "Reward: " + String.Format("{0:0.000}", m_BlueAgents[0].robotScript.GetCumulativeReward());
+        }
+        if (m_StepsLeftText != null && m_StepsLeftText.IsActive() == true)
+        {
+            var stepCount = m_BlueAgents[0].robotScript.StepCount;
+            m_StepsLeftText.text = "Steps Left: " + (m_BlueAgents[0].robotScript.MaxStep - stepCount);
+        }
     }
     #endregion // ======= END UNITY LIFECYCLE FUNCTIONS =======
 
@@ -190,7 +211,10 @@ public class GameArena : MonoBehaviour
         }
 
         var amountOfAgents = m_BlueAgents.Count + m_RedAgents.Count;
-        if (amountOfAgents == 1 && m_EndEpisodeOnNegRewardIfSingleAgent)
+        float EndEpisodeOnNegReward = m_ResetParams.GetWithDefault(
+            "end_episode_on_neg_reward_if_single_agent",
+            m_EndEpisodeOnNegRewardIfSingleAgent == true ? 1.0f : 0.0f);
+        if (amountOfAgents == 1 && EndEpisodeOnNegReward > 0)
         {
             if (m_BlueAgents.Count > 0 && rewards.blueReward < 0) EndEpisodeForAgents();
             else if (m_RedAgents.Count > 0 && rewards.redReward < 0) EndEpisodeForAgents();
@@ -226,20 +250,20 @@ public class GameArena : MonoBehaviour
     {
         int redReward = 0;
         int blueReward = 0;
-        
+
         if (goalHit == AIRobotAgent.Team.Blue)
         {
             // Blue team got positive core.
             if (coreType == EnergyCoreController.CoreType.Positive)
             {
-                redReward = m_AIRobotSettings.posECoreHitsOpponentGoalReward;
-                blueReward = m_AIRobotSettings.posECoreHitsOwnGoalReward;
+                redReward = posECoreHitsOpponentGoalReward;
+                blueReward = posECoreHitsOwnGoalReward;
             }
             // Blue team got negative core.
             else
             {
-                redReward = m_AIRobotSettings.negECoreHitsOpponentGoalReward;
-                blueReward = m_AIRobotSettings.negECoreHitsOwnGoalReward;
+                redReward = negECoreHitsOpponentGoalReward;
+                blueReward = negECoreHitsOwnGoalReward;
             }
         }
         else
@@ -247,14 +271,14 @@ public class GameArena : MonoBehaviour
             // Red team got positive core.
             if (coreType == EnergyCoreController.CoreType.Positive)
             {
-                redReward = m_AIRobotSettings.posECoreHitsOwnGoalReward;
-                blueReward = m_AIRobotSettings.posECoreHitsOpponentGoalReward;
+                redReward = posECoreHitsOwnGoalReward;
+                blueReward = posECoreHitsOpponentGoalReward;
             }
             // Red team got negative core.
             else
             {
-                redReward = m_AIRobotSettings.negECoreHitsOwnGoalReward;
-                blueReward = m_AIRobotSettings.negECoreHitsOpponentGoalReward;
+                redReward = negECoreHitsOwnGoalReward;
+                blueReward = negECoreHitsOpponentGoalReward;
             }
         }
 
@@ -392,6 +416,19 @@ public class GameArena : MonoBehaviour
             }
             else m_Arenas[i].SetActive(false);
         }
+
+        posECoreHitsOpponentGoalReward = (int)m_ResetParams.GetWithDefault(
+            "pos_ecore_hits_opponent_goal_reward",
+            m_AIRobotSettings.posECoreHitsOpponentGoalReward);
+        posECoreHitsOwnGoalReward = (int)m_ResetParams.GetWithDefault(
+            "pos_ecore_hits_own_goal_reward",
+            m_AIRobotSettings.posECoreHitsOwnGoalReward);
+        negECoreHitsOpponentGoalReward = (int)m_ResetParams.GetWithDefault(
+            "neg_ecore_hits_opponent_goal_reward",
+            m_AIRobotSettings.negECoreHitsOpponentGoalReward);
+        negECoreHitsOwnGoalReward = (int)m_ResetParams.GetWithDefault(
+            "neg_ecore_hits_own_goal_reward",
+            m_AIRobotSettings.negECoreHitsOwnGoalReward);
     }
 
     /// <summary>

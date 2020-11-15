@@ -549,6 +549,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1073773310376105191, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1259401248096420217, guid: 39b8825a37c6fdd5da55475f8aea11fd,
         type: 3}
       propertyPath: m_Agents.Array.size
@@ -619,10 +624,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4084021544477061228, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5277217987542991495, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327934719103823018, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283146173201910985, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512758237052803804, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6563373270549569846, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7251259336136090610, guid: 39b8825a37c6fdd5da55475f8aea11fd,
         type: 3}
       propertyPath: m_Name
       value: Arena
+      objectReference: {fileID: 0}
+    - target: {fileID: 8546863367800371743, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9092533987217317696, guid: 39b8825a37c6fdd5da55475f8aea11fd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39b8825a37c6fdd5da55475f8aea11fd, type: 3}
@@ -912,8 +957,8 @@ MonoBehaviour:
   negECoreHitsOpponentGoalReward: 5
   posECoreHitsOwnGoalReward: 5
   posECoreHitsOpponentGoalReward: -5
-  agentRunSpeed: 0.41
-  agentRunSpeedRandom: 0.3
+  agentRunSpeed: 0.5
+  agentRunSpeedRandom: 0.08
   agentRotationSpeed: 110
   agentRotationSpeedRandom: 0.3
   agentMoveRotMoveSpeed: 0
@@ -923,8 +968,8 @@ MonoBehaviour:
   spawnAreaMarginMultiplier: 0.99
   blueTeamSuccessMat: {fileID: 2100000, guid: a4557376176fcfe06a14c8e6c2b887b8, type: 2}
   redTeamSuccessMat: {fileID: 2100000, guid: b8a9f5dcf818b4758b6638859097f503, type: 2}
-  energyCoreShape: 0
-  level: 3
+  energyCoreShape: 1
+  level: 1
   rayLength: 2
 --- !u!4 &1427412558
 Transform:

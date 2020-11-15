@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using Unity.MLAgents;
 
 public class AIRobotSettings : MonoBehaviour
 {
@@ -73,4 +74,5 @@ public class AIRobotSettings : MonoBehaviour
     public EnergyCoreController.CoreShape energyCoreShape;
     public float level;
     public float rayLength;
+
 }

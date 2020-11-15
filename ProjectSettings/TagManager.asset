@@ -13,6 +13,7 @@ TagManager:
   - positive_energy_core
   - negative_energy_core
   - ground
+  - arena
   layers:
   - Default
   - TransparentFX

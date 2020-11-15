@@ -112,6 +112,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a4557376176fcfe06a14c8e6c2b887b8, type: 2}
+    - target: {fileID: 6066189558451512767, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6364293576189535313, guid: 3480fa01a475590bf902b0dc04ed034b,
         type: 3}
       propertyPath: m_DetectableTags.Array.data[0]
@@ -146,6 +151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DetectableTags.Array.data[6]
       value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8480219293887645893, guid: 3480fa01a475590bf902b0dc04ed034b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3480fa01a475590bf902b0dc04ed034b, type: 3}

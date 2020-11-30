@@ -19,6 +19,9 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
+      curiosity:
+        strength: 0.02
+        gamma: 0.99
     keep_checkpoints: 5
     checkpoint_interval: 500000
     max_steps: 15000000
@@ -41,24 +44,59 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 3.5
-      value: 2500
-    - name: LessonPushBlockTwoGoals
+        threshold: 4.5
+      value: 5000
+    - name: LessonPushBlock2
       completion_criteria: &lessonpushblock2_defaults
         measure: reward
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 7
+        threshold: 4.9
       value: 2500
-    - name: LessonPushBlockTwoGoalsWithBall
-      completion_criteria: &lessonpushblock2ball_defaults
+    - name: LessonPushBlock3
+      completion_criteria: &lessonpushblock3_defaults
         measure: reward
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 9
+        threshold: 4.9
+      value: 400
+    - name: LessonPushBall
+      completion_criteria: &lessonpushball_defaults
+        measure: reward
+        behavior: AIRobotGeneric
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 4.9
+      value: 1000
+    - name: LessonPushBall2
+      completion_criteria: &lessonpushball2_defaults
+        measure: reward
+        behavior: AIRobotGeneric
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 4.9
+      value: 300
+    - name: LessonPushBlockTwoGoalsOnlyNegative
+      completion_criteria: *lessonpushblock3_defaults
+      value: 1000
+    - name: LessonPushBlockTwoGoals
+      completion_criteria: &lessonpushblock2goals_defaults
+        measure: reward
+        behavior: AIRobotGeneric
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 9.9
       value: 2500
+    - name: LessonPushBlockTwoGoalsWithBall
+      completion_criteria: &lessonpushblock2goalsball_defaults
+        measure: reward
+        behavior: AIRobotGeneric
+        signal_smoothing: true
+        min_lesson_length: 100
+        threshold: 9.9
+      value: 1000
     - name: Lesson0
       completion_criteria: &lesson0_defaults
         measure: reward
@@ -119,14 +157,55 @@ environment_parameters:
     - name: Lesson7
       value: 2000
 
+  agent_speed:
+    curriculum:
+      - name: LessonPushBlock
+        completion_criteria: *lessonpushblock_defaults
+        value: 1
+      - name: LessonPushBlock2
+        completion_criteria: *lessonpushblock2_defaults
+        value: 1
+      - name: LessonPushBlockTwoGoals
+        completion_criteria: *lessonpushblock2goals_defaults
+        value: 1
+      - name: LessonPushBlockTwoGoalsWithBall
+        completion_criteria: *lessonpushblock2goalsball_defaults
+        value: 1
+      - name: Lesson0
+        value: 1
+        completion_criteria: *lesson0_defaults
+      - name: Lesson1
+        value: 1
+        completion_criteria: *lesson1_defaults
+      - name: Lesson2
+        value: 1
+        completion_criteria: *lesson2_defaults
+      - name: Lesson3
+        value: 1
+        completion_criteria: *lesson3_defaults
+      - name: Lesson4
+        value: 1
+        completion_criteria: *lesson4_defaults
+      - name: Lesson5
+        value: 1
+        completion_criteria: *lesson5_defaults
+      - name: Lesson6
+        value: 1
+        completion_criteria: *lesson6_defaults
+      - name: Lesson7
+        value: 1
+
   max_arenas:
     curriculum:
       - name: LessonPushBlock
         completion_criteria: *lessonpushblock_defaults
-        value: 64
+        value: 32
       - name: LessonPushBlockTwoGoals
-        completion_criteria: *lessonpushblock2_defaults
-        value: 64
+        completion_criteria: *lessonpushblock2goals_defaults
+        value: 32
+      - name: LessonPushBlockTwoGoalsWithBall
+        completion_criteria: *lessonpushblock2goalsball_defaults
+        value: 32
       - name: Lesson0
         value: 16
         completion_criteria: *lesson0_defaults
@@ -156,11 +235,26 @@ environment_parameters:
       - name: LessonPushBlock
         completion_criteria: *lessonpushblock_defaults
         value: 0
-      - name: LessonPushBlockTwoGoals
+      - name: LessonPushBlock2
         completion_criteria: *lessonpushblock2_defaults
         value: 0
+      - name: LessonPushBlock3
+        completion_criteria: *lessonpushblock3_defaults
+        value: 0
+      - name: LessonPushBall
+        completion_criteria: *lessonpushball_defaults
+        value: 1
+      - name: LessonPushBall2
+        completion_criteria: *lessonpushball2_defaults
+        value: 1
+      - name: LessonPushBlockTwoGoals
+        completion_criteria: *lessonpushblock2goals_defaults
+        value: 0
+      - name: LessonPushBlockTwoGoalsOnlyNegative
+        completion_criteria: *lessonpushblock3_defaults
+        value: 1
       - name: LessonPushBlockTwoGoalsWithBall
-        completion_criteria: *lessonpushblock2ball_defaults
+        completion_criteria: *lessonpushblock2goalsball_defaults
         value: 1
       - name: Lesson0
         completion_criteria: *lesson0_defaults
@@ -191,12 +285,27 @@ environment_parameters:
     - name: LessonPushBlock
       completion_criteria: *lessonpushblock_defaults
       value: 4
-    - name: LessonPushBlockTwoGoals
+    - name: LessonPushBlock2
       completion_criteria: *lessonpushblock2_defaults
       value: 3
-    - name: LessonPushBlockTwoGoals
-      completion_criteria: *lessonpushblock2_defaults
+    - name: LessonPushBlock3
+      completion_criteria: *lessonpushblock3_defaults
+      value: 2
+    - name: LessonPushBall
+      completion_criteria: *lessonpushball_defaults
+      value: 2
+    - name: LessonPushBall2
+      completion_criteria: *lessonpushball2_defaults
+      value: 2
+    - name: LessonPushBlockTwoGoalsOnlyNegative
+      completion_criteria: *lessonpushblock3_defaults
       value: 3
+    - name: LessonPushBlockTwoGoals
+      completion_criteria: *lessonpushblock2goals_defaults
+      value: 3
+    - name: LessonPushBlockTwoGoalsWithBall
+      completion_criteria: *lessonpushblock2goals_defaults
+      value: 2
     - name: Lesson0
       completion_criteria: *lesson0_defaults
       value: 3
@@ -220,13 +329,14 @@ environment_parameters:
       value: 1
     - name: Lesson7
       value: 1
+
   spawn_area_margin:
     curriculum:
     - name: LessonPushBlock
       completion_criteria: *lessonpushblock_defaults
       value: 0.5
     - name: LessonPushBlockTwoGoals
-      completion_criteria: *lessonpushblock2_defaults
+      completion_criteria: *lessonpushblock2goals_defaults
       value: 0.5
     - name: Lesson0
       completion_criteria: *lesson0_defaults
@@ -331,11 +441,26 @@ environment_parameters:
     - name: LessonPushBlock
       completion_criteria: *lessonpushblock_defaults
       value: 0
-    - name: LessonPushBlockTwoGoals
+    - name: LessonPushBlock2
       completion_criteria: *lessonpushblock2_defaults
       value: 0
+    - name: LessonPushBlock3
+      completion_criteria: *lessonpushblock3_defaults
+      value: 0
+    - name: LessonPushBall
+      completion_criteria: *lessonpushball_defaults
+      value: 0
+    - name: LessonPushBall2
+      completion_criteria: *lessonpushball2_defaults
+      value: 0      
+    - name: LessonPushBlockTwoGoalsOnlyNegative
+      completion_criteria: *lessonpushblock3_defaults
+      value: 0
+    - name: LessonPushBlockTwoGoals
+      completion_criteria: *lessonpushblock2goals_defaults
+      value: 0
     - name: LessonPushBlockTwoGoalsWithBall
-      completion_criteria: *lessonpushblock2ball_defaults
+      completion_criteria: *lessonpushblock2goalsball_defaults
       value: 0
     - name: Lesson0
       completion_criteria: *lesson0_defaults
@@ -362,6 +487,30 @@ environment_parameters:
       value: 2
   number_of_positive_energy_cores:
     curriculum:
+    - name: LessonPushBlock
+      completion_criteria: *lessonpushblock_defaults
+      value: 1
+    - name: LessonPushBlock2
+      completion_criteria: *lessonpushblock2_defaults
+      value: 1
+    - name: LessonPushBlock3
+      completion_criteria: *lessonpushblock3_defaults
+      value: 1
+    - name: LessonPushBall
+      completion_criteria: *lessonpushball_defaults
+      value: 1
+    - name: LessonPushBall2
+      completion_criteria: *lessonpushball2_defaults
+      value: 1
+    - name: LessonPushBlockTwoGoalsOnlyNegative
+      completion_criteria: *lessonpushblock3_defaults
+      value: 0
+    - name: LessonPushBlockTwoGoals
+      completion_criteria: *lessonpushblock2goals_defaults
+      value: 1
+    - name: LessonPushBlockTwoGoalsWithBall
+      completion_criteria: *lessonpushblock2goalsball_defaults
+      value: 1
     - name: Lesson0
       completion_criteria: *lesson0_defaults
       value: 1
@@ -390,11 +539,26 @@ environment_parameters:
     - name: LessonPushBlock
       completion_criteria: *lessonpushblock_defaults
       value: 0
-    - name: LessonPushBlockTwoGoals
+    - name: LessonPushBlock2
       completion_criteria: *lessonpushblock2_defaults
+      value: 0
+    - name: LessonPushBlock3
+      completion_criteria: *lessonpushblock3_defaults
+      value: 0
+    - name: LessonPushBall
+      completion_criteria: *lessonpushball_defaults
+      value: 0
+    - name: LessonPushBall2
+      completion_criteria: *lessonpushball2_defaults
+      value: 0
+    - name: LessonPushBlockTwoGoalsOnlyNegative
+      completion_criteria: *lessonpushblock3_defaults
+      value: 1
+    - name: LessonPushBlockTwoGoals
+      completion_criteria: *lessonpushblock2goals_defaults
       value: 1
     - name: LessonPushBlockTwoGoalsWithBall
-      completion_criteria: *lessonpushblock2ball_defaults
+      completion_criteria: *lessonpushblock2goalsball_defaults
       value: 1
     - name: Lesson0
       completion_criteria: *lesson0_defaults

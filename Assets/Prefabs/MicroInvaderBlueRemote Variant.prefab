@@ -23,7 +23,7 @@ MonoBehaviour:
   m_ActionToForce: 0
   makeSingleAction: 0
   agentAction: -1
-  m_ArucoMarkerID: 0
+  m_ArucoMarkerID: 2
   m_MakeRayObservations: 0
 --- !u!1001 &3084381158112145688
 PrefabInstance:
@@ -32,6 +32,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 920077311197694965, guid: 92d640cab3c6163599211e73b19d5878,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3261838371330991759, guid: 92d640cab3c6163599211e73b19d5878,
         type: 3}
       propertyPath: m_IsActive
@@ -42,6 +47,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MicroInvaderBlueRemote Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7616721300032706973, guid: 92d640cab3c6163599211e73b19d5878,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0033
+      objectReference: {fileID: 0}
     - target: {fileID: 8788966293247570090, guid: 92d640cab3c6163599211e73b19d5878,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -50,12 +60,12 @@ PrefabInstance:
     - target: {fileID: 8788966293247570090, guid: 92d640cab3c6163599211e73b19d5878,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.009
       objectReference: {fileID: 0}
     - target: {fileID: 8788966293247570090, guid: 92d640cab3c6163599211e73b19d5878,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.013
       objectReference: {fileID: 0}
     - target: {fileID: 8788966293247570090, guid: 92d640cab3c6163599211e73b19d5878,
         type: 3}
@@ -97,6 +107,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8930576882639154552, guid: 92d640cab3c6163599211e73b19d5878,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 01256b57b01981a32ac268a76d3099e6, type: 2}
     m_RemovedComponents:
     - {fileID: 1762815872185471271, guid: 92d640cab3c6163599211e73b19d5878, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 92d640cab3c6163599211e73b19d5878, type: 3}

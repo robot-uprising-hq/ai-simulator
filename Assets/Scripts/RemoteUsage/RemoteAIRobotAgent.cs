@@ -31,10 +31,10 @@ public class RemoteAIRobotAgent : AIRobotAgent
         {
             currentStep++;
         }
-        if (agentAction > -1 && !stopAgent)
-        {
-            MoveAgent(agentAction);
-        }
+        //if (agentAction > -1 && !stopAgent)
+        //{
+        //    MoveAgent(agentAction);
+        //}
         if (m_MakeRayObservations)
         {
             GetLowerObservations();

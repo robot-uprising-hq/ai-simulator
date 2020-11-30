@@ -953,8 +953,8 @@ MonoBehaviour:
   numberOfRedAgents: 0
   numberOfPosEnergyCores: 1
   numberOfNegEnergyCores: 1
-  negECoreHitsOwnGoalReward: -5
-  negECoreHitsOpponentGoalReward: 5
+  negECoreHitsOwnGoalReward: -10
+  negECoreHitsOpponentGoalReward: 7
   posECoreHitsOwnGoalReward: 5
   posECoreHitsOpponentGoalReward: -5
   agentRunSpeed: 0.5

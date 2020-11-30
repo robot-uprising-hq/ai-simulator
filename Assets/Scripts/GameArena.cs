@@ -322,6 +322,7 @@ public class GameArena : MonoBehaviour
             list.Add(agent);
         }
     }
+
     /// <summary>
     /// Initialize the energy cores in the given list if any change to the amout of cores
     /// or shape of cores have occured.
@@ -334,6 +335,7 @@ public class GameArena : MonoBehaviour
 
         if (amountChanged || shapeChanged)
         {
+            // TODO: probable crash
             foreach (var core in list)
             {
                 core.coreRb = null;

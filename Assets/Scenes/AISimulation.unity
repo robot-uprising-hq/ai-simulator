@@ -4280,7 +4280,7 @@ MonoBehaviour:
   numberOfBlueAgents: 1
   numberOfRedAgents: 0
   numberOfPosEnergyCores: 1
-  numberOfNegEnergyCores: 1
+  numberOfNegEnergyCores: 2
   negECoreHitsOwnGoalReward: -5
   negECoreHitsOpponentGoalReward: 5
   posECoreHitsOwnGoalReward: 5

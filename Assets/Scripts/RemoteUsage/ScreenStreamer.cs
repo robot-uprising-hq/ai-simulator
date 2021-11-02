@@ -13,6 +13,7 @@ public class ScreenStreamer : MonoBehaviour
 
     public volatile ImageType imageType = ImageType.Jpg;
     public volatile int jpegQuality = 75;
+    public volatile bool includeAlphaChannel;
 
     // folder to write output (defaults to data path)
     public string folder;
@@ -102,11 +103,19 @@ public class ScreenStreamer : MonoBehaviour
         // create screenshot objects if needed
         if (renderTexture == null)
         {
+            var textureFormat = TextureFormat.RGB24;
+            var renderTextureFormat = RenderTextureFormat.Default;
+            if (includeAlphaChannel == true)
+            {
+                textureFormat = TextureFormat.ARGB32;
+                renderTextureFormat = RenderTextureFormat.ARGB32;
+            }
             // creates off-screen render texture that can rendered into
             rect = new Rect(0, 0, captureWidth, captureHeight);
-            renderTexture = new RenderTexture(captureWidth, captureHeight, 24);
-            screenShot = new Texture2D(captureWidth, captureHeight, TextureFormat.RGB24, false);
+            renderTexture = new RenderTexture(captureWidth, captureHeight, 24, renderTextureFormat);
+            screenShot = new Texture2D(captureWidth, captureHeight, textureFormat, false);
         }
+
         cameraToStream.targetTexture = renderTexture;
         cameraToStream.Render();
         // read pixels will read from the currently active render texture so make our offscreen 

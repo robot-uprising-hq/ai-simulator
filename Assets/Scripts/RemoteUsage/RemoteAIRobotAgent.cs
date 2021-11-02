@@ -56,6 +56,7 @@ public class RemoteAIRobotAgent : AIRobotAgent
         ResetAgent();
 
     }
+    
     public float[] GetLowerObservations()
     {
         return lowerSensor.GetObservations();

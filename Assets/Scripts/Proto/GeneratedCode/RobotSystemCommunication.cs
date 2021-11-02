@@ -53,20 +53,37 @@ namespace Robotsystemcommunication {
             "EjYKB2FjdGlvbnMYASADKAsyJS5yb2JvdHN5c3RlbWNvbW11bmljYXRpb24u",
             "Um9ib3RBY3Rpb24iUAoYU2ltdWxhdGlvbkFjdGlvblJlc3BvbnNlEjQKBnN0",
             "YXR1cxgBIAEoDjIkLnJvYm90c3lzdGVtY29tbXVuaWNhdGlvbi5TdGF0dXNU",
-            "eXBlKiwKClN0YXR1c1R5cGUSCwoHVU5LTk9XThAAEgYKAk9LEAESCQoFRVJS",
-            "T1IQAiodCglJbWFnZVR5cGUSBwoDSlBHEAASBwoDUE5HEAEyfAoNUm9ib3RG",
-            "cm9udGVuZBJrCgpNYWtlQWN0aW9uEiwucm9ib3RzeXN0ZW1jb21tdW5pY2F0",
-            "aW9uLlJvYm90QWN0aW9uUmVxdWVzdBotLnJvYm90c3lzdGVtY29tbXVuaWNh",
-            "dGlvbi5Sb2JvdEFjdGlvblJlc3BvbnNlIgAyeQoLQnJhaW5TZXJ2ZXISagoJ",
-            "R2V0QWN0aW9uEiwucm9ib3RzeXN0ZW1jb21tdW5pY2F0aW9uLkJyYWluQWN0",
-            "aW9uUmVxdWVzdBotLnJvYm90c3lzdGVtY29tbXVuaWNhdGlvbi5CcmFpbkFj",
-            "dGlvblJlc3BvbnNlIgAylQIKEFNpbXVsYXRpb25TZXJ2ZXISiQEKEEdldFNj",
-            "cmVlbkNhcHR1cmUSOC5yb2JvdHN5c3RlbWNvbW11bmljYXRpb24uU2ltdWxh",
-            "dGlvblNjcmVlbkNhcHR1cmVSZXF1ZXN0Gjkucm9ib3RzeXN0ZW1jb21tdW5p",
-            "Y2F0aW9uLlNpbXVsYXRpb25TY3JlZW5DYXB0dXJlUmVzcG9uc2UiABJ1CgpN",
-            "YWtlQWN0aW9uEjEucm9ib3RzeXN0ZW1jb21tdW5pY2F0aW9uLlNpbXVsYXRp",
-            "b25BY3Rpb25SZXF1ZXN0GjIucm9ib3RzeXN0ZW1jb21tdW5pY2F0aW9uLlNp",
-            "bXVsYXRpb25BY3Rpb25SZXNwb25zZSIAYgZwcm90bzM="));
+            "eXBlIkMKCVRyYW5zZm9ybRIRCgl4UG9zaXRpb24YASABKAISEQoJeVBvc2l0",
+            "aW9uGAIgASgCEhAKCHJvdGF0aW9uGAMgASgCImcKFkZyaWVuZGx5Um9ib3RU",
+            "cmFuc2Zvcm0SFQoNYXJ1Y29NYXJrZXJJRBgBIAEoBRI2Cgl0cmFuc2Zvcm0Y",
+            "AiABKAsyIy5yb2JvdHN5c3RlbWNvbW11bmljYXRpb24uVHJhbnNmb3JtIsAC",
+            "ChJPYnNlcnZhdGlvblJlcXVlc3QSUQoXZnJpZW5kbHlSb2JvdFRyYW5zZm9y",
+            "bXMYASADKAsyMC5yb2JvdHN5c3RlbWNvbW11bmljYXRpb24uRnJpZW5kbHlS",
+            "b2JvdFRyYW5zZm9ybRJBChRlbmVteVJvYm90VHJhbnNmb3JtcxgCIAMoCzIj",
+            "LnJvYm90c3lzdGVtY29tbXVuaWNhdGlvbi5UcmFuc2Zvcm0SSQocbmVnYXRp",
+            "dmVFbmVyZ3lDb3JlVHJhbnNmb3JtcxgDIAMoCzIjLnJvYm90c3lzdGVtY29t",
+            "bXVuaWNhdGlvbi5UcmFuc2Zvcm0SSQoccG9zaXRpdmVFbmVyZ3lDb3JlVHJh",
+            "bnNmb3JtcxgEIAMoCzIjLnJvYm90c3lzdGVtY29tbXVuaWNhdGlvbi5UcmFu",
+            "c2Zvcm0iZgoTT2JzZXJ2YXRpb25SZXNwb25zZRI8CgxvYnNlcnZhdGlvbnMY",
+            "ASADKAsyJi5yb2JvdHN5c3RlbWNvbW11bmljYXRpb24uT2JzZXJ2YXRpb25z",
+            "EhEKCWdhbWVJbWFnZRgCIAEoDCosCgpTdGF0dXNUeXBlEgsKB1VOS05PV04Q",
+            "ABIGCgJPSxABEgkKBUVSUk9SEAIqHQoJSW1hZ2VUeXBlEgcKA0pQRxAAEgcK",
+            "A1BORxABMnwKDVJvYm90RnJvbnRlbmQSawoKTWFrZUFjdGlvbhIsLnJvYm90",
+            "c3lzdGVtY29tbXVuaWNhdGlvbi5Sb2JvdEFjdGlvblJlcXVlc3QaLS5yb2Jv",
+            "dHN5c3RlbWNvbW11bmljYXRpb24uUm9ib3RBY3Rpb25SZXNwb25zZSIAMnkK",
+            "C0JyYWluU2VydmVyEmoKCUdldEFjdGlvbhIsLnJvYm90c3lzdGVtY29tbXVu",
+            "aWNhdGlvbi5CcmFpbkFjdGlvblJlcXVlc3QaLS5yb2JvdHN5c3RlbWNvbW11",
+            "bmljYXRpb24uQnJhaW5BY3Rpb25SZXNwb25zZSIAMpUCChBTaW11bGF0aW9u",
+            "U2VydmVyEokBChBHZXRTY3JlZW5DYXB0dXJlEjgucm9ib3RzeXN0ZW1jb21t",
+            "dW5pY2F0aW9uLlNpbXVsYXRpb25TY3JlZW5DYXB0dXJlUmVxdWVzdBo5LnJv",
+            "Ym90c3lzdGVtY29tbXVuaWNhdGlvbi5TaW11bGF0aW9uU2NyZWVuQ2FwdHVy",
+            "ZVJlc3BvbnNlIgASdQoKTWFrZUFjdGlvbhIxLnJvYm90c3lzdGVtY29tbXVu",
+            "aWNhdGlvbi5TaW11bGF0aW9uQWN0aW9uUmVxdWVzdBoyLnJvYm90c3lzdGVt",
+            "Y29tbXVuaWNhdGlvbi5TaW11bGF0aW9uQWN0aW9uUmVzcG9uc2UiADKKAQoW",
+            "T2JzZXJ2YXRpb25NYWtlclNlcnZlchJwCg9HZXRPYnNlcnZhdGlvbnMSLC5y",
+            "b2JvdHN5c3RlbWNvbW11bmljYXRpb24uT2JzZXJ2YXRpb25SZXF1ZXN0Gi0u",
+            "cm9ib3RzeXN0ZW1jb21tdW5pY2F0aW9uLk9ic2VydmF0aW9uUmVzcG9uc2Ui",
+            "AGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Robotsystemcommunication.StatusType), typeof(global::Robotsystemcommunication.ImageType), }, new pbr::GeneratedClrTypeInfo[] {
@@ -83,7 +100,11 @@ namespace Robotsystemcommunication {
             new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.SimulationScreenCaptureResponse), global::Robotsystemcommunication.SimulationScreenCaptureResponse.Parser, new[]{ "Image" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.SimulationScreenCaptureRequest), global::Robotsystemcommunication.SimulationScreenCaptureRequest.Parser, new[]{ "Height", "Widht", "ImageType", "JpgQuality" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.SimulationActionRequest), global::Robotsystemcommunication.SimulationActionRequest.Parser, new[]{ "Actions" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.SimulationActionResponse), global::Robotsystemcommunication.SimulationActionResponse.Parser, new[]{ "Status" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.SimulationActionResponse), global::Robotsystemcommunication.SimulationActionResponse.Parser, new[]{ "Status" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.Transform), global::Robotsystemcommunication.Transform.Parser, new[]{ "XPosition", "YPosition", "Rotation" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.FriendlyRobotTransform), global::Robotsystemcommunication.FriendlyRobotTransform.Parser, new[]{ "ArucoMarkerID", "Transform" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.ObservationRequest), global::Robotsystemcommunication.ObservationRequest.Parser, new[]{ "FriendlyRobotTransforms", "EnemyRobotTransforms", "NegativeEnergyCoreTransforms", "PositiveEnergyCoreTransforms" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Robotsystemcommunication.ObservationResponse), global::Robotsystemcommunication.ObservationResponse.Parser, new[]{ "Observations", "GameImage" }, null, null, null)
           }));
     }
     #endregion
@@ -1730,9 +1751,9 @@ namespace Robotsystemcommunication {
   }
 
   /// <summary>
-  /// =======================
-  /// COMMUNICATION SIMULATOR
-  /// =======================
+  /// ==========================
+  /// COMMUNICATION TO SIMULATOR
+  /// ==========================
   /// </summary>
   public sealed partial class SimulationScreenCaptureResponse : pb::IMessage<SimulationScreenCaptureResponse> {
     private static readonly pb::MessageParser<SimulationScreenCaptureResponse> _parser = new pb::MessageParser<SimulationScreenCaptureResponse>(() => new SimulationScreenCaptureResponse());
@@ -2321,6 +2342,689 @@ namespace Robotsystemcommunication {
             break;
           case 8: {
             status_ = (global::Robotsystemcommunication.StatusType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  /// ==================================
+  /// COMMUNICATION TO OBSERVATION MAKER
+  /// ==================================
+  /// </summary>
+  public sealed partial class Transform : pb::IMessage<Transform> {
+    private static readonly pb::MessageParser<Transform> _parser = new pb::MessageParser<Transform>(() => new Transform());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Transform> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Robotsystemcommunication.RobotSystemCommunicationReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform(Transform other) : this() {
+      xPosition_ = other.xPosition_;
+      yPosition_ = other.yPosition_;
+      rotation_ = other.rotation_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Transform Clone() {
+      return new Transform(this);
+    }
+
+    /// <summary>Field number for the "xPosition" field.</summary>
+    public const int XPositionFieldNumber = 1;
+    private float xPosition_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float XPosition {
+      get { return xPosition_; }
+      set {
+        xPosition_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "yPosition" field.</summary>
+    public const int YPositionFieldNumber = 2;
+    private float yPosition_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float YPosition {
+      get { return yPosition_; }
+      set {
+        yPosition_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rotation" field.</summary>
+    public const int RotationFieldNumber = 3;
+    private float rotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float Rotation {
+      get { return rotation_; }
+      set {
+        rotation_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Transform);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Transform other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(XPosition, other.XPosition)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(YPosition, other.YPosition)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Rotation, other.Rotation)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (XPosition != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(XPosition);
+      if (YPosition != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(YPosition);
+      if (Rotation != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Rotation);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (XPosition != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(XPosition);
+      }
+      if (YPosition != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(YPosition);
+      }
+      if (Rotation != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Rotation);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (XPosition != 0F) {
+        size += 1 + 4;
+      }
+      if (YPosition != 0F) {
+        size += 1 + 4;
+      }
+      if (Rotation != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Transform other) {
+      if (other == null) {
+        return;
+      }
+      if (other.XPosition != 0F) {
+        XPosition = other.XPosition;
+      }
+      if (other.YPosition != 0F) {
+        YPosition = other.YPosition;
+      }
+      if (other.Rotation != 0F) {
+        Rotation = other.Rotation;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 13: {
+            XPosition = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            YPosition = input.ReadFloat();
+            break;
+          }
+          case 29: {
+            Rotation = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class FriendlyRobotTransform : pb::IMessage<FriendlyRobotTransform> {
+    private static readonly pb::MessageParser<FriendlyRobotTransform> _parser = new pb::MessageParser<FriendlyRobotTransform>(() => new FriendlyRobotTransform());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<FriendlyRobotTransform> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Robotsystemcommunication.RobotSystemCommunicationReflection.Descriptor.MessageTypes[15]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FriendlyRobotTransform() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FriendlyRobotTransform(FriendlyRobotTransform other) : this() {
+      arucoMarkerID_ = other.arucoMarkerID_;
+      Transform = other.transform_ != null ? other.Transform.Clone() : null;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public FriendlyRobotTransform Clone() {
+      return new FriendlyRobotTransform(this);
+    }
+
+    /// <summary>Field number for the "arucoMarkerID" field.</summary>
+    public const int ArucoMarkerIDFieldNumber = 1;
+    private int arucoMarkerID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ArucoMarkerID {
+      get { return arucoMarkerID_; }
+      set {
+        arucoMarkerID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "transform" field.</summary>
+    public const int TransformFieldNumber = 2;
+    private global::Robotsystemcommunication.Transform transform_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Robotsystemcommunication.Transform Transform {
+      get { return transform_; }
+      set {
+        transform_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as FriendlyRobotTransform);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(FriendlyRobotTransform other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ArucoMarkerID != other.ArucoMarkerID) return false;
+      if (!object.Equals(Transform, other.Transform)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ArucoMarkerID != 0) hash ^= ArucoMarkerID.GetHashCode();
+      if (transform_ != null) hash ^= Transform.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ArucoMarkerID != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ArucoMarkerID);
+      }
+      if (transform_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Transform);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (ArucoMarkerID != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ArucoMarkerID);
+      }
+      if (transform_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Transform);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(FriendlyRobotTransform other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ArucoMarkerID != 0) {
+        ArucoMarkerID = other.ArucoMarkerID;
+      }
+      if (other.transform_ != null) {
+        if (transform_ == null) {
+          transform_ = new global::Robotsystemcommunication.Transform();
+        }
+        Transform.MergeFrom(other.Transform);
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ArucoMarkerID = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            if (transform_ == null) {
+              transform_ = new global::Robotsystemcommunication.Transform();
+            }
+            input.ReadMessage(transform_);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ObservationRequest : pb::IMessage<ObservationRequest> {
+    private static readonly pb::MessageParser<ObservationRequest> _parser = new pb::MessageParser<ObservationRequest>(() => new ObservationRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ObservationRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Robotsystemcommunication.RobotSystemCommunicationReflection.Descriptor.MessageTypes[16]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationRequest(ObservationRequest other) : this() {
+      friendlyRobotTransforms_ = other.friendlyRobotTransforms_.Clone();
+      enemyRobotTransforms_ = other.enemyRobotTransforms_.Clone();
+      negativeEnergyCoreTransforms_ = other.negativeEnergyCoreTransforms_.Clone();
+      positiveEnergyCoreTransforms_ = other.positiveEnergyCoreTransforms_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationRequest Clone() {
+      return new ObservationRequest(this);
+    }
+
+    /// <summary>Field number for the "friendlyRobotTransforms" field.</summary>
+    public const int FriendlyRobotTransformsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Robotsystemcommunication.FriendlyRobotTransform> _repeated_friendlyRobotTransforms_codec
+        = pb::FieldCodec.ForMessage(10, global::Robotsystemcommunication.FriendlyRobotTransform.Parser);
+    private readonly pbc::RepeatedField<global::Robotsystemcommunication.FriendlyRobotTransform> friendlyRobotTransforms_ = new pbc::RepeatedField<global::Robotsystemcommunication.FriendlyRobotTransform>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Robotsystemcommunication.FriendlyRobotTransform> FriendlyRobotTransforms {
+      get { return friendlyRobotTransforms_; }
+    }
+
+    /// <summary>Field number for the "enemyRobotTransforms" field.</summary>
+    public const int EnemyRobotTransformsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Robotsystemcommunication.Transform> _repeated_enemyRobotTransforms_codec
+        = pb::FieldCodec.ForMessage(18, global::Robotsystemcommunication.Transform.Parser);
+    private readonly pbc::RepeatedField<global::Robotsystemcommunication.Transform> enemyRobotTransforms_ = new pbc::RepeatedField<global::Robotsystemcommunication.Transform>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Robotsystemcommunication.Transform> EnemyRobotTransforms {
+      get { return enemyRobotTransforms_; }
+    }
+
+    /// <summary>Field number for the "negativeEnergyCoreTransforms" field.</summary>
+    public const int NegativeEnergyCoreTransformsFieldNumber = 3;
+    private static readonly pb::FieldCodec<global::Robotsystemcommunication.Transform> _repeated_negativeEnergyCoreTransforms_codec
+        = pb::FieldCodec.ForMessage(26, global::Robotsystemcommunication.Transform.Parser);
+    private readonly pbc::RepeatedField<global::Robotsystemcommunication.Transform> negativeEnergyCoreTransforms_ = new pbc::RepeatedField<global::Robotsystemcommunication.Transform>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Robotsystemcommunication.Transform> NegativeEnergyCoreTransforms {
+      get { return negativeEnergyCoreTransforms_; }
+    }
+
+    /// <summary>Field number for the "positiveEnergyCoreTransforms" field.</summary>
+    public const int PositiveEnergyCoreTransformsFieldNumber = 4;
+    private static readonly pb::FieldCodec<global::Robotsystemcommunication.Transform> _repeated_positiveEnergyCoreTransforms_codec
+        = pb::FieldCodec.ForMessage(34, global::Robotsystemcommunication.Transform.Parser);
+    private readonly pbc::RepeatedField<global::Robotsystemcommunication.Transform> positiveEnergyCoreTransforms_ = new pbc::RepeatedField<global::Robotsystemcommunication.Transform>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Robotsystemcommunication.Transform> PositiveEnergyCoreTransforms {
+      get { return positiveEnergyCoreTransforms_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ObservationRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ObservationRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!friendlyRobotTransforms_.Equals(other.friendlyRobotTransforms_)) return false;
+      if(!enemyRobotTransforms_.Equals(other.enemyRobotTransforms_)) return false;
+      if(!negativeEnergyCoreTransforms_.Equals(other.negativeEnergyCoreTransforms_)) return false;
+      if(!positiveEnergyCoreTransforms_.Equals(other.positiveEnergyCoreTransforms_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= friendlyRobotTransforms_.GetHashCode();
+      hash ^= enemyRobotTransforms_.GetHashCode();
+      hash ^= negativeEnergyCoreTransforms_.GetHashCode();
+      hash ^= positiveEnergyCoreTransforms_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      friendlyRobotTransforms_.WriteTo(output, _repeated_friendlyRobotTransforms_codec);
+      enemyRobotTransforms_.WriteTo(output, _repeated_enemyRobotTransforms_codec);
+      negativeEnergyCoreTransforms_.WriteTo(output, _repeated_negativeEnergyCoreTransforms_codec);
+      positiveEnergyCoreTransforms_.WriteTo(output, _repeated_positiveEnergyCoreTransforms_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += friendlyRobotTransforms_.CalculateSize(_repeated_friendlyRobotTransforms_codec);
+      size += enemyRobotTransforms_.CalculateSize(_repeated_enemyRobotTransforms_codec);
+      size += negativeEnergyCoreTransforms_.CalculateSize(_repeated_negativeEnergyCoreTransforms_codec);
+      size += positiveEnergyCoreTransforms_.CalculateSize(_repeated_positiveEnergyCoreTransforms_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ObservationRequest other) {
+      if (other == null) {
+        return;
+      }
+      friendlyRobotTransforms_.Add(other.friendlyRobotTransforms_);
+      enemyRobotTransforms_.Add(other.enemyRobotTransforms_);
+      negativeEnergyCoreTransforms_.Add(other.negativeEnergyCoreTransforms_);
+      positiveEnergyCoreTransforms_.Add(other.positiveEnergyCoreTransforms_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            friendlyRobotTransforms_.AddEntriesFrom(input, _repeated_friendlyRobotTransforms_codec);
+            break;
+          }
+          case 18: {
+            enemyRobotTransforms_.AddEntriesFrom(input, _repeated_enemyRobotTransforms_codec);
+            break;
+          }
+          case 26: {
+            negativeEnergyCoreTransforms_.AddEntriesFrom(input, _repeated_negativeEnergyCoreTransforms_codec);
+            break;
+          }
+          case 34: {
+            positiveEnergyCoreTransforms_.AddEntriesFrom(input, _repeated_positiveEnergyCoreTransforms_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ObservationResponse : pb::IMessage<ObservationResponse> {
+    private static readonly pb::MessageParser<ObservationResponse> _parser = new pb::MessageParser<ObservationResponse>(() => new ObservationResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ObservationResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Robotsystemcommunication.RobotSystemCommunicationReflection.Descriptor.MessageTypes[17]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationResponse(ObservationResponse other) : this() {
+      observations_ = other.observations_.Clone();
+      gameImage_ = other.gameImage_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ObservationResponse Clone() {
+      return new ObservationResponse(this);
+    }
+
+    /// <summary>Field number for the "observations" field.</summary>
+    public const int ObservationsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Robotsystemcommunication.Observations> _repeated_observations_codec
+        = pb::FieldCodec.ForMessage(10, global::Robotsystemcommunication.Observations.Parser);
+    private readonly pbc::RepeatedField<global::Robotsystemcommunication.Observations> observations_ = new pbc::RepeatedField<global::Robotsystemcommunication.Observations>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Robotsystemcommunication.Observations> Observations {
+      get { return observations_; }
+    }
+
+    /// <summary>Field number for the "gameImage" field.</summary>
+    public const int GameImageFieldNumber = 2;
+    private pb::ByteString gameImage_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString GameImage {
+      get { return gameImage_; }
+      set {
+        gameImage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ObservationResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ObservationResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!observations_.Equals(other.observations_)) return false;
+      if (GameImage != other.GameImage) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= observations_.GetHashCode();
+      if (GameImage.Length != 0) hash ^= GameImage.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      observations_.WriteTo(output, _repeated_observations_codec);
+      if (GameImage.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(GameImage);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += observations_.CalculateSize(_repeated_observations_codec);
+      if (GameImage.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(GameImage);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ObservationResponse other) {
+      if (other == null) {
+        return;
+      }
+      observations_.Add(other.observations_);
+      if (other.GameImage.Length != 0) {
+        GameImage = other.GameImage;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            observations_.AddEntriesFrom(input, _repeated_observations_codec);
+            break;
+          }
+          case 18: {
+            GameImage = input.ReadBytes();
             break;
           }
         }

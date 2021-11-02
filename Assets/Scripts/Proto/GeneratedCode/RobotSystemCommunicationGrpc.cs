@@ -294,5 +294,90 @@ namespace Robotsystemcommunication {
     }
 
   }
+  public static partial class ObservationMakerServer
+  {
+    static readonly string __ServiceName = "robotsystemcommunication.ObservationMakerServer";
+
+    static readonly grpc::Marshaller<global::Robotsystemcommunication.ObservationRequest> __Marshaller_robotsystemcommunication_ObservationRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Robotsystemcommunication.ObservationRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Robotsystemcommunication.ObservationResponse> __Marshaller_robotsystemcommunication_ObservationResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Robotsystemcommunication.ObservationResponse.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::Robotsystemcommunication.ObservationRequest, global::Robotsystemcommunication.ObservationResponse> __Method_GetObservations = new grpc::Method<global::Robotsystemcommunication.ObservationRequest, global::Robotsystemcommunication.ObservationResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetObservations",
+        __Marshaller_robotsystemcommunication_ObservationRequest,
+        __Marshaller_robotsystemcommunication_ObservationResponse);
+
+    /// <summary>Service descriptor</summary>
+    public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
+    {
+      get { return global::Robotsystemcommunication.RobotSystemCommunicationReflection.Descriptor.Services[3]; }
+    }
+
+    /// <summary>Base class for server-side implementations of ObservationMakerServer</summary>
+    public abstract partial class ObservationMakerServerBase
+    {
+      public virtual global::System.Threading.Tasks.Task<global::Robotsystemcommunication.ObservationResponse> GetObservations(global::Robotsystemcommunication.ObservationRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+    }
+
+    /// <summary>Client for ObservationMakerServer</summary>
+    public partial class ObservationMakerServerClient : grpc::ClientBase<ObservationMakerServerClient>
+    {
+      /// <summary>Creates a new client for ObservationMakerServer</summary>
+      /// <param name="channel">The channel to use to make remote calls.</param>
+      public ObservationMakerServerClient(grpc::Channel channel) : base(channel)
+      {
+      }
+      /// <summary>Creates a new client for ObservationMakerServer that uses a custom <c>CallInvoker</c>.</summary>
+      /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+      public ObservationMakerServerClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      {
+      }
+      /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+      protected ObservationMakerServerClient() : base()
+      {
+      }
+      /// <summary>Protected constructor to allow creation of configured clients.</summary>
+      /// <param name="configuration">The client configuration.</param>
+      protected ObservationMakerServerClient(ClientBaseConfiguration configuration) : base(configuration)
+      {
+      }
+
+      public virtual global::Robotsystemcommunication.ObservationResponse GetObservations(global::Robotsystemcommunication.ObservationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetObservations(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Robotsystemcommunication.ObservationResponse GetObservations(global::Robotsystemcommunication.ObservationRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetObservations, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Robotsystemcommunication.ObservationResponse> GetObservationsAsync(global::Robotsystemcommunication.ObservationRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetObservationsAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Robotsystemcommunication.ObservationResponse> GetObservationsAsync(global::Robotsystemcommunication.ObservationRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetObservations, null, options, request);
+      }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+      protected override ObservationMakerServerClient NewInstance(ClientBaseConfiguration configuration)
+      {
+        return new ObservationMakerServerClient(configuration);
+      }
+    }
+
+    /// <summary>Creates service definition that can be registered with a server</summary>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static grpc::ServerServiceDefinition BindService(ObservationMakerServerBase serviceImpl)
+    {
+      return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_GetObservations, serviceImpl.GetObservations).Build();
+    }
+
+  }
 }
 #endregion

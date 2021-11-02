@@ -20,6 +20,7 @@ public class RayObservationSensor : MonoBehaviour
     [Space(10)]
     public bool m_ShowObservationDebug;
     public bool m_DebugPrintObservationDebug;
+    public bool m_DrawObservationRaysDuringPlay;
 
     private RayCaster[] m_RayCasters;
 
@@ -56,7 +57,7 @@ public class RayObservationSensor : MonoBehaviour
         {
             float sphereSize = Mathf.FloorToInt(angles[i]) == 0 ? frontCastingSphereSize : castingSphereSize;
             rayCasters[i] = new RayCaster(
-                transform,
+                gameObject,
                 maxDistance,
                 m_OffsetHeight,
                 angles[i],
@@ -73,7 +74,7 @@ public class RayObservationSensor : MonoBehaviour
         float[] allObs = new float[m_RayCasters.Length * (m_DetectableTags.Count + 2)];
         for (int i = 0; i < m_RayCasters.Length; i++)
         {
-            float[] sectorObs = m_RayCasters[i].GetObservations();
+            float[] sectorObs = m_RayCasters[i].GetObservations(m_DrawObservationRaysDuringPlay);
             Array.Copy(sectorObs, 0, allObs, (i * (m_DetectableTags.Count + 2)), (m_DetectableTags.Count + 2));
         }
 

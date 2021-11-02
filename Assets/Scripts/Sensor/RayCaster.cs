@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ public class RayCaster
 {
     private Color m_GizmoColor = Color.green;
     private Color m_GizmoFrontColor = Color.yellow;
+    GameObject m_Go;
     Transform m_RobotTrans;
     float m_OffsetHeight;
     float m_CastingDistance;
@@ -29,12 +30,20 @@ public class RayCaster
     RaycastHit m_Hit;
     Vector3 m_CastingDir;
     bool m_HitDetect;
-
     PerceptionOutput output;
+    bool rayAdded = false;
+    LineRenderer rayLine;
 
-    public RayCaster(Transform robotTrans, float castingDistance, float offsetHeight, float angle, float castSphereSize, List<string> detectableTags)
+    public RayCaster(
+        GameObject go,
+        float castingDistance,
+        float offsetHeight,
+        float angle,
+        float castSphereSize,
+        List<string> detectableTags)
     {
-        m_RobotTrans = robotTrans;
+        m_Go = go;
+        m_RobotTrans = go.transform;
         m_CastingDistance = castingDistance;
         m_OffsetHeight = offsetHeight;
         m_AngleDeg = angle;
@@ -49,10 +58,18 @@ public class RayCaster
         m_AngleDegRandom = angleRandom;
     }
 
-    public float[] GetObservations()
+    public float[] GetObservations(bool drawRays)
     {
         float[] observations = new float[m_DetectableTags.Count + 2];
         output = Cast();
+        if (drawRays)
+            // if (rayAdded == false)
+            // {
+            //     rayAdded = true;
+            //     Debug.Log("=== AddLineRenderer");
+            //     AddLineRenderer();
+            // }
+            DrawObservationRays(output);
         
         if (output.hitGo != null)
         {
@@ -63,7 +80,7 @@ public class RayCaster
                 {
                     observations[i] = 1.0f;
                     float distance = output.Distance / m_CastingDistance;
-                    distance = distance * Random.Range(1.0f - m_CastingDistanceRandom, 1.0f);
+                    distance = distance * UnityEngine.Random.Range(1.0f - m_CastingDistanceRandom, 1.0f);
                     observations[observations.Length - 1] = distance;
                     break;
                 }
@@ -79,7 +96,7 @@ public class RayCaster
  
     public PerceptionOutput Cast()
     {
-        m_CurrentAngle = m_AngleDeg + Random.Range(-m_AngleDegRandom, m_AngleDegRandom);
+        m_CurrentAngle = m_AngleDeg + UnityEngine.Random.Range(-m_AngleDegRandom, m_AngleDegRandom);
         m_CastingDir = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward;
 
         m_HitDetect = Physics.BoxCast(
@@ -131,5 +148,36 @@ public class RayCaster
 
         Vector3 startVec = Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward * drawDistance;
         Gizmos.DrawRay(m_RobotTrans.position + new Vector3(0.0f, m_OffsetHeight, 0.0f), startVec);
+    }
+
+    private void DrawObservationRays(PerceptionOutput observations)
+    {
+        if (rayLine == null)
+        {
+            // Debug.Log("=== DrawRays at " + String.Format("{0:0.0}: ", m_AngleDeg) + ": rayLine is null ");
+            AddLineRenderer();
+            rayAdded = true;
+        }
+
+        List<Vector3> pos = new List<Vector3>();
+        var startPos = m_RobotTrans.localPosition + new Vector3(0.0f, m_OffsetHeight, 0.0f);
+        pos.Add(startPos);
+        float drawDistance = output.Distance > 0 ? output.Distance : m_CastingDistance;
+        Vector3 endPos = m_RobotTrans.localPosition
+            + Quaternion.Euler(0, m_CurrentAngle, 0) * m_RobotTrans.forward * drawDistance
+            + new Vector3(0.0f, m_OffsetHeight, 0.0f);
+        pos.Add(endPos);
+        rayLine.startWidth = 0.01f;
+        rayLine.endWidth = 0.01f;
+        rayLine.SetPositions(pos.ToArray());
+        rayLine.useWorldSpace = true;
+    }
+
+    private void AddLineRenderer()
+    {
+        var name = "LineRenderer" + String.Format("{0:0.0}: ", m_AngleDeg);
+        rayLine = new GameObject(name).AddComponent<LineRenderer>();
+        rayLine.gameObject.transform.SetParent(m_Go.transform, false);
+        rayLine.gameObject.layer = 8; // AIBackConGameImageShow layer
     }
 }

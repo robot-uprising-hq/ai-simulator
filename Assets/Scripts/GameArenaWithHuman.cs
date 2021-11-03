@@ -44,7 +44,9 @@ public class GameArenaWithHuman : Arena
 
     [Space(10)]
     public GameObject m_AIRobotPrefab;
+    private AIRobot m_AIRobotObject;
     public GameObject m_HumanRobotPrefab;
+    private GameObject m_HumanRobotObject;
 
     [Space(10)]
     public GameObject m_PositiveEnergyCoreBlockPrefab;
@@ -86,6 +88,9 @@ public class GameArenaWithHuman : Arena
     int negECoreHitsOpponentGoalReward;
     int negECoreHitsOwnGoalReward;
 
+    int humanScore = 0;
+    int aiScore = 0;
+
     #endregion // ======= END PRIVATE VARIABLES =======
 
 
@@ -106,7 +111,7 @@ public class GameArenaWithHuman : Arena
     {
         m_AIRobotSettings = FindObjectOfType<AIRobotSettings>();
         m_ResetParams = Academy.Instance.EnvironmentParameters;
-
+        SetArena();
         OnEpisodeBegin();
     }
 
@@ -128,6 +133,8 @@ public class GameArenaWithHuman : Arena
     #region ======= PUBLIC FUNCTIONS =======
     public override void OnEpisodeBegin()
     {
+        SetAgents();
+        SetEnergyCores();
         // resetCounter++;
         // Only reset environment once in the first call of this function. Not on every agent's call to this function.
         // If called with forceInit, ignore this and initialize the game.
@@ -203,6 +210,43 @@ public class GameArenaWithHuman : Arena
         goalCounter++;
         var rewards = CalculateRewards(goalHit, coreType);
         
+        if (goalHit == AIRobotAgent.Team.Blue)
+        {
+            // Blue team got positive core.
+            if (coreType == EnergyCoreController.CoreType.Positive)
+            {
+                aiScore += 1;
+            }
+            // Blue team got negative core.
+            else
+            {
+                aiScore -= 1;
+            }
+        }
+        else
+        {
+            // Red team got positive core.
+            if (coreType == EnergyCoreController.CoreType.Positive)
+            {
+                humanScore += 1;
+            }
+            // Red team got negative core.
+            else
+            {
+                humanScore -= 1;
+            }
+        }
+
+        // if (rewards.blueReward > 0) {
+        //     // humanScore -= 1;
+        //     aiScore += 1;
+        // } else {
+        //     humanScore += 1;
+        //     aiScore -= 1;
+        // }
+        m_HumanPointsText.text = "Human: " + humanScore;
+        m_AIPointsText.text = "AI: " + aiScore;
+
         // foreach (var agent in m_BlueAgents)
         // {
         //     agent.robotScript.AddReward(rewards.blueReward);
@@ -246,7 +290,14 @@ public class GameArenaWithHuman : Arena
         // {
         //     agent.robotScript.EndEpisode();
         // }
+        m_AIRobotObject.robotScript.EndEpisode();
         goalCounter = 0;
+        humanScore = 0;
+        aiScore = 0;
+
+        m_HumanPointsText.text = "Human: " + humanScore;
+        m_AIPointsText.text = "AI: " + aiScore;
+
     }
     Rewards CalculateRewards(AIRobotAgent.Team goalHit, EnergyCoreController.CoreType coreType)
     {
@@ -287,29 +338,43 @@ public class GameArenaWithHuman : Arena
         var rewards = new Rewards(){blueReward = blueReward, redReward = redReward};
         return rewards;
     }
-    // void SetAgents()
-    // {
-    //     var nRedAgents = (int)m_ResetParams.GetWithDefault(
-    //         "number_of_red_agents",
-    //         m_AIRobotSettings.numberOfRedAgents);
-    //     var nBlueAgents = (int)m_ResetParams.GetWithDefault(
-    //         "number_of_blue_agents",
-    //         m_AIRobotSettings.numberOfBlueAgents);
+    
+    void SetAgents()
+    {
+        if (m_HumanRobotObject == null) {
+            var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+            var randomRotQuat = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+            var humanGO = GameObject.Instantiate(m_HumanRobotPrefab, GetSpawnPosInArena(), randomRotQuat, transform);
+            m_HumanRobotObject = humanGO;
+        } else {
+            var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+            m_HumanRobotObject.transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+            m_HumanRobotObject.transform.position = GetSpawnPosInArena();
 
-    //     int amountRedChanged = nRedAgents - m_RedAgents.Count;
-    //     int amountBlueChanged = nBlueAgents - m_BlueAgents.Count;
-    //     if (amountRedChanged != 0)
-    //     {
-    //         InitializeAgents(m_RedRobotPrefab, m_RedAgents, amountRedChanged);
-    //     }
-    //     if (amountBlueChanged != 0)
-    //     {
-    //         InitializeAgents(m_BlueRobotPrefab, m_BlueAgents, amountBlueChanged);
-    //     }
-    // }
+            var humanRB = m_HumanRobotObject.GetComponent<Rigidbody>();
+            humanRB.velocity = Vector3.zero;
+            humanRB.angularVelocity = Vector3.zero;
+        }
 
-    // void InitializeAgents(GameObject agentPrefab, List<AIRobot> list, int amountChanged)
-    // {
+        if (m_AIRobotObject == null) {
+            var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+            var randomRotQuat = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+            var aiGO = GameObject.Instantiate(m_AIRobotPrefab, GetSpawnPosInArena(), randomRotQuat, transform);
+            var agent = new AIRobot(){robotGO = aiGO, robotScript = aiGO.GetComponent<AIRobotAgent>()};
+            m_AIRobotObject = agent;
+        } else {
+            var randomRotY = UnityEngine.Random.Range(-180f, 180f);
+            m_AIRobotObject.robotGO.transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
+            m_AIRobotObject.robotGO.transform.position = GetSpawnPosInArena();
+
+            var aiRB = m_AIRobotObject.robotGO.GetComponent<Rigidbody>();
+            aiRB.velocity = Vector3.zero;
+            aiRB.angularVelocity = Vector3.zero;
+        }
+    }
+
+    void InitializeAgents(GameObject agentPrefab)
+    {
     //     if (amountChanged < 0)
     //     {   
     //         Debug.Log("Amount of new agents: " + amountChanged);
@@ -323,7 +388,7 @@ public class GameArenaWithHuman : Arena
     //         var agent = new AIRobot(){robotGO = agentGO, robotScript = agentGO.GetComponent<AIRobotAgent>()};
     //         list.Add(agent);
     //     }
-    // }
+    }
     /// <summary>
     /// Initialize the energy cores in the given list if any change to the amout of cores
     /// or shape of cores have occured.
@@ -397,9 +462,13 @@ public class GameArenaWithHuman : Arena
 
     void SetArena()
     {
-        var levelNum = (int)m_ResetParams.GetWithDefault("level", m_AIRobotSettings.level);
+        m_Ground = Utils.FindGameObjectInChildWithTag(m_Arena, "ground");
+        m_AreaBounds = m_Ground.GetComponent<Collider>().bounds;
+        m_GroundRenderer = m_Ground.GetComponent<Renderer>();
+        m_GroundMaterial = m_GroundRenderer.material;
+        // var levelNum = (int)m_ResetParams.GetWithDefault("level", m_AIRobotSettings.level);
 
-        if (levelNum == currentLevel) return;
+        // if (levelNum == currentLevel) return;
 
         // currentLevel = levelNum;
         // for (var i = 0; i < m_Arenas.Count; i++)

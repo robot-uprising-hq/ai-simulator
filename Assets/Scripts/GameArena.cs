@@ -110,15 +110,15 @@ public class GameArena : Arena
 
     void Update()
     {
-        if (m_RewardText != null && m_RewardText.IsActive() == true)
-        {
-            m_RewardText.text = "Reward: " + String.Format("{0:0.000}", m_BlueAgents[0].robotScript.GetCumulativeReward());
-        }
-        if (m_StepsLeftText != null && m_StepsLeftText.IsActive() == true)
-        {
-            var stepCount = m_BlueAgents[0].robotScript.StepCount;
-            m_StepsLeftText.text = "Steps Left: " + (m_BlueAgents[0].robotScript.MaxStep - stepCount);
-        }
+        // if (m_RewardText != null && m_RewardText.IsActive() == true)
+        // {
+        //     m_RewardText.text = "Reward: " + String.Format("{0:0.000}", m_BlueAgents[0].robotScript.GetCumulativeReward());
+        // }
+        // if (m_StepsLeftText != null && m_StepsLeftText.IsActive() == true)
+        // {
+        //     var stepCount = m_BlueAgents[0].robotScript.StepCount;
+        //     m_StepsLeftText.text = "Steps Left: " + (m_BlueAgents[0].robotScript.MaxStep - stepCount);
+        // }
     }
     #endregion // ======= END UNITY LIFECYCLE FUNCTIONS =======
 

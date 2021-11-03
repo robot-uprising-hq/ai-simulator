@@ -41,7 +41,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 3.5
+        threshold: 1.2
       value: 2500
     - name: Lesson1
       completion_criteria: &lesson1_defaults
@@ -49,7 +49,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 5
+        threshold: 1.2
       value: 2300
     - name: Lesson2
       completion_criteria: &lesson2_defaults
@@ -57,7 +57,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 6
+        threshold: 2
       value: 2000
     - name: Lesson3
       completion_criteria: &lesson3_defaults
@@ -65,7 +65,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 7
+        threshold: 2.2
       value: 2000
     - name: Lesson4
       completion_criteria: &lesson4_defaults
@@ -73,7 +73,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 8
+        threshold: 3
       value: 2000
     - name: Lesson5
       completion_criteria: &lesson5_defaults
@@ -81,7 +81,7 @@ environment_parameters:
         behavior: AIRobotGeneric
         signal_smoothing: true
         min_lesson_length: 100
-        threshold: 8.5
+        threshold: 3.4
       value: 2000
     - name: Lesson6
       completion_criteria: &lesson6_defaults
@@ -197,27 +197,27 @@ environment_parameters:
     curriculum:
     - name: Lesson0
       completion_criteria: *lesson0_defaults
-      value: 1
+      value: 0
     - name: Lesson1
       completion_criteria: *lesson1_defaults
-      value: 1
+      value: 0
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 2
+      value: 0
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 2
+      value: 0
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 2
+      value: 1
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 2
+      value: 1
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 2
+      value: 1
     - name: Lesson7
-      value: 2
+      value: 1
   number_of_red_agents:
     curriculum:
     - name: Lesson0
@@ -228,21 +228,21 @@ environment_parameters:
       value: 1
     - name: Lesson2
       completion_criteria: *lesson2_defaults
-      value: 2
+      value: 1
     - name: Lesson3
       completion_criteria: *lesson3_defaults
-      value: 2
+      value: 1
     - name: Lesson4
       completion_criteria: *lesson4_defaults
-      value: 2
+      value: 1
     - name: Lesson5
       completion_criteria: *lesson5_defaults
-      value: 2
+      value: 1
     - name: Lesson6
       completion_criteria: *lesson6_defaults
-      value: 2
+      value: 1
     - name: Lesson7
-      value: 2
+      value: 1
   number_of_positive_energy_cores:
     curriculum:
     - name: Lesson0

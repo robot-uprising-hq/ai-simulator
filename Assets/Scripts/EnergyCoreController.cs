@@ -16,7 +16,7 @@ public class EnergyCoreController : MonoBehaviour
     }
 
     [HideInInspector]
-    public GameArena arena;
+    public Arena arena;
     public CoreType m_CoreType;
 
     public string redGoalTag; //will be used to check if collided with red goal
@@ -25,6 +25,9 @@ public class EnergyCoreController : MonoBehaviour
     void Awake()
     {
         arena = transform.parent.GetComponent<GameArena>();
+        if (arena == null) {
+            arena = transform.parent.GetComponent<GameArenaWithHuman>();
+        }
     }
 
     void Update()
@@ -33,7 +36,7 @@ public class EnergyCoreController : MonoBehaviour
         // and dropping down.
         if (transform.position.y < -0.5f)
         {
-            transform.position = arena.GetRandomSpawnPosInArena();
+            transform.position = arena.GetSpawnPosInArena();
         }
     }
 

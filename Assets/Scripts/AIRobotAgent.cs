@@ -30,7 +30,8 @@ public class AIRobotAgent : Agent
 
 
     #region ======= PROTECTED VARIABLES =======
-    protected GameArena m_GameArena;
+    protected Arena m_GameArena;
+
     #endregion // ======= END PROTECTED VARIABLES =======
 
 
@@ -70,6 +71,9 @@ public class AIRobotAgent : Agent
         actionCounterMax = GetComponent<DecisionRequester>().DecisionPeriod;
         m_ArenaGO = transform.parent.gameObject;
         m_GameArena = m_ArenaGO.GetComponent<GameArena>();
+        if (m_GameArena == null) {
+            m_GameArena = m_ArenaGO.GetComponent<GameArenaWithHuman>();
+        }
     }
 
     protected virtual void Update()
@@ -214,7 +218,7 @@ public class AIRobotAgent : Agent
         Physics.SyncTransforms();
         var randomRotY = UnityEngine.Random.Range(-180f, 180f);
         transform.rotation = Quaternion.Euler(new Vector3(0, randomRotY, 0));
-        transform.position = m_GameArena.GetRandomSpawnPosInArena();
+        transform.position = m_GameArena.GetSpawnPosInArena();
         m_AgentRb.velocity = Vector3.zero;
         m_AgentRb.angularVelocity = Vector3.zero;
     }

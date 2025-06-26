@@ -1,3 +1,8 @@
+> [!WARNING]
+> This repository has not been updated since late 2020 and may need old versions of dependencies or extensive modifications in order to work.
+
+There's also a community built simulator, [Zero Ones Simulated](https://github.com/zero-ones-given/zero-ones-simulated), that can be used as a starting point for an environment for ML training, although integration with Unity ML Agents is not provided out of the box at least yet.
+
 # AI Simulator
 
 Read the summary of Micro Invaders from [here](https://github.com/robot-uprising-hq/ai-guide).
